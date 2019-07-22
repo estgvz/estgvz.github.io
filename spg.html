@@ -5,14 +5,13 @@
 <!--
 Prototyped in JS Bin
 http://jsbin.com
-Copyright (c) 2019 by Estevan Galvez
-Released under the MIT license: http://jsbin.mit-license.org
+2019, Estevan Galvez.
 -->
   <meta name="viewport" content="width=device-width">
   <title>SketchPremiseGen</title>
 </head>
 <body>
-  SketchPremiseGen v1.04 (e174fa)
+  SketchPremiseGen v1.04 (fd11c8)
   <br>
   By Estevan Galvez
   <br>
@@ -23,11 +22,11 @@ Released under the MIT license: http://jsbin.mit-license.org
   <br>
   <input type ="checkbox" id="tenCheck" name="tenCheck" checked></input> Do 10 at a time since most are nonsense.
   <br>
-  <input type ="checkbox" id="nvCheck" name="nvCheck" checked></input> No "a sketch about"
+  <input type ="checkbox" id="nvCheck" name="nvCheck"></input> No "a sketch about"
   <br><br>
   <button id="b1" onClick="reroll();">Generate/Regenerate Button<br>(Press this button<br>to generate stuff.)</button>
   <br>
-  <p id="p1">Press the button.</p>
+  <p id="p1">Text will go here.</p>
 <script>
 // SketchPremiseGen v1.04 code
 // by Estevan Galvez
@@ -83,6 +82,7 @@ var temps = [
 "a person who finds a ADJ NOUN and it helps them VERB a NOUN",
 "a NOUN person",
 "a ADJ NOUN person",
+"a NOUN NOUN person",
 "a person who is trying to find a NOUN",
 "a person who is trying to find a ADJ NOUN",
 "a person who is trying to find a NOUN NOUN",
@@ -111,7 +111,9 @@ var temps = [
 "a person who finds themselves cornered by a NOUN",
 "people who find themselves cornered by a ADJ NOUN",
 "people who find themselves cornered by a NOUN",
+"a person who has a crush on someone who loves NOUNs",
 "a person who has a crush on someone who loves ADJ NOUNs",
+"a person who has a crush on someone who loves NOUN NOUNs",
 "that relatable feeling when someone you don't like won't shut up about NOUNs",
 "that relatable feeling when someone you don't like won't shut up about ADJ NOUNs",
 "that relatable feeling when someone you don't like won't shut up about NOUN NOUNs",
@@ -152,6 +154,7 @@ var temps = [
 "a new law that makes it illegal to VERB NOUNs",
 "a person who thinks their crush would appreciate a NOUN",
 "a person who thinks their crush would appreciate a ADJ NOUN",
+"a person who thinks their crush would appreciate a NOUN NOUN",
 "a world where NOUNs are now NOUNs",
 "a world where NOUNs are now ADJ",
 "a world where NOUNs are now ADJ NOUNs",
@@ -177,7 +180,15 @@ var temps = [
 "someone who is allergic to ADJ NOUNs",
 "a person whose crush is secretly a NOUN",
 "a person whose crush is secretly a ADJ NOUN",
+"a person who has a crush on a NOUN",
+"a person who has a crush on a ADJ NOUN",
+"a person who has a crush on a NOUN NOUN",
+"a person who is in love with a NOUN",
+"a person who is in love with a ADJ NOUN",
+"a person who is in love with a NOUN NOUN",
 "a person who is secretly a NOUN",
+"a person who is secretly a ADJ NOUN",
+"a person who is secretly a NOUN NOUN",
 "someone who is trying to sell a NOUN",
 "someone who is trying to sell a ADJ NOUN",
 "someone who is trying to return a NOUN",
@@ -257,16 +268,20 @@ var temps = [
 "a person who hates to VERB",
 "a new movie: ADJ NOUNs",
 "a new movie: NOUN NOUNs",
-"a new movie: the NOUN and the NOUN",
-"a new movie: the ADJ NOUN",
-"a new movie: the NOUN NOUN",
+"a new movie: The NOUN and the NOUN",
+"a new movie: The ADJ NOUN",
+"a new movie: The NOUN NOUN",
 "a new TV show: ADJ NOUNs",
 "a new TV show: NOUN NOUNs",
-"a new TV show: the NOUN and the NOUN",
-"a new TV show: the ADJ and the ADJ",
-"a new TV show: the ADJ NOUN",
-"a new TV show: the NOUN NOUN"
+"a new TV show: The NOUN and the NOUN",
+"a new TV show: The ADJ and the ADJ",
+"a new TV show: The ADJ NOUN",
+"a new TV show: The NOUN NOUN"
 ];
+
+
+//new stat function
+document.getElementById("p1").innerHTML = nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.";
 
 
 //the final step - the premise generator
