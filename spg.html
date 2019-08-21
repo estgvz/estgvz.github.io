@@ -11,7 +11,7 @@ http://jsbin.com
   <title>SketchPremiseGen</title>
 </head>
 <body>
-  SketchPremiseGen v1.05 (ad65f2)
+  SketchPremiseGen v1.10 (ac1)
   <br>
   By Estevan Galvez
   <br>
@@ -20,15 +20,14 @@ http://jsbin.com
   <br>
   Millions of unique premises possible.
   <br>
-  <input type ="checkbox" id="tenCheck" name="tenCheck" checked></input> Do 10 at a time since most are nonsense.
+  Check the box next to a premise to keep it.
   <br>
-  <input type ="checkbox" id="nvCheck" name="nvCheck" checked></input> No "a sketch about"
+  <a href="javascript:clearChecks();">(clear checkmarks)</a>
   <br><br>
-  <button id="b1" onClick="reroll();">Generate/Regenerate Button<br>(Press this button<br>to generate stuff.)</button>
-  <br>
-  <p id="p1">Text will go here.</p>
+  <button id="b1" onclick="genButton();">Generate/Regenerate Button<br>(Press this button<br>to generate stuff.)</button>
+  <p id="mainText">Text will go here.</p>
 <script>
-// SketchPremiseGen v1.05 code
+// SketchPremiseGen v1.10 code
 // by Estevan Galvez
 
 //variable + data setup
@@ -268,13 +267,13 @@ var temps = [
 
 //new stat function
 
-document.getElementById("p1").innerHTML = nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br>This generator also works offline, just<br>download the HTML page.";
+document.getElementById("mainText").innerHTML = nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br>This generator also works offline, just<br>download the HTML page.";
 
 //the premise generator
 
 function getPremise() {
 	var premise = "";
-	premise = temps[Math.floor(Math.random()*temps.length)].slice(0);
+	premise = temps[Math.floor(Math.random()*temps.length)].slice(0).toString();
 	
 	var adjsCopy = adjs.slice(0);
 	var nounsCopy = nouns.slice(0);
@@ -296,37 +295,35 @@ function getPremise() {
 		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
 	}
 	
-	return premise;
+	return premise.charAt(0).toUpperCase()+premise.slice(1)+".";
 }
 
 //web interface code
 
-function reroll() {
-	var txt = "";
-	var cap = "";
-	if(document.getElementById("tenCheck").checked) {
-		for(var i=1;i<=10;i++) {
-			if(!document.getElementById("nvCheck").checked) {
-				txt += "A sketch about "+getPremise()+".";
-			} else {
-				cap = getPremise();
-				cap = cap.charAt(0).toUpperCase()+cap.slice(1);
-				txt += cap+".";
-			}
-			if(i < 10) {
-				txt += "<br>";
-			}
-		}
+var pressedYet = false;
+
+function genButton() {
+	if(!pressedYet) {
+		pressedYet = true;
+		document.getElementById("mainText").innerHTML = "<input type=\"checkbox\" id=\"c1\"><\/input> <span id=\"p1\">NULL<\/span><br><input type=\"checkbox\" id=\"c2\"><\/input> <span id=\"p2\">NULL<\/span><br><input type=\"checkbox\" id=\"c3\"><\/input> <span id=\"p3\">NULL<\/span><br><input type=\"checkbox\" id=\"c4\"><\/input> <span id=\"p4\">NULL<\/span><br><input type=\"checkbox\" id=\"c5\"><\/input> <span id=\"p5\">NULL<\/span><br><input type=\"checkbox\" id=\"c6\"><\/input> <span id=\"p6\">NULL<\/span><br><input type=\"checkbox\" id=\"c7\"><\/input> <span id=\"p7\">NULL<\/span><br><input type=\"checkbox\" id=\"c8\"><\/input> <span id=\"p8\">NULL<\/span><br><input type=\"checkbox\" id=\"c9\"><\/input> <span id=\"p9\">NULL<\/span><br><input type=\"checkbox\" id=\"c10\"><\/input> <span id=\"p10\">NULL<\/span><br><input type=\"checkbox\" id=\"c11\"><\/input> <span id=\"p11\">NULL<\/span><br><input type=\"checkbox\" id=\"c12\"><\/input> <span id=\"p12\">NULL<\/span><br><input type=\"checkbox\" id=\"c13\"><\/input> <span id=\"p13\">NULL<\/span><br><input type=\"checkbox\" id=\"c14\"><\/input> <span id=\"p14\">NULL<\/span><br><input type=\"checkbox\" id=\"c15\"><\/input> <span id=\"p15\">NULL<\/span>";
+		updateList();
 	} else {
-		if(!document.getElementById("nvCheck").checked) {
-			txt = "A sketch about "+getPremise()+".";
-		} else {
-			cap = getPremise();
-			cap = cap.charAt(0).toUpperCase()+cap.slice(1);
-			txt = cap+".";
+		updateList();
+	}
+}
+
+function updateList() {
+	for(var i=1;i<=15;i++) {
+		if(!document.getElementById("c"+i).checked) {
+			document.getElementById("p"+i).innerHTML = getPremise();
 		}
 	}
-	document.getElementById("p1").innerHTML = txt;
+}
+
+function clearChecks() {
+	for(var i=1;i<=15;i++) {
+		document.getElementById("c"+i).checked = false;
+	}
 }
 
 var test = Math.random();
