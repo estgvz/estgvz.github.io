@@ -11,7 +11,7 @@ http://jsbin.com
   <title>SketchPremiseGen</title>
 </head>
 <body>
-  SketchPremiseGen v1.05 (ad65f2)
+  SketchPremiseGen v1.06
   <br>
   By Estevan Galvez
   <br>
@@ -20,7 +20,7 @@ http://jsbin.com
   <br>
   Millions of unique premises possible.
   <br>
-  <input type ="checkbox" id="tenCheck" name="tenCheck" checked></input> Do 10 at a time since most are nonsense.
+  <input type ="checkbox" id="tenCheck" name="tenCheck" checked></input> Do 15 at a time since most are nonsense.
   <br>
   <input type ="checkbox" id="nvCheck" name="nvCheck" checked></input> No "a sketch about"
   <br><br>
@@ -28,7 +28,7 @@ http://jsbin.com
   <br>
   <p id="p1">Text will go here.</p>
 <script>
-// SketchPremiseGen v1.05 code
+// SketchPremiseGen v1.06 code
 // by Estevan Galvez
 
 //variable + data setup
@@ -305,7 +305,7 @@ function reroll() {
 	var txt = "";
 	var cap = "";
 	if(document.getElementById("tenCheck").checked) {
-		for(var i=1;i<=10;i++) {
+		for(var i=1;i<=15;i++) {
 			if(!document.getElementById("nvCheck").checked) {
 				txt += "A sketch about "+getPremise()+".";
 			} else {
@@ -313,7 +313,7 @@ function reroll() {
 				cap = cap.charAt(0).toUpperCase()+cap.slice(1);
 				txt += cap+".";
 			}
-			if(i < 10) {
+			if(i < 15) {
 				txt += "<br>";
 			}
 		}
