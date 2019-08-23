@@ -6,7 +6,7 @@
   <title>SketchPremiseGen</title>
 </head>
 <body>
-  SketchPremiseGen v1.11 (ac4)
+  SketchPremiseGen v1.11 (ac5)
   <br>
   By Estevan Galvez
   <br>
@@ -22,7 +22,7 @@
   <br><br>
   <button id="b1" onclick="genButton();">Generate/Regenerate Button<br>(Press this button<br>to generate new premises.)</button><p id="mainText">Text will go here.</p>
 <script>
-// SketchPremiseGen v1.11 (ac4) code
+// SketchPremiseGen v1.11 (ac5) code
 // by Estevan Galvez
 
 //variable + data setup
@@ -312,9 +312,7 @@ function getPremise() {
 	return premise.charAt(0).toUpperCase()+premise.slice(1)+".";
 }
 
-//web interface code
-
-var pressedYet = false;
+//array shuffler
 
 function shuffleArray(arr) {
 	var len = arr.length;
@@ -324,6 +322,10 @@ function shuffleArray(arr) {
 	}
 	return 0;
 }
+
+//web interface code
+
+var pressedYet = false;
 
 function chkIt(num) {
 	document.getElementById("c"+num).checked = true;
@@ -351,8 +353,10 @@ function updateList() {
 }
 
 function clearChecks() {
-	for(var i=1;i<=15;i++) {
-		document.getElementById("c"+i).checked = false;
+	if(pressedYet) {
+		for(var i=1;i<=15;i++) {
+			document.getElementById("c"+i).checked = false;
+		}
 	}
 }
 
