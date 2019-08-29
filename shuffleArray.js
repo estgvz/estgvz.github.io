@@ -6,3 +6,13 @@ function shuffleArray(arr) {
 	}
 	return 0;
 }
+
+function removeDuplicates(arr) {
+	var arr2 = arr.splice(0);
+	for(var i=0;i<arr2.length;i++) {
+		if(arr.indexOf(arr2[i]) == -1) {
+			arr.push(arr2[i]);
+		}
+	}
+	return 0;
+}
