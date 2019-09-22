@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>SketchPremiseGen</title>
+</head>
+<body>
+  SketchPremiseGen v1.2 (r3) FOR FEEDING AI
+  <br>
+  By Estevan Galvez - 2019
+  <br>
+  A premise generator tool for sketch comedy,
+  <br>or anything really. AI pre-step version.
+  <br>
+  This version outputs for plugging into AI.
+  <br>
+  Check the box next to a premise (or just tap
+  <br>on the premise itself) to preserve it.
+  <br>
+  <input type ="checkbox" id="twCheck" name="twCheck"></input> <span id="twText" onclick="chkTw();">Instead of a premise, get 3 random words</span>
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="javascript:clearChecks();">uncheck preserved items</a>
+  <br><br>
+  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate Button<br>(Press this button to<br>generate new premises.)</button><p id="mainText">Text will go here.</p>
+<script>
+// SketchPremiseGen v1.2 (r3) FOR FEEDING AI code
+// by Estevan Galvez, 2019
+
+//uncheck "3 words" box on load
+document.getElementById("twCheck").checked = false;
+
+//data setup
+
+//as of 1.2 the 4 main arrays are no longer fully sorted or free of duplicates
+//cause it took too long to add new entries and i'm impatient
+//duplicates are removed at runtime
+
+//nouns
+
+var nouns = [
+"account","achiever","acoustics","act","action","activity","actor","actress","addict","addiction","addition","adjustment","advertisement","advice","aftermath","afternoon","afterthought","agreement","AI","air","airplane","airport","alarm","album","alcohol","alien","alley","amount","amusement","angel","anger","angle","animal","answer","ant","ant farm","anthill","anvil","app","apparatus","apparel","apple","applesauce","appliance","approval","aquarium","arcade","arch","argument","arithmetic","arm","armadillo","army","art","artist","attack","attempt","attention","attraction","aunt","authority","baby","back","bacon","badge","bag","bagel","bait","balance","ball","balloon","balloon animal","banana","banana peel","banana split","band","bank robber","barbecue","barrel","base","baseball","baseball bat","basin","basket","basketball","bass","bat","bath","battle","beach","beach ball","bead","beam","bean","bear","beard","beast","bed","bedroom","bee","beef","beehive","beekeeper","beetle","beggar","beginner","behavior","belief","bell","bendy straw","berry","bike","bird","birth","birthday","birthday cake","bit","bite","blade","blender","blimp","blob","blog","blood","blow","blowfish","Blu-ray","board","boat","body","bomb","bone","boogeyman","boogie","book","boombox","boot","booze","border","boss","bot","bottle","boulder","bouncer","boundary","bowl","box","boxer","boxing gloves","boy","boyfriend","bra","brain","brake","branch","brass","bread","breakdancer","breakfast","breath","brick","bridge","broccoli","broom","brother","brush","bubble","bubblegum","bucket","bug","bugzapper","building","bulb","bully","bumblebee","bun","bunny","burger","burglar","burn","burrito","burst","bush","business","butler","butter","butterfly","button","cabbage","cable","cactus","cake","calculator","calendar","calzone","camcorder","camera","camp","can","candle","candy","candy bar","cannon","canoe","canvas","cap","caption","car","card","care","carousel","carpenter","carriage","carrot","cart","casino","cast","castle","cat","cat toy","caterpillar","catfish","catnip","cattle","cause","cave","CD","celebrity","celery","cellar","cemetery","cent","cereal","chain","chair","chalk","chance","change","channel","charade","cheese","cheeseburger","cherry","chess","chicken","child","children","chin","chocolate","christmas","christmas tree","church","cigar","cigarette","circle","circus","city","clam","class","clock","cloth","cloud","clover","clown","clown nose","club","coach","coal","coast","coat","cobweb","coffee","coil","coin","collar","college","color","comb","comedian","comedy","comfort","commitment","committee","company","comparison","competition","computer","condition","cone","confetti","connection","control","cook","cookie","cop","copper","copy","cord","cork","corn","corndog","cough","country","couple","coupon","cover","cow","cowboy","cowgirl","crab","crack","crack den","cracker","crate","crayon","cream","creator","creature","credit","crib","crime","crook","crouton","crow","crowd","crown","crush","cry","cub","cube","cucumber","cult","cup","cupcake","current","curtain","curve","cushion","cutie","cuttlefish","dad","daddy","dance","date","daughter","day","deal","dealer","death","debt","decision","deer","degree","demon","deputy","design","desire","desk","destruction","detail","development","devil","diamond","diary","digestion","dime","dinner","dinosaur","direction","dirt","disco","disco ball","discovery","discussion","disease","disgust","distance","distribution","division","DJ","dock","doctor","dog","dog toy","doll","dolphin","donkey","donut","door","dork","dove","downtown","dragon","drain","drawer","dream","dress","dressing","drink","drive","drone","drop","drug","drug dealer","drum","duck","dust","dust bunny","DVD","dweeb","ear","earth","earthquake","edge","education","eel","effect","egg","eggnog","elbow","elephant","end","engine","error","event","example","exchange","existence","expansion","experience","expert","explosion","explosive","eye","eyebrow","eyelash","face","fact","fairy","fall","family","fan","fang","farm","farmer","father","faucet","fear","feast","feather","feeling","feet","fiction","field","fight","film","fin","finger","fire","fireman","fish","flag","flame","flamingo","flavor","flesh","flight","flipper","floatie","flock","floor","flower","flute","fly","fog","fold","food","foot","football","force","fork","form","fowl","frame","friction","fridge","friend","frog","front","fruit","fuel","furniture","galaxy","game","gang","gang member","gangster","garden","gate","gerbil","ghost","ghoul","giant","gift","giraffe","girl","girlfriend","glass","glasses","glitter","globe","glove","glue","goalie","goat","goblin","god","gold","goldfish","golf","golf ball","golf club","goo","goodbye","googly eyes","goose","gossip","government","governor","grade","grain","grandfather","grandmother","grape","grapefruit","grass","grill","grip","ground","group","growth","guide","guinea pig","guitar","gum","gummy","gummy bear","gummy worm","gun","guppy","guy","hair","haircut","hall","hall monitor","hallway","hamburger","hammer","hamster","hand","handcuffs","harbor","harmony","hat","hate","hater","head","headphones","health","hearing","heart","heat","help","hen","hero","hill","history","hobby","hobo","hockey puck","hockey stick","hole","holiday","home","honey","honeycomb","hook","hope","horn","horse","hose","hospital","hot","hotdog","hour","house","hug","humor","husband","hydrant","ice","ice cream","ice cream cone","icicle","idea","impulse","income","increase","industry","ink","insect","instrument","insurance","interest","internet","invention","inventor","inventory","iron","island","jack-in-the-box","jack-o-lantern","jail","jam","jar","jeans","jelly","jellybean","jellyfish","jerk","jewel","joint","joke","journal","journey","judge","juice","juicer","jump","kangaroo","karaoke","kazoo","kettle","key","kick","kid","king","kiss","kite","kitten","kitty","knee","knife","knight","knot","knowledge","laborer","lace","ladybug","lake","lamp","lampshade","land","language","laser","laugh","lawyer","lead","leaf","leaf blower","learning","leather","leg","letter","lettuce","level","liar","library","lie","lift","light","limit","line","linen","lion","lip","lipstick","liquid","list","lizard","loaf","lobster","lock","locket","look","loss","love","lover","low","lumber","lunch","lunchbox","lunchroom","machine","magic","maid","mailbox","makeup","mallet","man","manager","manhole","manhole cover","map","marble","mark","market","marriage","marshmallow","mask","mass","match","math","meal","measure","meat","meatball","meatloaf","meeting","melon","memory","merry-go-round","metal","microwave","middle","milk","milkshake","mime","mind","mine","minister","mint","minute","mirror","missile","mist","mistletoe","mitten","mix","mixtape","model","mom","mommy","money","monkey","monster","month","moon","mop","morning","mosquito","moth","mother","motion","motorcycle","mountain","mouse","mouth","move","movie","movie theater","mud","muffin","mummy","muscle","music","mustache","nail","name","narc","nation","neck","need","needle","nerd","nerve","nest","net","news","newspaper","night","ninja","noise","noodle","north","nose","note","notebook","number","nun","nut","oatmeal","observation","ocean","octopus","offer","office","oil","operation","opinion","orange","order","organization","ornament","otter","oven","owl","owner","oyster","paddle","page","pail","pain","paint","paintbrush","pan","pancake","panda","pants","paper","paper airplane","parade","parcel","parent","park","parrot","part","partner","party","party hat","passenger","pasta","paste","patch","payment","peace","peanut","pear","pebble","pen","pencil","penguin","penny","pepper","pepperoni","person","pest","pet","phone","piano","pickle","picture","pie","pig","pigeon","pin","pinwheel","pipe","piranha","pirate","pizza","pizza bagel","place","plane","planet","plant","plastic","plate","platypus","play","player","playground","pleasure","plot","plow","pocket","point","poison","police","police officer","polish","pollution","pool","popcorn","popcorn machine","porter","position","pot","potato","potion","powder","power","prank","prankster","present","price","priest","prince","princess","print","printer","prison","probe","problem","process","produce","profit","property","prose","protest","pudding","puddle","puff","pufferfish","pulp","pump","pumpkin","punch","punishment","puppet","puppy","purpose","push","quail","quarter","quartz","queen","question","quicksand","quiet","quill","quilt","quiver","rabbit","rail","railway","rain","raindrop","rainstorm","rake","range","rap","rapper","rat","rate","rattle","rattlesnake","ray","reaction","reason","receipt","recess","record","refrigerator","regret","relation","relationship","religion","representative","request","respect","rest","reward","rhythm","rice","riddle","rifle","ring","river","road","robin","robot","rock","rock star","rocket","rod","roll","rollerskates","roof","room","roomba","rooster","root","rose","route","rub","rule","run","sack","sail","salad","salesperson","salsa","salt","sand","sandcastle","sandpaper","sandwich","sauce","sausage","scale","scammer","scarecrow","scarf","scene","scent","school","science","scientist","scissors","screw","screwdriver","script","sea","seagull","seal","seashell","seashore","seat","secret","secretary","seed","selection","self","sense","servant","shade","shake","shame","shape","shark","sheep","sheet","shelf","shell","sheriff","ship","shirt","shock","shoe","shoelace","shop","show","shrimp","side","sidewalk","sign","silk","silver","singer","sink","sister","size","skate","skateboard","skeleton","skin","skirt","skull","sky","sleep","sleet","slinky","slip","slope","slug","smell","smile","smoke","smoothie","smut","snack","snail","snake","sneeze","snow","snowball","snowflake","snowman","snowperson","soap","soap opera","soccer ball","society","sock","sock puppet","soda","sofa","sombrero","son","song","sort","sound","soup","space","spade","spaghetti","spark","spell","sphere","spider","spirit","sponge","spoon","spot","spring","sprinkle","spy","squad","square","squash","squid","squirrel","stage","stamp","star","starfish","start","statement","station","steam","steel","stem","step","stew","stick","stitch","stocking","stomach","stone","stop","store","story","stove","stranger","straw","stream","street","stretch","string","structure","student","submarine","substance","subway","sugar","suggestion","suit","summer","sun","sundae","sunglasses","support","surfboard","surprise","sweater","swim","swing","swing set","syrup","system","table","taco","tail","talk","tank","tape","taste","tax","taxes","teacher","teaching","team","teapot","teenager","teeth","telephone","television","temper","tendency","tent","tentacle","territory","test","text","texture","theory","thing","thought","thread","thrill","throat","throne","thug","thumb","thunder","ticket","tiger","time","tin","tire","title","toad","toast","toe","tomato","tongue","tooth","toothbrush","toothpaste","top","tornado","tortilla","touch","tour guide","tourist","town","toy","trade","trail","train","tramp","transport","tray","treatment","tree","trick","trip","troll","trolley","trombone","trouble","trousers","trout","truck","trumpet","tub","tube","tumbleweed","turkey","turn","TV","twig","twist","umbrella","uncle","underwear","unit","universe","use","vacation","vacuum","vacuum cleaner","value","vampire","van","vase","VCR","vegetable","veil","vein","velcro","verse","vessel","vest","video","videogame","videotape","view","villain","virus","visitor","voice","volcano","volleyball","voyage","walk","wall","walrus","war","wash","waste","watch","water","watermelon","wave","wax","way","weakling","wealth","weather","web","wedding","weed","week","weight","weiner","werewolf","wheel","wheelbarrow","whip","whistle","wife","wig","wilderness","wind","window","wine","wing","winter","wire","wish","witch","witchcraft","wizard","wolf","woman","wood","wool","word","work","worm","wound","wrench","wrist","writer","writing","xylophone","yak","yam","yard","yarn","year","yo-yo","yogurt","yolk","zebra","zeppelin","zipper","zombie","zoo","zookeeper","partygoer","buzzkill","mop","broom","rock","pebble","boulder","hammer","mallet","mouse","rat","weed","soap","dishwasher","banjo","wimp","hamburger","cheeseburger","chicken nugget","nugget","lettuce","leaf","drink","beverage","hat","hate","whale","landfish","turtle","tortoise","clam","oyster","pearl","paint","house","drawer","spoon","fork","knife","butter knife","butter","plate","napkin","paper","towel","paper towel","sink","sinkhole","hole","ground","floor","painting","carpet","trap","painter","nudist","cone","juggler","lullaby","baby","child","children","food","baby food","cat food","dog food","fish food","cage","bow","bow tie","arrow","shield","author","authorities","ketchup","mustard","pizza","pizza party","party","mitten","mayor","mayonnaise","stick","knee","kneecap","bracelet","necklace","jewel","jewelry","thief","robber","bank robber","glacier","thievery","triangle","square","cube","tube","bump","bumper","circle","sphere","magic","magician","magic trick","trick","ramp","slope","hill","molehill","mountain","door","doorknob","mugger","ham","mug","dish","laundry","pyramid","jester","horn","bike","loser","hitchhiker","hike","hiker","pumpkin","spell","potion","sorcerer","sorceress","poet","poem","poetry","slam poet","slam poetry","poetry jam","slam poem","mood","desire","urge","angst","lust","tank","christmas","thanksgiving","halloween","valentine","valentine's day","valentine card","card","thank-you card","birthday","birthday cake","birthday party","note","bill","block","notebook","notepad","pillow","blanket","sheet","mattress","bed","golf","restaurant","waiter","waitress","wait","line","box","boxer","cardboard","cardboard box","cereal","cereal box","spoon","plastic","plastic bag","shop","shopping cart","store","criminal","crime","unknown","pool","shorts","trunk","bag","coral reef","sea","ocean","goggles","telescope","snorkel","oxygen","oxygen tank","bubble","air bubble","air","swimmer","medal","gold","silver","bronze","trophy","medalist","bicycle","scuba diver","snorkeler","drawer","artist","psychic","diver","athlete","judge","holiday","day","night","moon","sun","planet","ring","meteor","comet","asteroid","space","outer space","star","celebrity","crush","alien","space alien","zombie","werewolf","monster","beast","creature","god","lawyer","law","fossil","bone","skeleton","puzzle","jungle","text","tantrum","demonstration","salt","sugar","bumper cars","fair","carnival","skeeball","ticket","teddy bear","bear","plushie","stuffed animal","game","carnival game","bus","seat","seatbelt","belt","pants","sock","auction","mime","mine","minefield","landmine","christmas tree","present","christmas card","playing card","playing cards","missile","mistletoe","saint","angel","devil","wreath","winter","snow","snowwoman","snowflake","snowball","coffee","chocolate","hot chocolate","candy","candy cane","summer","autumn","fall","water","water slide","slide","ladder","hole","pit","peach","bar","barn","farm","farmer","pig","duck","rooster","hen","cow","horse","quail","hay","scarecrow","crow","murderer","killer","news reporter","journalist","weatherman","weatherwoman","bird","professor","sound","noise","teacher","student","tutor","nurse","doctor","driver","golfer","reporter","report","announcement","announcer","wrestler","astronaut","biology","microscope","magnifying glass","chemical","chemistry","chemist","biologist","rock","geologist","geometry","sculptor","math","mathematician","competitor","inventor","invention","vent","wave","fuzz","jazz","puddle","bubble","bubble wand","wand","time travel","time traveler","wife","husband","couple","costume","outfit","disguise","burglar","funeral","coffin","grave","style","wormhole","wait","worm","inchworm","praying mantis","prayer","god","book","plant","sunflower","seed","sunflower seed","belt","glasses","mask","cloak","robe","fire hydrant","flowerpot","potted plant","pot","pan","spatula","plunger","dinner roll","tape","video","picture","photo","photograph","essay","article","subway","tunnel","ground","floor","flood","truck","instruction","manual","search","search party","helicopter","tumbleweed","dream","fairy","fight","match","candle","closet","key","keychain","lock","elf","haunted house","magnet","wrist","wristband","band","guitar","drum","drumstick","chicken leg","cocktail","charm","luck","mall","brat","singer","outfit","costume","refund","circus","waterfall","treasure","island","mystery","treasure chest","pirate","pirate ship","boat","ship","fog","man","woman","men","women","boy","girl","kid","pet","swamp","lagoon","cruise ship","iceberg","panther","cheetah","lion","tiger","polar bear","bear","grizzly bear","mountain lion","top","spinning top","hotdog stand","pretzel","churro","shoe","sneaker","group","target","jacket","introvert","extrovert","crab","hermit crab","hermit","bread","loaf","banana bread","sprinkle","cherry","apple","strawberry","straw","crazy straw","syrup","chocolate syrup","maple syrup","chocolate milk","milk","banana milk","cinnamon","sugar","vanilla","cocoa","park","parking lot","parking garage","dumpster","dump","garbage","garbage truck","bench","chair","sofa","couch","cushion","crumb","cookie","toast","toaster","oven","amusement park","balloon hammer","water balloon","oil slick","oil","gasoline","gas station","lottery","whip","cashew","scratch ticket","scratch","laser pointer","cat tree","cat toy","dog toy","name tag","pet","museum","security guard","surveillance camera","webcam","camera","photographer","cousin","sweater","mop","vacuum cleaner","vacuum","conspiracy","coverup","magazine","poster","ufo","spaceship","portal","shooting star","driver","macaroni","mac and cheese","delivery","pizza delivery person","pizza place","fast food","fast food place","kids meal","TV show","movie","pasta","lasagna","garlic bread","garlic","bread","meatball","marinara sauce","tomato sauce","orange juice","apple juice","ball pit","crust","pizza crust","pepperoni","cheese","hot wings","energy drink","ranch dressing","ranch","stuffed crust","street","street performer","busker","biker gang","gang","spaghetti","clown","animal hospital","dancefloor","playlist","sausage","hand","boss","salt","pepper","beef","pork","rice","board game","board","plank","saxophone","telephone","cellphone","cell","slipper","flipper","remote-control car","remote","switch","button","shampoo","bottle","drunk","drunkard","robot","artificial intelligence","nonsense","superstar","star","sky","pond","duck","duckling","hunter","duel","doll","action figure","wind-up toy","music","music box","song","siren","mermaid","flounder","salmon","saddle","horse race","race","racecar","steering wheel","apparition","ghost","ghoul","image","picture","drawing","cutout","cardboard","cardboard box","glue","trap","box trap","rope","rope snare","lasso","mouse trap","snare","nut","diaper","influencer","internet","model","rock and roll","rock","band","guitarist","pianist","record","vinyl","vinyl record","hipster","hip","PC","supercomputer","computer","watch","wristwatch","VHS tape","video","music video","music","flute","metal","medal","war","military","army","mashed potatoes","surprise","surprise party","pie","pumpkin pie","hot cocoa","hot chocolate","chocolate milk","whipped cream","cream","party hat","traffic cone","traffic","karaoke","peanut","butter","peanut butter","jelly","jam","dork","jock","cheerleader","pom-pom","kingdom","castle","fortress","fort","mailman","mailbox","lunchbox","principal","substitute teacher","subtitute","copy","replica","ninja","warrior","viking","guitar","abstract art","laser beam","laser","beam","hotel","motel","apartment","house","school","club","clubhouse","popcorn","donut","macaroni","inflatable tube man","piñata","maze","corn maze","coven","jellyfish","squid","dolphin","blob","bug","smoke","hedge maze","squad","drive-thru","coffee","crystal","spell","enchantment","serum","vaccine","bet","gambler","footprint","fingerprint","gym","sweat","runner","jogger","toe","sweatshirt","baseball","baseball cap","tennis","tennis ball","tennis racket","chip","crepe","quesadilla","baseball glove","baseball bat","bat","jerky","beef jerky","bacon","tea","recipe","ingredient","spice","acid","liquid","solid","gunk","mess","junk","garbage","trash","raccoon","dumpster","toaster","toaster oven","serial killer","killer","killer bee","termite","fly","chowder","cream cheese","pamphlet","flyer","bulletin board","news report","report","scoop","ice cream","ice cream cone","sauce","radio","radio station","wagon","pioneer","TV dinner","pop","pop star","soda","root beer","prom","school dance","dance","routine","audition","president","root","root beer float","slow dance","homecoming","king","queen","crown","CD player","mail","letter","number","cup holder","base","secret base","weapon","air conditioner","freezer","refrigerator","cooler","pixie","fairy","bell","wrapper","lollipop","sucker","suckerfish","pufferfish","shrimp","rainbow","color","tie-dye","sticker","thumbtack","nail","screw","postcard","finger puppet","sock puppet","sock puppet theater","finger puppet theater","puppet theater","theater","theatre","play","performance","rehearsal","hospital","doctor","dentist","drama","monologue","fiction","nonfiction","detective","case","suitcase","briefcase","luggage","pulp","dice","domino","gazebo","enchanter","enchantress","poet","emperor","empress","hero","heroine","millionaire","billionaire","trillionaire","heir","hair","haircut","hare","bunny","turnip","chameleon","tulip","rose","cabinet","bowl","country","counsel","counselor","therapist","superhero","deep fryer","villain","supervillain","bongo","bed","bunk bed","bunk","dump","sleepover","sleepwalker","police officer","officer","team","sport","bowling ball","bowling alley","bowling pin","sports","sports fan","sports team","game","football","bowling","parking lot","souvenir","memory","bong","cereal bowl","frozen yogurt","soft serve","lighter","torch","flamethrower","gas","stove","heater","thermostat","thermos","lid","cap","hat","top hat","sippy cup","washing machine","dryer","detergent","laundry","laundromat","dime","nickel","penny","dollar","dollar bill","credit card","card","debit card","bank account","account","heist","bank robbery","bank robber","vault","pole vaulter","gym","gymnast","competitor","credit","loan","interest","obsession","fixation","fix","solution","problem","error","mythical creature","unicorn","creature","legend","myth","moon","tale","story","village","salesman","saleswoman","sale","yard","foot","inch","yard sale","garage","garage sale","bank","mini golf","hoop","hula hoop","earring","hairdryer","chapstick","chopstick","ramen","lip","kiss","hug","club","touch","piercing","hook","golf club","tennis racket","fishing pole","fish hook","bait","fish","fish tank","monkey","child","parent","guardian","guard","monster","tickle","move","van","trailer","weed","cigar","vape","vapor","car crash","trainwreck","dessert","desert","forest","woods","wood","x-ray","x-ray vision","vision","climate","fire","call","phone call","cramp","ufo","mothership","leader","follower","planet","camp","catapult","lemon","lime","lemonade","limeade","bandage","band-aid","tape","duct tape","roll","citrus","paper boat","paper hat","paper doll","handmade doll","paper airplane","paper fortune teller","punk","outline","trick","toilet","prisoner","dungeon","jail cell","interview","cop car","police car","hose","nose","eye","eyeball","dancer","ballet","ballerina","critic"
+];
+
+//adjectives
+
+var adjs = [
+"abandoned","abashed","abhorrent","abject","ablaze","abnormal","aboard","abortive","abounding","abrasive","abrupt","absent","absentminded","absorbed","absorbent","abstract","absurd","abundant","abusive","acceptable","accessible","accidental","accurate","acidic","acoustic","adamant","adaptable","addicted","addictive","adhesive","adjoining","adorable","adventurous","afraid","aggressive","agonizing","agreeable","ahead","airborne","ajar","alcoholic","alert","alien","alike","alive","alleged","alluring","aloof","amazing","ambiguous","ambitious","amorous","amused","amusing","ancient","angry","animated","annoyed","annoying","anxious","apathetic","aquatic","aromatic","arrogant","ashamed","aspiring","assorted","astonishing","attractive","atypical","automatic","available","average","awake","aware","awesome","awful","bad","baked","barbarous","bashful","bawdy","beautiful","befitting","belligerent","beneficial","bent","berserk","best","better","bewildered","biased","big","billowy","bite-sized","bitter","bizarre","black","black-and-white","bloody","blue","blue-eyed","blushing","boiling","boorish","bored","boring","bouncy","boundless","brainy","brash","brave","brawny","breakable","breezy","brief","bright","broad","broken","brown","bumpy","burly","burning","bustling","busy","buttered","buttery","buzzed","cagey","calculating","callous","calm","capable","careful","careless","caring","cautious","ceaseless","certain","changeable","charming","cheap","cheerful","chemical","chief","childlike","chilly","chivalrous","chubby","chunky","clammy","classy","clean","clear","clever","cloistered","closed","cloudy","clumsy","cluttered","coherent","cold","colorful","colossal","combative","comfortable","committed","common","complete","complex","conceited","concerned","condemned","confused","conscious","cooing","cool","cooperative","coordinated","counterfeit","courageous","cowardly","crabby","crazy","creepy","crooked","crowded","cruel","crying","cube-like","cuddly","cultured","cumbersome","curious","curly","curved","curvy","cut-up","cute","cynical","daffy","daily","damaged","damaging","damp","dangerous","dapper","dark","dashing","dazzling","dead","deadly","deadpan","deafening","dear","debonair","decisive","decorated","decorative","deep","defeated","defective","defiant","delicate","delicious","delightful","delirious","demonic","dependent","depressed","deranged","descriptive","deserted","detailed","determined","devilish","didactic","different","difficult","diligent","direful","dirty","disagreeable","disappointed","disappointing","disastrous","discreet","disgusted","disgusting","disillusioned","dispensable","distinct","distracted","distracting","disturbed","divergent","dizzy","dominant","dominating","domineering","doubtful","drab","draconian","dramatic","dreary","drunk","dry","dull","dumb","dusty","dying","dynamic","dysfunctional","eager","early","earsplitting","earthy","easy","economic","edible","educated","efficient","elastic","elated","elderly","electric","elegant","elfin","elite","embarrassed","eminent","empathetic","empty","enchanted","enchanting","encouraging","endurable","energetic","enormous","entertaining","enthusiastic","envious","equable","equal","erect","erratic","ethereal","evanescent","evasive","even","evil","excellent","excited","exciting","exclusive","exotic","expensive","exploding","explosive","extra-large","extra-small","exuberant","exultant","fabulous","faded","faint","fair","faithful","fake","fallacious","false","familiar","famous","fanatical","fancy","fantastic","far","far-flung","fascinated","fast","fat","faulty","fearful","fearless","fearsome","feeble","feigned","female","fertile","festive","few","fierce","filthy","fine","finicky","first","fixed","flagrant","flaky","flashy","flat","flawless","flimsy","flippant","flirtatious","flirty","flowery","fluffy","fluttering","flying","foamy","foolish","foregoing","forgetful","fortunate","foxy","fragile","frail","frantic","free","freezing","frequent","fresh","fretful","friendly","frightened","frightening","full","fumbling","functional","funny","furry","future","futuristic","fuzzy","gabby","gainful","gaping","general","gentle","ghostly","giant","giddy","gifted","gigantic","glamorous","gleaming","glib","glistening","glorious","glossy","godly","gold","golden","good","goofy","googly-eyed","gorgeous","graceful","grand","grandiose","grateful","gray","greasy","great","greedy","green","grey","grieving","groovy","grotesque","grouchy","grubby","gruesome","grumpy","guarded","guiltless","gullible","gummy","gusty","guttural","habitual","hairy","half","hallowed","halting","handsome","handsomely","handy","hanging","hapless","happy","hard","hard-to-find","harmful","harmonious","harsh","hateful","haunted","heady","healthy","heartbreaking","heartbroken","heavenly","heavy","hellish","helpful","helpless","heroic","hesitant","hideous","high","high-pitched","hilarious","hip","hissing","historical","holistic","hollow","homeless","homely","honorable","horny","horrible","hospitable","hot","huge","hulking","humdrum","humorous","hungry","hurried","hurt","hushed","husky","hypnotic","hysterical","icky","icy","idiotic","ignorant","ill","ill-fated","ill-informed","illegal","illustrious","imaginary","immense","imminent","impartial","imperfect","impolite","important","imported","impossible","incandescent","incompetent","inconclusive","incredible","industrious","inexpensive","infamous","inflatable","innate","innocent","inquisitive","insidious","instinctive","intangible","intelligent","interesting","internal","invincible","irate","irritating","itchy","jaded","jagged","jazzy","jealous","jittery","jobless","jolly","joyous","judicious","juicy","jumbled","jumpy","juvenile","keen","kind","kindhearted","kindly","knotty","knowing","knowledgeable","known","labored","lackadaisical","lacking","lame","lamentable","large","last","late","laughable","lavish","lazy","lean","learned","left","legal","lethal","level","lewd","light","like","likable","limping","literate","little","lively","living","lonely","long","long-term","longing","loose","lopsided","loud","lovable","loveless","lovely","loving","low","lowly","loyal","lucky","ludicrous","lumpy","lush","lustful","lusty","luxury","lying","lyrical","macabre","macho","mad","maddening","magenta","magic","magical","magnificent","majestic","makeshift","male","malicious","mammoth","maniacal","manly","marked","married","marvelous","massive","material","materialistic","mature","mean","meancing","measly","meaty","medical","meek","mellow","melodic","melted","merciful","mere","messy","mighty","military","milky","mindless","mini","miniature","minor","miscreant","missing","misty","mixed","moaning","modern","moist","moldy","momentous","motionless","mountainous","muddled","mundane","murky","mushy","mute","mysterious","naive","nappy","narrow","nasty","natural","naughty","nauseating","near","neat","nebulous","necessary","needless","needy","neighborly","nervous","new","nice","nifty","nimble","nippy","noiseless","noisy","nonchalant","nondescript","nonstop","noodly","normal","nostalgic","nosy","not-straight","noxious","numerous","nutritious","nutty","oafish","obedient","obese","obnoxious","obscene","observant","obsolete","obtainable","oceanic","odd","oddball","offbeat","old","old-fashioned","omniscient","on-fire","open","opposite","optimal","orange","ordinary","organic","outgoing","outrageous","outstanding","oval","overconfident","overjoyed","overrated","overt","overwrought","painful","painstaking","pale","paltry","panicky","panoramic","parallel","parched","past","pastoral","pathetic","peaceful","perfect","periodic","permissible","perpetual","petite","phobic","phony","physical","pillowy","pink","placid","plain","plant-based","plastic","plausible","pleasant","plucky","pointless","poised","poison","poisonous","polite","political","poor","poorly-made","possessive","possible","powerful","precious","premium","preppy","present","pretentious","pretty","previous","pricey","prickly","private","probable","problematic","productive","profuse","protective","proud","psychedelic","psychotic","public","puffy","pumped","puny","pure","purple","purring","pushy","puzzled","puzzling","quack","quaint","quarrelsome","questionable","quick","quickest","quiet","quirky","quixotic","quizzical","rabid","racial","ragged","rainy","rambunctious","rampant","rapid","rare","raspy","ratty","ready","real","really cool","rebel","receptive","recondite","red","redundant","reflective","regular","relieved","remarkable","reminiscent","repulsive","resolute","resonant","responsible","rhetorical","rich","right","righteous","rightful","rigid","ripe","ritzy","roasted","robust","romantic","roomy","rotten","rough","round","royal","rubber","rude","rural","rustic","rusty","ruthless","sad","safe","salty","sarcastic","sassy","satisfying","saucy","savory","scandalous","scarce","scared","scary","scattered","scientific","scintillating","scrawny","screeching","second","second-hand","secret","secretive","sedate","see-thru","seemly","selective","selfish","separate","serious","sexy","shaggy","shaky","shallow","sharp","shiny","shivering","shocking","short","shrill","shut","shy","sick","silent","silky","silly","simple","simplistic","sincere","single","skillful","skinny","sleepy","slim","slimy","slippery","sloppy","slow","small","smart","smelly","smiling","smoggy","smooth","smutty","sneaky","snobbish","snotty","soft","soggy","solid","somber","sophisticated","sordid","sore","sour","sparkling","special","spectacular","spicy","spiffy","spiked","spiky","spiritual","spiteful","splendid","spooky","spotless","spotted","spotty","square","squeaky","squealing","squeamish","stale","stalking","standing","statuesque","steadfast","steady","steep","stereotyped","sticky","stiff","stimulating","stingy","stormy","straight","strange","street-smart","striped","strong","stupendous","stupid","sturdy","subdued","submissive","subsequent","substantial","successful","succinct","sudden","sulky","sultry","super","superb","superficial","supreme","swanky","sweet","sweltering","swift","sympathetic","symptomatic","taboo","tacky","tactless","talented","tall","tame","tan","tangy","tart","tasteful","tasteless","tasty","tearful","tedious","teeny","teeny-tiny","telling","temporary","tender","tense","tenuous","terrible","terrific","tested","testy","thankful","therapeutic","thick","thin","thinkable","third","thirsty","thoughtful","thoughtless","threatening","thundering","tidy","tight","tightfisted","tiny","tired","tiresome","titillating","toothsome","top secret","tough","towering","tranquil","trashy","tremendous","tricky","trite","troubled","true","trustworthy","truthful","typical","ugly","ultra","unable","unaccountable","unadvised","unarmed","unattractive","unaware","unbecoming","unbiased","uncool","uncovered","understood","undesirable","undying","unequal","unequaled","uneven","unfaithful","unhealthy","unhelpful","uninterested","unique","unkempt","unknown","unlikable","unmarried","unnatural","unnecessary","unobtainable","unruly","unsightly","unstable","unsuitable","untested","untidy","untrustworthy","unused","unusual","unwieldy","unworkable","unworthy","unwritten","unyielding","upbeat","uppity","upset","uptight","used","useful","useless","utopian","vagabond","vague","valuable","vast","vengeful","venomous","victorious","vigorous","villainous","violent","violet","vivacious","voiceless","volatile","voracious","vulgar","wacky","waggish","waiting","wandering","wanting","warlike","warm","wary","wasteful","watery","weak","wealthy","weary","weightless","well-groomed","well-made","well-off","wet","whimsical","whispering","white","whole","wholesale","wicked","wide","wide-eyed","wiggly","wild","willing","windy","wiry","wise","wistful","witless","witty","wobbly","woebegone","womanly","wonderful","wooden","woozy","workable","worried","worrisome","worthless","wrathful","wretched","wrong","wry","yellow","yielding","young","youthful","yucky","yummy","zany","zesty","zippy","zonked-out","wimpy","annoying","desirable","undesirable","spunky","flirty","flirtatious","nerdy","lame","sporty","cute","pretty","hateful","spiteful","jealous","trapped","tied-up","jumpy","jittery","vibrating","painted","sleepy","tired","bare","naked","nude","hungry","healthy","unhealthy","feline","firey","feisty","square","circular","spherical","triangular","magic","magical","soupy","clammy","mysterious","missing","lost","angsty","moody","emo","emotional","fancy","cheap","expensive","nice","inexpensive","rich","poor","open","close","closed","nearby","instant","hidden","hiding","criminal","crime-ridden","talking","speaking","swimming","diving","snorkeling","scuba diving","athletic","olympic","lovelorn","living","space","shy","judgmental","talkative","quiet","loud","deafening","undead","mummified","godlike","zombie","monstrous","giant","wet","dry","skeletal","fossilized","scared","scary","startled","frightened","tasty","zesty","fast","slow","long","short","large","small","abnormal","huge","thick","thin","thinking","savory","unsavory","sweet","salty","unwise","stupid","smart","intelligent","unintelligent","sentient","psychic","free","christmas","wise","explosive","playful","flirty","witty","witless","familiar","unfamiliar","wintery","rainy","lovely","bad","good","cold","icy","warm","hot","professional","unprofessional","frightening","live","assertive","angry","cursed","poisoned","enchanted","scientific","underwater","underground","old","new","ancient","invisible","blue","red","orange","yellow","green","pink","purple","brown","silver","golden","gold","clear","heavy","light","lightweight","heavyweight","costumed","disguised","stylish","well-dressed","easy","hard","soft","erect","tall","unpleasant","pleasant","unwell","worse","the best","the worst","better","average","perfect","imperfect","dizzy","spinning","lost","long-lost","short-term","permanent","recently-discovered","rare","common","overcooked","burnt","undercooked","dreamy","vulnerable","invincible","drowning","swimming","dying","immortal","screaming","shrieking","immature","mature","young","old","growing","shrinking","expanding","pregnant","closed","open","locked","unlocked","magnetic","glowing","newsworthy","impressive","unimpressive","impressed","unimpressed","confident","unconfident","sticky","charming","lucky","unlucky","teen","teenage","drunk","bratty","wild","buzzing","secret","mystery","wealthy","entitled","outgoing","introverted","extroverted","shy","crazy","insane","lying","small","deceiving","syrupy","saucy","chocolatey","sweet","sentimental","sentient","self-aware","distrustful","suspicious","guilty","innocent","skeletal","extinct","thought-extinct","smelly","stinky","fun","fun-loving","fun-hating","miserable","joyful","joyous","cruel","conniving","cunning","poetic","artistic","talented","untalented","sad","misguided","free","scratchy","cracked","off-limits","powerful","powerless","walking","talking","conscious","expensive","singing","dancing","deceitful","birdlike","catlike","doglike","fishlike","melted","melty","snazzy","cheesy","corny","groovy","robot","robotic","remote-control","timed","romantic","automated","intelligent","AI","AI-powered","funky","artificially intelligent","unintelligent","unintelligible","nonsensical","naughty","really big","really small","really cool","really bad","really good","mischievious","rowdy","proper","improper","preppy","cool","punk rock","punky","rock-and-roll","gangster","dope","vinyl","swanky","hip","fresh","old-school","new-school","new-and-improved","classic","popular","retro","long-lost","as-seen-on-TV","ragged","tattered","torn","holy","unholy","great","god-fearing","religious","abstract","hard-to-find","hard-to-follow","peculiar","killer","romantic","unromantic","infatuated","lovesick","in-love","aquatic","land-dwelling","crushing","dancing","slow-dancing","drinking","online","obsessed","obsessive","manic","oversized","puffed-up","pumped","air-filled","water-filled","hollow","dense","light","glow-in-the-dark","enchanted","kooky","timeless","ageless","old","tie-dye","rainbow","rehearsal","children's","live","rehearsed","performative","interpretive","theatrical","dramatic","dramatized","boiled","hard boiled","runny","chewy","tangy","fictional","real","true","fake","false","nonfiction","stale","educational","early","late","overdue","overblown","transparent","invisible","translucent","shiny","reflective","glass","powdery","crumbling","crummy","poorly-made","low-quality","cheap","cracked","broken","ghostly","haunted","spooky","ghastly","rich","super-rich","super","superpowered","heroic","deep fried","good","bad","pointy","sloppy","fixed","unfixable","fixable","out-of-order","messed-up","touching","tickling","yelling","screaming","shouting","hollering","bouncing","juggling","jiggling","guilty","running","walking","jumping","hot","hopping","hula-hooping","shaking","creamy","telepathic","telekinetic","psychic","magic","magical","mythical","legendary","all-seeing","all-powerful","cardboard","two-dimensional","flat","spooning","cuddling","cuddly","spacious","cramped","spacy","flavored","unflavored","iced","blended","chunky","icy","freezing","rotting","rotten","paper","plastic","homemade","handmade","metal","childish","punk"
+];
+
+//verbs
+
+var verbs = [
+"abide","accelerate","accept","accomplish","achieve","acquire","act","activate","adapt","add","address","administer","admire","admit","adopt","advise","afford","agree","alert","alight","allow","alter","amuse","analyze","announce","annoy","answer","anticipate","apologize","appear","applaud","apply","appoint","appraise","appreciate","approve","arbitrate","argue","arise","arrange","arrest","arrive","ascertain","ask out","ask","assemble","assess","assist","assure","attach","attack","attain","attempt","attend","attract","audit","avoid","awaken","back","bake","balance","ban","bang","bare","bark","bat","bathe","battle","be","beam","bear","beat up","beat","beatbox","become","bed","beg","begin","behave","behead","behold","belong","bend","bet","betray","bid","bind","bite","blackmail","blame","bleach","bleed","bless","blind","blink","blot","blow","blush","boast","boil","bolt","bomb","bonk","boogie","book","bore","borrow","bounce","bow","box","brake","branch","break","breakdance","breathe","breed","brief","bring","broadcast","bruise","brush","bubble","budget","build","bully","bump","burn","burst","bury","bust","buy","buzz","calculate","call","camp","care","carry","carve","cast","catalog","catch","cause","celebrate","challenge","change","charge","charm","chart","chase","chat","cheat","check","cheer","chew","choke","choose","chop","claim","clap","clarify","classify","clean","clear","cling","clip","close","clothe","clown on","clown","coach","coil","collect","color","comb","come","command","commit","communicate","compare","compete","compile","complain","complete","compliment","compose","compute","conceive","concentrate","conceptualize","concern","conclude","conduct","confess","confront","confuse","connect","conserve","consider","consist","consolidate","construct","consult","contain","continue","contract","control","convert","cook","coordinate","copy","correct","correlate","cost","cough","counsel","count","cover","crack","crash","crawl","create","creep","criticize","critique","cross","crush","crush on","cry","cure","curl","curve","cut","cycle","damage","dance","dare","date","deal","decay","deceive","decide","decorate","define","delay","delegate","delight","deliver","demonstrate","depend","describe","desert","deserve","design","destroy","detail","detect","determine","develop","devise","diagnose","dig","direct","disagree","disappear","disappoint","disapprove","disarm","discover","dislike","dispense","display","disprove","diss","dissect","distribute","dive","divert","divide","DJ","do","double","doubt","draft","drag","drain","dramatize","draw","dream","dress","drink","drip","drive","drop","drown","drum","dry","dust","dwell","earn","eat","edit","educate","eliminate","embarrass","employ","empty","enact","encourage","end","endure","enforce","engineer","enhance","enjoy","enlist","ensure","enter","entertain","escape","establish","estimate","evaluate","examine","exceed","excite","excuse","execute","exercise","exhibit","exist","expand","expect","expedite","experiment","explain","explode","express","extend","extract","face","facilitate","fade","fail","fancy","fasten","fax","fear","feed","feel","fence","fetch","fight","file","filet","fill","film","finalize","finance","find","fire","fish","fit","fix","flap","flash","flee","fling","flirt","float","flood","flow","fly","fold","follow","fool","forbid","force","forecast","forego","foresee","foretell","forget","forgive","form","formulate","forsake","frame","freeze","frighten","fry","gamble","gather","gaze","generate","get","give","glow","glue","go","govern","grab","graduate","grate","grease","greet","grill","grin","grind","grip","groan","grow","guarantee","guard","guess","guide","hammer","hand","handle","handwrite","hang","happen","harass","harm","hate","haunt","head","heal","heap","hear","heat","help","hide","hit","hold","hook","hop","hope","hover","huff","hug","hum","hunt","hurry","hurt","hypothesize","identify","ignore","illustrate","imagine","imitate","implement","impress","improve","improvise","include","increase","induce","influence","inform","initiate","inject","injure","inlay","innovate","input","inspect","inspire","install","institute","instruct","insult","insure","integrate","intend","intensify","interest","interfere","interlay","interpret","interrupt","interview","intimidate","introduce","invent","investigate","invite","irritate","itch","jail","jam","jog","join","joke","judge","juggle","juice","jump","justify","keep","kick","kill","kiss","kneel","knit","knock","knot","know","label","land","last","laugh","launch","lay","lead","lean","leap","learn","leave","lecture","lend","let","level","license","lick","lie","lift","light","lighten","like","list","listen","live","load","locate","lock","log","long","look","lose","love","maintain","make","man","manage","manipulate","manufacture","map","march","mark","market","marry","massage","match","mate","matter","mean","measure","meddle","mediate","meet","melt","memorize","mend","mentor","meow","milk","mime","mimic","mine","mislead","miss","misspell","mistake","misunderstand","mix","moan","model","modify","monitor","moor","motivate","mourn","move","mow","muddle","mug","multiply","murder","nail","name","navigate","need","neg","negotiate","nest","nod","nominate","normalize","note","notice","number","obey","object","observe","obtain","occur","offend","offer","officiate","open","operate","order","organize","orient","originate","overcome","overdo","overdraw","overflow","overhear","overtake","overthrow","owe","own","pack","paddle","paint","park","part","participate","pass","paste","pat","pause","pay","peck","pedal","peel","peep","perceive","perfect","perform","permit","persuade","pet","phone","photograph","pick","pilot","pinch","pine","pinpoint","pioneer","place","plan","plant","play","plead","please","plug","point","poke","polish","pop","possess","post","pour","practice","praise","pray","preach","precede","predict","prefer","prepare","prescribe","present","preserve","preset","preside","press","pretend","prevent","prick","print","process","procure","produce","profess","program","progress","project","promise","promote","prompose","proofread","propose","protect","prove","provide","publicize","pull","pump","punch","puncture","punish","purchase","push","put","qualify","question","queue","quit","race","radiate","rain","raise","rank","rap","rate","reach","read","realign","realize","reason","receive","recognize","recommend","reconcile","record","recruit","reduce","refer","reflect","refuse","regret","regulate","rehabilitate","reign","reinforce","reject","rejoice","relate","relax","release","rely","remain","remember","remind","remove","render","reorganize","repair","repeat","replace","reply","report","represent","reproduce","request","rescue","research","resolve","respond","restore","restructure","retire","retrieve","return","review","revise","rhyme","rid","ride","ring","rinse","rise","risk","rob","rock","roll","rot","rub","ruin","rule","run","rush","sack","sail","satisfy","save","saw","say","scare","scatter","schedule","scold","scorch","scrape","scratch","scream","screw","scribble","scrub","seal","search","secure","seduce","see","seek","select","sell","send","sense","separate","serve","service","set","settle","sew","shade","shake","shape","share","shave","shear","shed","shelter","shine","shiver","shock","shoo","shoot","shop","show","shrink","shrug","shun","shut","sigh","sign","signal","simplify","sin","sing","sink","sip","sit","sketch","ski","skip","slap","slay","sleep","slice","slide","sling","slink","slip","slit","slither","slow","slurp","smack","smash","smell","smile","smite","smoke","smooch","snap","snatch","sneak","sneeze","sniff","snore","snort","snow","soak","solve","soothe","soothsay","sort","sound","sow","spare","spark","sparkle","speak","specify","speed","spell","spend","spill","spin","spit","split","spoil","spot","spray","spread","sprout","squash","squeak","squeal","squeeze","squirm","squish","stain","stamp","stand","stare","start","stay","steal","steer","step","stick","stimulate","sting","stink","stir","stitch","stop","store","strap","streamline","strengthen","stretch","stride","strike","string","strip","strive","stroke","structure","study","stuff","sublet","subtract","succeed","suck","suffer","suggest","suit","summarize","supervise","supply","support","suppose","surprise","surround","suspect","suspend","swear","sweat","sweep","swell","swim","swing","switch","symbolize","synthesize","systemize","tabulate","take","talk","tame","tap","target","taste","teach","tear","tease","telephone","tell","tempt","terrify","test","text","thank","thaw","think","threaten","thrive","throw","thrust","tick","tickle","tie","time","tip","tire","touch","tour","tow","trace","trade","train","transcribe","transfer","transform","translate","transport","trap","travel","tread","treat","tremble","trick","trip","trot","trouble","troubleshoot","trust","try","tug","tumble","turn","tutor","twist","type","undergo","understand","undertake","undress","unfasten","unify","unite","unlock","unpack","untidy","update","upgrade","uphold","upset","use","utilize","vanish","verbalize","verify","vex","visit","wail","wait","wake","walk","wander","want","warm","warn","wash","waste","watch","water","wave","wear","weave","wed","weep","weigh","welcome","wend","wet","whine","whip","whirl","whisper","whistle","wiggle","win","wind","wink","wipe","wish","withdraw","withhold","withstand","wobble","wonder","woo","work","worry","wrap","wreck","wrestle","wriggle","wring","write","x-ray","yawn","yell","yo-yo","zap","zip","zoom","chug","attack","hide","drool","take","steal","confiscate","tap","hate","grab","wear","find","lose","win","sneeze","buy","borrow","sell","bury","microwave","cuddle","spoon","dance","slow dance","tap dance","juggle","lasso","trap","tie","tie up","ensnare","drum","kick","jump","vibrate","paint","sing","sink","swim","float","strip","bear","bare","feed","have","untie","follow","gain","circle","box","rob","mug","mope","desire","want","like","love","explore","shop","fit","try","try on","copy","mimic","fight","swim","dive","scuba dive","snorkel","train","test","watch","observe","experiment","draw","sculpt","bone","do","text","discover","leave","ride","scare","startle","frighten","speak","talk","taste","predict","write","enjoy","dislike","respect","disrespect","date","give","give away","sell","marry","cook","clean","mime","act","find","present","demonstrate","kiss","flirt","meet","reunite","celebrate","party","french kiss","make out","tell","tattle","live","die","curse","study","enchant","recognize","recall","call","text","sculpt","carve","crave","eat","devour","pick","pick up","lift","carry","consume","disguise","dress","dress up","make","build","fall","jump","leap","sit","stand","fall down","climb","warp","teleport","time travel","waddle","spin","bet","battle","repeat","say","dream","burn","slap","slam","whack","whip","bonk","punch","strike","flick","scream","shriek","kill","drown","grow","shrink","mime","charm","slurp","buzz","drink","keep","lie","reveal","harm","hurt","growl","groan","moan","sail","pat","pet","serve","destroy","revive","mourn","insult","praise","defend","offend","deceive","refund","attempt","try","test","hop","skip","count","melt","fry","sprinkle","walk","talk","spank","plunge","caress","coddle","comfort","bother","hustle","trick","beep","boop","prank","chat","video chat","duck","chomp","chew","chow down","engulf","amaze","woo","shout","holler","watch","watch TV","sing along","sing","feed","trace","audition","eavesdrop","repeat","ask","slow dance","dance","slither","wriggle","wobble","squirm","ooze","leak","drop","earn","tie-dye","rain","age","grow old","kill","confuse","act","perform","astound","rehearse","research","solve","detect","advise","consult","hitchhike","drive","play","bounce","get","microwave","deep fry","roast","obsess","fix","interrupt","intrigue","bug","dip","stalk","undress","disrobe","bathe","wash","dry","touch","tickle","hula hoop","shake","jiggle","x-ray","program","greet","betray","believe","orbit","lead","follow","camp","catapult","blend","mix","ice","freeze","chill","chill out","relax","nap","wait","influence","hand-make","stab"
+];
+
+//templates
+
+var temps = [
+"a [ADJ] [NOUN]",
+"a [ADJ] [ADJ] [NOUN]",
+"a [NOUN] [NOUN]",
+"[ADJ] [NOUN]s",
+"[ADJ] [ADJ] [NOUN]s",
+"the [ADJ] [NOUN]",
+"the [ADJ] [ADJ] [NOUN]",
+"the [NOUN] [NOUN]",
+"[NOUN] [NOUN]s",
+"a [NOUN] and a [NOUN]",
+"a [ADJ] [NOUN] and a [ADJ] [NOUN]",
+"a [ADJ] [ADJ] [NOUN] and a [ADJ] [ADJ] [NOUN]",
+"a person who finds a [NOUN] and it is [ADJ]",
+"a person who finds a [NOUN] and it makes them [ADJ]",
+"a person who finds a [ADJ] [NOUN] and it makes them [ADJ]",
+"a person who finds a [ADJ] [NOUN]",
+"a person who finds a [ADJ] [NOUN] and it is [ADJ]",
+"a person who finds a [ADJ] [NOUN] and it helps them [VERB]",
+"a person who finds a [ADJ] [NOUN] and it helps them [VERB] a [NOUN]",
+"a [NOUN] person",
+"a [ADJ] [NOUN] person",
+"a [ADJ] [ADJ] [NOUN] person",
+"a [NOUN] [NOUN] person",
+"a [ADJ] [ADJ] person",
+"a person who is trying to find a [NOUN]",
+"a person who is trying to find a [ADJ] [NOUN]",
+"a person who is trying to find a [ADJ] [ADJ] [NOUN]",
+"a person who is trying to find a [NOUN] [NOUN]",
+"a person who comes into conflict with a [NOUN]",
+"a person who comes into conflict with a [ADJ] [NOUN]",
+"a person who comes into conflict with a [ADJ] [ADJ] [NOUN]",
+"a person who comes into conflict with a [NOUN] [NOUN]",
+"a [ADJ] [NOUN] that comes into conflict with a [ADJ] [NOUN]",
+"a [ADJ] person who comes into conflict with a [ADJ] [NOUN]",
+"a [NOUN] person who comes into conflict with a [ADJ] [NOUN]",
+"a person who loves [NOUN]s too much",
+"a person who loves [ADJ] [NOUN]s too much",
+"a person who loves [NOUN] [NOUN]s too much",
+"a person who loves [ADJ] [ADJ] [NOUN]s too much",
+"people who love [NOUN]s too much",
+"people who love [ADJ] [NOUN]s too much",
+"people who love [NOUN] [NOUN]s too much",
+"people who love [ADJ] [ADJ] [NOUN]s too much",
+"a [ADJ] [NOUN] that loves to [VERB]",
+"a [NOUN] [NOUN] that loves to [VERB]",
+"a [ADJ] [ADJ] [NOUN] that loves to [VERB]",
+"a [ADJ] [NOUN] that loves to [VERB] [NOUN]s",
+"people who find out they disagree on [NOUN]s",
+"people who find out they disagree on [ADJ] [NOUN]s",
+"people who find out they disagree on [NOUN] [NOUN]s",
+"people who find out they disagree on [ADJ] [ADJ] [NOUN]s",
+"a [ADJ] [NOUN] that falls in love with a [ADJ] [NOUN]",
+"how much it sucks when a [NOUN] [VERB]s you",
+"how much it sucks when there are no more [NOUN]s",
+"how much it sucks when there are no more [ADJ] [NOUN]s",
+"how much it sucks when there is no more [NOUN]",
+"how much it sucks when there is no more [ADJ] [NOUN]",
+"how awkward it is when a [ADJ] [NOUN] [VERB]s you",
+"people fighting over the last [NOUN]",
+"people fighting over the last [ADJ] [NOUN]",
+"a person who finds themselves cornered by a [ADJ] [NOUN]",
+"a person who finds themselves cornered by a [NOUN]",
+"people who find themselves cornered by a [ADJ] [NOUN]",
+"people who find themselves cornered by a [NOUN]",
+"a person who has a crush on someone who loves [NOUN]s",
+"a person who has a crush on someone who loves [ADJ] [NOUN]s",
+"a person who has a crush on someone who loves [NOUN] [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [ADJ] [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [NOUN] [NOUN]s",
+"someone who won't shut up about [NOUN]s",
+"someone who won't shut up about [ADJ] [NOUN]s",
+"someone who won't shut up about [NOUN] [NOUN]s",
+"a club for [ADJ] [NOUN]s",
+"a club for people who love [ADJ] [NOUN]s",
+"a club for [NOUN]s",
+"a club for [NOUN] [NOUN]s",
+"a club for people who love [NOUN]s",
+"a club for people who love [NOUN] [NOUN]s",
+"a person who must [VERB] a [NOUN]",
+"a person who must [VERB] a [ADJ] [NOUN]",
+"a hot new product: [ADJ] [NOUN]s",
+"a hot new product: [NOUN] [NOUN]s",
+"a hot new product: [NOUN]s that can [VERB]",
+"a hot new product: [ADJ] [NOUN]s that can [VERB]",
+"a hot new product: [NOUN]s that can [VERB] you",
+"a hot new product: [ADJ] [NOUN]s that can [VERB] you",
+"a hot new product: [NOUN]s that can [VERB] [NOUN]s",
+"a hot new product: [ADJ] [NOUN]s that can [VERB] [NOUN]s",
+"a [NOUN] that must be stopped",
+"a [ADJ] [NOUN] that must be stopped",
+"a [NOUN] [NOUN] that must be stopped",
+"someone doing a presentation on [NOUN]s",
+"someone doing a presentation on [NOUN] [NOUN]s",
+"someone doing a presentation on [ADJ] [NOUN]s",
+"someone doing a presentation on how to [VERB] [NOUN]s",
+"someone doing a presentation on how to [VERB] [ADJ] [NOUN]s",
+"a person who is about to make a fool of themselves because they never learned how to [VERB]",
+"a person who is about to make a fool of themselves because they never learned how to [VERB] [NOUN]s",
+"a person who is about to make a fool of themselves because they never learned how to [VERB] [ADJ] [NOUN]s",
+"a person who finds themselves amongst [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who love [NOUN]s",
+"a normal person who finds themselves amongst people who love [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who love [NOUN] [NOUN]s",
+"a normal person who finds themselves amongst people who love [ADJ] [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [NOUN] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [ADJ] [ADJ] [NOUN]s",
+"a couple that comes into conflict over [NOUN]s",
+"a couple that comes into conflict over [ADJ] [NOUN]s",
+"a person who finds themselves being swayed by a [ADJ] [NOUN]",
+"a new law that bans [NOUN]s",
+"a new law that makes it illegal to [VERB] [NOUN]s",
+"a person who thinks their crush would appreciate a [NOUN]",
+"a person who thinks their crush would appreciate a [ADJ] [NOUN]",
+"a person who thinks their crush would appreciate a [NOUN] [NOUN]",
+"a world where [NOUN]s are now [NOUN]s",
+"a world where [NOUN]s are now [ADJ]",
+"a world where [NOUN]s are now [ADJ] [NOUN]s",
+"a [NOUN] that commits a crime",
+"a [ADJ] [NOUN] that commits a crime",
+"a [NOUN] that is able to [VERB]",
+"a person who finds out someone they know is actually a [NOUN]",
+"a person who finds out someone they know is actually a [ADJ] [NOUN]",
+"a person who really doesn't want to [VERB]",
+"a person who really doesn't want to [VERB] a [NOUN]",
+"a person who really doesn't want to [VERB] a [ADJ] [NOUN]",
+"a person who really doesn't want to be [VERB]ed",
+"a deadly [NOUN]",
+"a deadly [ADJ] [NOUN]",
+"a deadly [NOUN] [NOUN]",
+"a person who is known for their ability to [VERB] [NOUN]s",
+"a person who is known for their ability to [VERB] [ADJ] [NOUN]s",
+"a person who gains the ability to [VERB] [NOUN]s",
+"a person who gains the ability to [VERB] [ADJ] [NOUN]s",
+"the only [NOUN] in the world",
+"the only [ADJ] [NOUN] in the world",
+"the only [NOUN] [NOUN] in the world",
+"someone who is allergic to [NOUN]s",
+"someone who is allergic to [ADJ] [NOUN]s",
+"a person whose crush is secretly a [NOUN]",
+"a person whose crush is secretly a [ADJ] [NOUN]",
+"a person who has a crush on a [NOUN]",
+"a person who has a crush on a [ADJ] [NOUN]",
+"a person who has a crush on a [NOUN] [NOUN]",
+"a person who is in love with a [NOUN]",
+"a person who is in love with a [ADJ] [NOUN]",
+"a person who is in love with a [NOUN] [NOUN]",
+"a person who is secretly a [NOUN]",
+"a person who is secretly a [ADJ] [NOUN]",
+"a person who is secretly a [NOUN] [NOUN]",
+"someone who is trying to sell a [NOUN]",
+"someone who is trying to sell a [ADJ] [NOUN]",
+"someone who is trying to return a [NOUN]",
+"someone who is trying to return a [ADJ] [NOUN]",
+"a person who finds themselves surrounded by living [NOUN]s",
+"a person who finds themselves surrounded by living [ADJ] [NOUN]s",
+"people who find themselves surrounded by living [NOUN]s",
+"people who find themselves surrounded by living [ADJ] [NOUN]s",
+"a simple disagreement about [NOUN]s that gets out of control",
+"a simple disagreement about [ADJ] [NOUN]s that gets out of control",
+"a person who wants to be a better [NOUN]",
+"a person who wants to be a better [ADJ] [NOUN]",
+"a person who wants to be a [NOUN]",
+"a person who wants to be a [ADJ] [NOUN]",
+"a new superhero: [NOUN] Man/Woman",
+"a new superhero: [ADJ] [NOUN] Man/Woman",
+"a new superhero: [NOUN] [NOUN] Man/Woman",
+"a new superhero: The [ADJ] [NOUN]",
+"a new superhero: The Amazing [NOUN]",
+"a new superhero: The Amazing [ADJ] [NOUN]",
+"a new superhero: The Amazing [NOUN] [NOUN]",
+"the hot new trend: to [VERB] [NOUN]s",
+"the hot new trend: to [VERB] [ADJ] [NOUN]s",
+"the hot new trend: to be [ADJ]",
+"the hot new trend: to be a [NOUN]",
+"the hot new trend: to be a [NOUN] [NOUN]",
+"a dating service for [ADJ] people",
+"a dating service for [NOUN]s",
+"a dating service for [ADJ] [NOUN]s",
+"a dating service for [NOUN] [NOUN]s",
+"a dating service for people who like [NOUN]s",
+"a dating service for [NOUN] people",
+"a dating service for [ADJ] [NOUN] people",
+"a dating service for [NOUN] [NOUN] people",
+"a dating service for people who like [ADJ] [NOUN]s",
+"a dating service for people who like [NOUN] [NOUN]s",
+"[NOUN] people",
+"[ADJ] people",
+"[ADJ] [NOUN] people",
+"[NOUN] [NOUN] people",
+"[NOUN] [NOUN]s",
+"a [NOUN] [NOUN]",
+"a [NOUN] [NOUN] and a [NOUN] [NOUN]",
+"a new kids toy: the [NOUN] [NOUN]",
+"a new kids toy: the [NOUN]",
+"a new kids toy: a [NOUN] that can [VERB]",
+"a new kids toy: [NOUN] [NOUN]s",
+"a new kids toy: [ADJ] [NOUN]s",
+"a new kids toy: [ADJ] [ADJ] [NOUN]s",
+"a person who thinks their crush would like them more if they were [ADJ]",
+"a person who thinks their crush would like them more if they were more [ADJ]",
+"a person who thinks their crush would like them more if they had a [NOUN]",
+"a person who thinks their crush would like them more if they had a [NOUN] [NOUN]",
+"a person who thinks their crush would like them more if they had a [ADJ] [NOUN]",
+"a [NOUN] cartel",
+"a [ADJ] [NOUN] cartel",
+"a [NOUN] [NOUN] cartel",
+"a [NOUN] cult",
+"a [ADJ] [NOUN] cult",
+"a [NOUN] [NOUN] cult",
+"illegal [NOUN]-fighting",
+"a [NOUN] doctor",
+"a [ADJ] [NOUN] doctor",
+"a [NOUN] [NOUN] doctor",
+"a person who likes to [VERB] [NOUN]s in secret",
+"a person who likes to [VERB] [ADJ] [NOUN]s in secret",
+"a person who likes to [VERB] [NOUN] [NOUN]s in secret",
+"a person's secret obsession with [NOUN]s getting out",
+"a person's secret obsession with [NOUN] [NOUN]s getting out",
+"a person's secret obsession with [ADJ] [NOUN]s getting out",
+"a world taken over by [NOUN]s",
+"a world taken over by [ADJ] [NOUN]s",
+"a world taken over by [NOUN] [NOUN]s",
+"a person who is obsessed with eating [NOUN]s",
+"a person who is obsessed with eating [ADJ] [NOUN]s",
+"a person who is obsessed with eating [NOUN] [NOUN]s",
+"a person who loves to [VERB]",
+"a person who hates to [VERB]",
+"a new movie: [ADJ] [NOUN]s",
+"a new movie: [NOUN] [NOUN]s",
+"a new movie: The [NOUN] and the [NOUN]",
+"a new movie: The [ADJ] [NOUN]",
+"a new movie: The [NOUN] [NOUN]",
+"a new TV show: [ADJ] [NOUN]s",
+"a new TV show: [NOUN] [NOUN]s",
+"a new TV show: The [NOUN] and the [NOUN]",
+"a new TV show: The [ADJ] and the [ADJ]",
+"a new TV show: The [ADJ] [NOUN]",
+"a new TV show: The [NOUN] [NOUN]",
+"a planet where everything is [ADJ]",
+"a planet where everything is [ADJ] and [ADJ]",
+"a planet populated by [NOUN]s",
+"a planet populated by [ADJ] [NOUN]s",
+"a planet populated by [ADJ] [ADJ] [NOUN]s",
+"a planet populated by [NOUN] [NOUN]s",
+"a normal person finds themselves in \"[ADJ] world\"",
+"a normal person finds themselves in \"[NOUN] world\"",
+"a normal person finds themselves in \"[ADJ] [ADJ] world\"",
+"a normal person finds themselves in \"[ADJ] [NOUN] world\"",
+"a normal person finds themselves in \"[ADJ] [ADJ] [NOUN] world\"",
+"a normal person finds themselves in \"[NOUN] [NOUN] world\"",
+"struggling to [VERB]",
+"struggling to [VERB] a [NOUN]",
+"struggling to [VERB] a [ADJ] [NOUN]",
+"struggling to [VERB] a [NOUN] [NOUN]",
+"struggling to [VERB] a [ADJ] [ADJ] [NOUN]",
+"a normal person finds themselves amongst \"[ADJ] people\"",
+"a normal person finds themselves amongst \"[NOUN] people\"",
+"a normal person finds themselves amongst \"[ADJ] [ADJ] people\"",
+"a normal person finds themselves amongst \"[ADJ] [NOUN] people\"",
+"a normal person finds themselves amongst \"[ADJ] [ADJ] [NOUN] people\"",
+"a normal person finds themselves amongst \"[NOUN] [NOUN] people\"",
+"a character defined by these words: [ADJ], [NOUN], [ADJ]",
+"a character defined by these words: [ADJ], [ADJ], [ADJ]",
+"a character defined by these words: [NOUN], [NOUN], [NOUN]",
+"a character defined by these words: [ADJ], [NOUN], [NOUN]",
+"a character defined by these words: [ADJ], [ADJ], [NOUN]",
+"a character defined by these words: [NOUN], [ADJ], [ADJ]",
+"a character defined by these words: [NOUN], [NOUN], [ADJ]",
+"a character defined by these words: [NOUN], [ADJ], [NOUN]"
+];
+
+//array shuffler + duplicate remover, higher performance
+function shuffle2(arr) {
+	for(var i=0,len=arr.length,arr2=arr.splice(0),pin=0;i<len;i++) {
+		pin = (Math.random()*arr2.length)>>0;
+		if(arr.indexOf(arr2[pin]) == -1) {
+			arr.push(arr2.splice(pin,1)[0]);
+		} else { arr2.splice(pin,1); }
+	}
+}
+
+//remove duplicates and shuffle each array
+shuffle2(nouns);
+shuffle2(adjs);
+shuffle2(verbs);
+shuffle2(temps);
+
+//show stats
+
+document.getElementById("mainText").innerHTML = nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br>This generator also works offline, just<br>download the HTML page.<br><br>last improved 9/21/19";
+
+//the premise generator
+
+function getPremise() {
+	var premise = temps[(Math.random()*temps.length)>>0];
+	
+	var adjsCopy = adjs.slice(0);
+	var nounsCopy = nouns.slice(0);
+	var verbsCopy = verbs.slice(0);
+	
+	var adjPicks = [];
+	var nounPicks = [];
+	var verbPicks = [];
+	
+	for(var i=0;i<4;i++) {
+		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
+		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
+		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
+	}
+	
+	for(var i=0;i<4;i++) {
+		premise = premise.replace("[ADJ]",adjPicks[i]);
+		premise = premise.replace("[NOUN]",nounPicks[i]);
+		premise = premise.replace("[VERB]",verbPicks[i]);
+	}
+	
+	return premise;
+}
+
+//the "3 random words" function (all-words array defined later)
+
+function getWords() {
+	var wordsCopy = allWords.slice(0);
+	var wordPicks = [];
+	for(var i=0;i<3;i++) {
+		wordPicks.push(wordsCopy.splice((Math.random()*wordsCopy.length)>>0,1)[0]);
+	}
+	return wordPicks[0]+" + "+wordPicks[1]+" + "+wordPicks[2];
+}
+
+//web interface code
+
+var pressedYet = false;
+
+function chkIt(num) {
+	if(!document.getElementById("c"+num).checked) {
+		document.getElementById("c"+num).checked = true;
+	} else {
+		document.getElementById("c"+num).checked = false;
+	}
+}
+
+function genButton() {
+	if(!pressedYet) {
+		document.getElementById("mainText").innerHTML = "<input type=\"checkbox\" id=\"c1\"><\/input> <span id=\"p1\">NULL<\/span><br><input type=\"checkbox\" id=\"c2\"><\/input> <span id=\"p2\">NULL<\/span><br><input type=\"checkbox\" id=\"c3\"><\/input> <span id=\"p3\">NULL<\/span><br><input type=\"checkbox\" id=\"c4\"><\/input> <span id=\"p4\">NULL<\/span><br><input type=\"checkbox\" id=\"c5\"><\/input> <span id=\"p5\">NULL<\/span><br><input type=\"checkbox\" id=\"c6\"><\/input> <span id=\"p6\">NULL<\/span><br><input type=\"checkbox\" id=\"c7\"><\/input> <span id=\"p7\">NULL<\/span><br><input type=\"checkbox\" id=\"c8\"><\/input> <span id=\"p8\">NULL<\/span><br><input type=\"checkbox\" id=\"c9\"><\/input> <span id=\"p9\">NULL<\/span><br><input type=\"checkbox\" id=\"c10\"><\/input> <span id=\"p10\">NULL<\/span><br><input type=\"checkbox\" id=\"c11\"><\/input> <span id=\"p11\">NULL<\/span><br><input type=\"checkbox\" id=\"c12\"><\/input> <span id=\"p12\">NULL<\/span><br><input type=\"checkbox\" id=\"c13\"><\/input> <span id=\"p13\">NULL<\/span><br><input type=\"checkbox\" id=\"c14\"><\/input> <span id=\"p14\">NULL<\/span><br><input type=\"checkbox\" id=\"c15\"><\/input> <span id=\"p15\">NULL<\/span>";
+		updateList();
+		pressedYet = true;
+	} else {
+		updateList();
+	}
+}
+
+function updateList() {
+	for(var i=1;i<=15;i++) {
+		if(!document.getElementById("c"+i).checked) {
+			if(!document.getElementById("twCheck").checked) {
+				document.getElementById("p"+i).innerHTML = getPremise();
+			} else {
+				document.getElementById("p"+i).innerHTML = getWords();
+			}
+		}
+		if(!pressedYet) {
+			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
+		}
+	}
+}
+
+function clearChecks() {
+	if(pressedYet) {
+		for(var i=1;i<=15;i++) {
+			document.getElementById("c"+i).checked = false;
+		}
+	}
+}
+
+//tap to check/uncheck 3 words box function
+
+function chkTw() {
+	if(!document.getElementById("twCheck").checked) {
+		document.getElementById("twCheck").checked = true;
+	} else {
+		document.getElementById("twCheck").checked = false;
+	}
+}
+
+//make combined word array, remove same words + shuffle
+
+var allWords = nouns.concat(adjs);
+shuffle2(allWords);
+
+//end of code
+</script>
+</body>
+</html>
