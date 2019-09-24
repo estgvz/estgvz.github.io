@@ -469,21 +469,7 @@ function chkTw() {
 var allWords = nouns.concat(adjs);
 shuffle2(allWords);
 
-/*the old version of updateList, just in case i change it back
-function updateList() {
-	for(var i=1;i<=15;i++) {
-		if(!document.getElementById("c"+i).checked) {
-			if(!document.getElementById("twCheck").checked) {
-				document.getElementById("p"+i).innerHTML = getPremise();
-			} else {
-				document.getElementById("p"+i).innerHTML = getWords();
-			}
-		}
-		if(!pressedYet) {
-			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
-		}
-	}
-}*/
+//end of code
 </script>
 </body>
 </html>
