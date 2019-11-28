@@ -6,7 +6,7 @@
   <title>Story Premise Generator</title>
 </head>
 <body>
-  Story Premise Generator v1.0
+  Story Premise Generator v1.0 (r1)
   <br>
   By Estevan Galvez - 2019
   <br>
@@ -24,7 +24,7 @@
   <br><br>
   <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
 <script>
-//Story Premise Generator v1.0 r0
+//Story Premise Generator v1.0 r1
 //by Estevan Galvez, 2019
 
 //uncheck "3 words" box on load
@@ -91,7 +91,7 @@ var temps1 = [
 "(NAME) has no friends",
 "(NAME) is really depressed",
 "(NAME) has lost the joy for life",
-"(NAME) is living life on a boring loop",
+"(NAME) lives a monotonous life",
 "(NAME) is really lonely",
 "(NAME) is all alone",
 "(NAME) is in an unfulfilling relationship",
@@ -122,10 +122,31 @@ var temps1 = [
 "(NAME)'s dream is to be popular",
 "(NAME) is adored by all",
 "(NAME) might as well be invisible",
-"(NAME) is super unpopular"
+"(NAME) is super unpopular",
+"(NAME) is defined by these words: [ADJ], [NOUN], [ADJ]",
+"(NAME) is defined by these words: [ADJ], [ADJ], [ADJ]",
+"(NAME) is defined by these words: [NOUN], [NOUN], [NOUN]",
+"(NAME) is defined by these words: [ADJ], [NOUN], [NOUN]",
+"(NAME) is defined by these words: [ADJ], [ADJ], [NOUN]",
+"(NAME) is defined by these words: [NOUN], [ADJ], [ADJ]",
+"(NAME) is defined by these words: [NOUN], [NOUN], [ADJ]",
+"(NAME) is defined by these words: [NOUN], [ADJ], [NOUN]",
+"(NAME) is a \"[ADJ] person\"",
+"(NAME) is a \"[NOUN] person\"",
+"(NAME) is a \"[ADJ] [ADJ] person\"",
+"(NAME) is a \"[ADJ] [NOUN] person\"",
+"(NAME) is a \"[ADJ] [ADJ] [NOUN] person\"",
+"(NAME) is a \"[NOUN] [NOUN] person\"",
+"(NAME) is a [ADJ] person",
+"(NAME) is a [NOUN] person",
+"(NAME) is a [ADJ] [ADJ] person",
+"(NAME) is a [ADJ] [NOUN] person",
+"(NAME) is a [ADJ] [ADJ] [NOUN] person",
+"(NAME) is a [NOUN] [NOUN] person"
 ];
 
 var temps2 = [
+"they come across a [NOUN]",
 "they come across a magic [NOUN]",
 "they find a mysterious [NOUN]",
 "they discover a mysterious [NOUN]",
@@ -152,9 +173,22 @@ var temps2 = [
 "they meet someone who loves [NOUN] [NOUN]s",
 "they meet someone who loves to [VERB] [NOUN]s",
 "they meet someone who loves to [VERB] [ADJ] [NOUN]s",
+"they meet a new love interest who loves [NOUN]s",
+"they meet a new love interest who loves [ADJ] [NOUN]s",
+"they meet a new love interest who loves [NOUN] [NOUN]s",
+"they meet a new love interest who loves to [VERB] [NOUN]s",
+"they meet a new love interest who loves to [VERB] [ADJ] [NOUN]s",
+"they meet someone who hates [NOUN]s",
+"they meet someone who hates [ADJ] [NOUN]s",
+"they meet someone who hates [NOUN] [NOUN]s",
+"they meet a new love interest who hates [NOUN]s",
+"they meet a new love interest who hates [ADJ] [NOUN]s",
+"they meet a new love interest who hates [NOUN] [NOUN]s",
 "they meet a mysterious stranger who tells them about [NOUN] [NOUN]s",
 "they meet a mysterious stranger who tells them about [ADJ] [NOUN]s",
 "they meet a mysterious stranger who tells them the truth about [NOUN]s",
+"they meet a mysterious stranger who tells them the truth about [ADJ] [NOUN]s",
+"they meet a mysterious stranger who tells them the truth about [NOUN] [NOUN]s",
 "[NOUN]s descend on the area",
 "[ADJ] [NOUN]s descend on the area",
 "[NOUN] [NOUN]s descend on the area",
@@ -163,6 +197,8 @@ var temps2 = [
 "they discover a conspiracy regarding [NOUN] [NOUN]s",
 "they discover someone's infidelity",
 "they commit infidelity",
+"they betray someone",
+"someone betrays them",
 "someone steals their [NOUN]",
 "someone steals their [ADJ] [NOUN]",
 "someone steals their [NOUN] [NOUN]",
@@ -174,7 +210,45 @@ var temps2 = [
 "they see a [ADJ] [NOUN] [VERB] a [NOUN]",
 "they see a [NOUN] [VERB] a [ADJ] [NOUN]",
 "they see a [NOUN] [NOUN] [VERB] a [NOUN]",
-"they see a [NOUN] [NOUN] [VERB] a [NOUN] [NOUN]"
+"they see a [NOUN] [NOUN] [VERB] a [NOUN] [NOUN]",
+"they're told they must find a [NOUN]",
+"they're told they must find a [ADJ] [NOUN]",
+"they're told they must find a [NOUN] [NOUN]",
+"someone important to them is abducted",
+"someone important to them goes missing",
+"someone important to them dies",
+"someone important to them is murdered",
+"they realize they really want to find a [NOUN]",
+"they realize they really want to find a [ADJ] [NOUN]",
+"they realize they really want to find a [NOUN] [NOUN]",
+"they realize they really want to find [NOUN]s",
+"they realize they really want to find [ADJ] [NOUN]s",
+"they realize they really want to find [NOUN] [NOUN]s",
+"they find out they're the chosen one(s)",
+"they discover they're the chosen one(s)",
+"they discover time travel",
+"they accidentally travel through time",
+"they travel through time",
+"they find a time machine",
+"they find a spaceship",
+"they meet time travelers",
+"they meet aliens",
+"they find aliens",
+"they find a UFO",
+"they accidentally invent time travel",
+"they accidentally discover time travel",
+"they fall through a hole",
+"they accidentally kill someone",
+"they get shot",
+"they die and become a ghost",
+"they have a near-death experience",
+"they find a long-lost relative",
+"they meet a long-lost relative",
+"they turn into a [NOUN]",
+"they turn into a [ADJ] [NOUN]",
+"they turn into a [NOUN] [NOUN]",
+"they commit arson",
+"they accidentally commmit arson"
 ];
 
 //array shuffler + duplicate remover, higher performance
@@ -195,12 +269,23 @@ shuffle2(adjs);
 shuffle2(verbs);
 
 //show stats
-document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps2.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br>last improved 11/26/19";
+document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br>last improved 11/27/19";
 
 //the premise generator
 
 function getPremise() {
-	var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
+	var diceRoll = Math.round(Math.random()*10);
+	
+	if(diceRoll < 8) {
+		var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
+	} else {
+		var p1 = (Math.random()*temps1.length)>>0;
+		var p2 = (Math.random()*temps1.length)>>0;
+		while(p2 == p1) {
+			p2 = (Math.random()*temps1.length)>>0;
+		}
+		var premise = temps1[p1]+", and "+temps1[p2]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
+	}
 	
 	var adjsCopy = adjs.slice(0);
 	var nounsCopy = nouns.slice(0);
@@ -210,19 +295,19 @@ function getPremise() {
 	var nounPicks = [];
 	var verbPicks = [];
 	
-	for(var i=0;i<6;i++) {
+	for(var i=0;i<12;i++) {
 		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
 		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
 		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
 	}
 	
-	for(var i=0;i<6;i++) {
+	for(var i=0;i<12;i++) {
 		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
 		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
 		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
 	}
 	
-	return premise.charAt(0).toUpperCase()+premise.slice(1)+" and it changes everything.";
+	return premise+" and it changes everything.";
 }
 
 //the "3 random words" function (all-words array defined later)
