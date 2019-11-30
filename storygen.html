@@ -276,7 +276,7 @@ document.getElementById("mainText").innerHTML = "When you press the button, pres
 function getPremise() {
 	var diceRoll = Math.round(Math.random()*10);
 	
-	if(diceRoll < 8) {
+	if(diceRoll <= 8) {
 		var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
 	} else {
 		var p1 = (Math.random()*temps1.length)>>0;
