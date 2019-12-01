@@ -6,14 +6,14 @@
   <title>Story Premise Generator</title>
 </head>
 <body>
-  Story Premise Generator v1.0 (r1)
+  Story Premise Generator v1.0 (r2)
   <br>
   By Estevan Galvez - 2019
   <br>
   A premise generator tool for stories,
   <br>or anything really. Ignore grammar problems.
   <br>
-  Based on my Sketch Premise Generator.
+  Based on my <a target="_self" href="https://estgvz.github.io/spg.html">Sketch Premise Generator</a>.
   <br>
   Check the box next to a premise (or just tap
   <br>on the premise itself) to preserve it.
@@ -24,7 +24,7 @@
   <br><br>
   <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
 <script>
-//Story Premise Generator v1.0 r1
+//Story Premise Generator v1.0 r2
 //by Estevan Galvez, 2019
 
 //uncheck "3 words" box on load
@@ -101,7 +101,7 @@ var temps1 = [
 "(NAME) has just been dumped",
 "(NAME) has just left their cheating partner",
 "(NAME) is deathly afraid of [NOUN]s",
-"(NAME) is deathly afraid of [NOUN]",
+"(NAME) is deathly afraid of [NOUN] [NOUN]s",
 "(NAME) is deathly afraid of [ADJ] [NOUN]s",
 "(NAME) has always wanted to [VERB]",
 "(NAME) has always wanted to [VERB] [NOUN]s",
@@ -142,7 +142,57 @@ var temps1 = [
 "(NAME) is a [ADJ] [ADJ] person",
 "(NAME) is a [ADJ] [NOUN] person",
 "(NAME) is a [ADJ] [ADJ] [NOUN] person",
-"(NAME) is a [NOUN] [NOUN] person"
+"(NAME) is a [NOUN] [NOUN] person",
+"(NAME) is a master of [VERB]ing",
+"(NAME) is a master of [VERB]ing [NOUN]s",
+"(NAME) is a master of [VERB]ing [ADJ] [NOUN]s",
+"(NAME) is a master of [VERB]ing [NOUN] [NOUN]s",
+"(NAME) is really good at being [ADJ]",
+"(NAME) is really bad at being [ADJ]",
+"(NAME) lacks the ability to be [ADJ]",
+"(NAME) struggles with being [ADJ]",
+"(NAME) is a master of being [ADJ]",
+"(NAME) has lost everyone close to them",
+"(NAME) is a jerk",
+"(NAME) is always chipper and upbeat",
+"(NAME) is [ADJ]",
+"(NAME) is really [ADJ]",
+"(NAME) is extremely [ADJ]",
+"(NAME) is afraid of [NOUN]s",
+"(NAME) is deathly afraid of [NOUN]s",
+"(NAME) is afraid of [ADJ] [NOUN]s",
+"(NAME) is deathly afraid of [ADJ] [NOUN]s",
+"(NAME) is afraid of [NOUN] [NOUN]s",
+"(NAME) is deathly afraid of [NOUN] [NOUN]s",
+"(NAME) is very self-centered",
+"(NAME) is very [ADJ]",
+"(NAME) lacks confidence",
+"(NAME) hates themselves",
+"(NAME) lives an awful life",
+"(NAME) lives a wealthy, comfortable life",
+"(NAME) is poor",
+"(NAME) is rich",
+"(NAME) is incredibly average",
+"(NAME) is an outcast",
+"(NAME) is a complete nobody",
+"(NAME) is extremely socially awkward",
+"(NAME) has no friends",
+"(NAME) is the coolest person in town",
+"(NAME) is incredibly charming and well-liked",
+"(NAME) is grumpy and mean",
+"(NAME) is antisocial",
+"(NAME) has no social skills whatsoever",
+"(NAME) is unlucky in love",
+"(NAME) is single and not happy about it",
+"(NAME) is a criminal",
+"(NAME) is a murderer",
+"(NAME) is single and looking",
+"(NAME) is stubborn and rude",
+"(NAME) has never accomplished anything",
+"(NAME) is addicted to video games",
+"(NAME) is a struggling artist",
+"(NAME) works a soulless corporate job",
+"(NAME) is broke as can be"
 ];
 
 var temps2 = [
@@ -150,6 +200,12 @@ var temps2 = [
 "they come across a magic [NOUN]",
 "they find a mysterious [NOUN]",
 "they discover a mysterious [NOUN]",
+"they find a mysterious [ADJ] [NOUN]",
+"they discover a mysterious [ADJ] [NOUN]",
+"they find a mysterious [NOUN] [NOUN]",
+"they discover a mysterious [NOUN] [NOUN]",
+"they find a [ADJ] [NOUN]",
+"they find a [NOUN] [NOUN]",
 "they're abducted by [NOUN]s",
 "they're abducted by [ADJ] [NOUN]s",
 "they're kidnapped by [NOUN]s",
@@ -248,7 +304,26 @@ var temps2 = [
 "they turn into a [ADJ] [NOUN]",
 "they turn into a [NOUN] [NOUN]",
 "they commit arson",
-"they accidentally commmit arson"
+"they accidentally commmit arson",
+"they accidentally shoot someone",
+"they accidentally run someone over",
+"[NOUN]s invade",
+"[NOUN] [NOUN]s invade",
+"[ADJ] [NOUN]s invade",
+"they're visited by a [NOUN]",
+"they're visited by a [ADJ] [NOUN]",
+"they're visited by a [NOUN] [NOUN]",
+"their [NOUN] dies",
+"their [ADJ] [NOUN] dies",
+"their [NOUN] [NOUN] dies",
+"they lose their [NOUN]",
+"they lose their [ADJ] [NOUN]",
+"they lose their [NOUN] [NOUN]",
+"they win a contest",
+"they lose a contest",
+"they're attacked by a [NOUN]",
+"they're attacked by a [ADJ] [NOUN]",
+"they're attacked by a [NOUN] [NOUN]"
 ];
 
 //array shuffler + duplicate remover, higher performance
@@ -284,7 +359,7 @@ function getPremise() {
 		while(p2 == p1) {
 			p2 = (Math.random()*temps1.length)>>0;
 		}
-		var premise = temps1[p1]+", and "+temps1[p2]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
+		var premise = temps1[p1]+", and (NAME 2)"+temps1[p2].slice(6)+". One day, "+temps2[(Math.random()*temps2.length)>>0];
 	}
 	
 	var adjsCopy = adjs.slice(0);
