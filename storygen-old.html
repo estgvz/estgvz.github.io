@@ -6,9 +6,9 @@
   <title>Story Premise Generator</title>
 </head>
 <body>
-  Story Premise Generator v1.1
+  Story Premise Generator v1.0 (r2)
   <br>
-  By Estevan Galvez - 2020
+  By Estevan Galvez - 2019
   <br>
   A premise generator tool for stories,
   <br>or anything really. Ignore grammar problems.
@@ -18,16 +18,21 @@
   Check the box next to a premise (or just tap
   <br>on the premise itself) to preserve it.
   <br>
-  <a href="javascript:newIIs();">Re-Generate Inciting Incidents Only</a>
+  <input type ="checkbox" id="twCheck" name="twCheck"></input> <span id="twText" onclick="chkTw();">Instead of a premise, get 3 random words</span>
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="javascript:clearChecks();">uncheck all boxes below</a>
   <br><br>
   <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
 <script>
-//Story Premise Generator v1.1
-//by Estevan Galvez, 2020
+//Story Premise Generator v1.0 r2
+//by Estevan Galvez, 2019
+
+//uncheck "3 words" box on load
+document.getElementById("twCheck").checked = false;
 
 //data setup
 
-//as of X the 4 main arrays are no longer fully sorted or free of duplicates
+//as of 1.2 the 4 main arrays are no longer fully sorted or free of duplicates
 //cause it took too long to add new entries and i'm impatient
 //duplicates are removed at runtime
 
@@ -340,7 +345,7 @@ shuffle2(adjs);
 shuffle2(verbs);
 
 //show stats
-document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
+document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br>last improved 11/27/19";
 
 //the premise generator
 
@@ -381,6 +386,17 @@ function getPremise() {
 	return premise+" and it changes everything.";
 }
 
+//the "3 random words" function (all-words array defined later)
+
+function getWords() {
+	var wordsCopy = allWords.slice(0);
+	var wordPicks = [];
+	for(var i=0;i<3;i++) {
+		wordPicks.push(wordsCopy.splice((Math.random()*wordsCopy.length)>>0,1)[0].toUpperCase());
+	}
+	return wordPicks[0]+" + "+wordPicks[1]+" + "+wordPicks[2]+".";
+}
+
 //web interface code
 
 var pressedYet = false;
@@ -417,29 +433,16 @@ function flushSaved() {
 	}
 }
 
-var premises = ["null first element"];
-var part1s = ["null first element"];
-
 function updateList() {
 	for(var i=1;i<=15;i++) {
-		premises[i] = getPremise();
-		document.getElementById("p"+i).innerHTML = premises[i];
+		if(!document.getElementById("twCheck").checked) {
+			document.getElementById("p"+i).innerHTML = getPremise();
+		} else {
+			document.getElementById("p"+i).innerHTML = getWords();
+		}
 		if(!pressedYet) {
 			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
 		}
-	}
-}
-
-var newPrem = "";
-var newII = "";
-
-function newIIs() {
-	for(var i=1;i<=15;i++) {
-		part1s[i] = document.getElementById("p"+i).innerHTML.split(" One day, ")[0];
-		newPrem = getPremise();
-		newII = "One day, "+newPrem.split(" One day, ")[1];
-		premises[i] = part1s[i]+" "+newII;
-		document.getElementById("p"+i).innerHTML = premises[i];
 	}
 }
 
@@ -455,6 +458,18 @@ function clearChecks() {
 		}
 	}
 }
+
+function chkTw() {
+	if(!document.getElementById("twCheck").checked) {
+		document.getElementById("twCheck").checked = true;
+	} else {
+		document.getElementById("twCheck").checked = false;
+	}
+}
+
+//make combined word array, remove same words + shuffle
+var allWords = nouns.concat(adjs);
+shuffle2(allWords);
 </script>
 </body>
 </html>
