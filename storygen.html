@@ -19,15 +19,24 @@
   <br>on the premise itself) to preserve it.
   <br>
   <a href="javascript:newIIs();">Re-Generate Inciting Incidents Only</a>
+  <br>
+  <a href="javascript:newSPs();">Re-Generate Starts Only</a>
+  <br>
+  <a href="javascript:justSPs();">Just Generate Starts</a>
+  <br>
+  <a href="javascript:justIIs();">Just Generate Inciting Incidents</a>
   <br><br>
-  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
+  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button>
+  <br><br>
+  <a href="javascript:clearChecks();">uncheck all boxes below</a>
+  <p id="mainText">Text will go here.</p><p id="saveText"></p>
 <script>
 //Story Premise Generator v1.1
 //by Estevan Galvez, 2020
 
 //data setup
 
-//as of X the 4 main arrays are no longer fully sorted or free of duplicates
+//as of 1.0 the 4 main arrays are no longer fully sorted or free of duplicates
 //cause it took too long to add new entries and i'm impatient
 //duplicates are removed at runtime
 
@@ -300,7 +309,7 @@ var temps2 = [
 "they turn into a [ADJ] [NOUN]",
 "they turn into a [NOUN] [NOUN]",
 "they commit arson",
-"they accidentally commmit arson",
+"they accidentally commit arson",
 "they accidentally shoot someone",
 "they accidentally run someone over",
 "[NOUN]s invade",
@@ -417,8 +426,9 @@ function flushSaved() {
 	}
 }
 
-var premises = ["null first element"];
-var part1s = ["null first element"];
+var premises = ["zero index unused"];
+var part1s = ["zero index unused"];
+var part2s = ["zero index unused"];
 
 function updateList() {
 	for(var i=1;i<=15;i++) {
@@ -432,14 +442,43 @@ function updateList() {
 
 var newPrem = "";
 var newII = "";
+var newSP = "";
 
 function newIIs() {
 	for(var i=1;i<=15;i++) {
-		part1s[i] = document.getElementById("p"+i).innerHTML.split(" One day, ")[0];
+		part1s[i] = premises[i].split(" One day, ")[0];
 		newPrem = getPremise();
 		newII = "One day, "+newPrem.split(" One day, ")[1];
 		premises[i] = part1s[i]+" "+newII;
 		document.getElementById("p"+i).innerHTML = premises[i];
+	}
+}
+
+function newSPs() {
+	for(var i=1;i<=15;i++) {
+		part2s[i] = "One day, "+premises[i].split(" One day, ")[1];
+		newPrem = getPremise();
+		newSP = newPrem.split(" One day, ")[0];
+		premises[i] = newSP+" "+part2s[i];
+		document.getElementById("p"+i).innerHTML = premises[i];
+	}
+}
+
+function justSPs() {
+	for(var i=1;i<=15;i++) {
+		newPrem = getPremise().split(" One day, ")[0];
+		premises[i] = newPrem;
+		document.getElementById("p"+i).innerHTML = premises[i];
+		premises[i] = newPrem+" One day, (blank).";
+	}
+}
+
+function justIIs() {
+	for(var i=1;i<=15;i++) {
+		newPrem = "One day, "+getPremise().split(" One day, ")[1];
+		premises[i] = newPrem;
+		document.getElementById("p"+i).innerHTML = premises[i];
+		premises[i] = "(blank). "+newPrem;
 	}
 }
 
