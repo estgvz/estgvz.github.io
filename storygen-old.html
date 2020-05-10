@@ -6,9 +6,9 @@
   <title>Story Premise Generator</title>
 </head>
 <body>
-  Story Premise Generator v1.0 (r2)
+  Story Premise Generator v1.1
   <br>
-  By Estevan Galvez - 2019
+  By Estevan Galvez - 2020
   <br>
   A premise generator tool for stories,
   <br>or anything really. Ignore grammar problems.
@@ -18,21 +18,25 @@
   Check the box next to a premise (or just tap
   <br>on the premise itself) to preserve it.
   <br>
-  <input type ="checkbox" id="twCheck" name="twCheck"></input> <span id="twText" onclick="chkTw();">Instead of a premise, get 3 random words</span>
-  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="javascript:clearChecks();">uncheck all boxes below</a>
+  <a href="javascript:newIIs();">Re-Generate Inciting Incidents Only</a>
+  <br>
+  <a href="javascript:newSPs();">Re-Generate Starts Only</a>
+  <br>
+  <a href="javascript:justSPs();">Just Generate Starts</a>
+  <br>
+  <a href="javascript:justIIs();">Just Generate Inciting Incidents</a>
   <br><br>
-  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
+  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button>
+  <br><br>
+  <a href="javascript:clearChecks();">uncheck all boxes below</a>
+  <p id="mainText">Text will go here.</p><p id="saveText"></p>
 <script>
-//Story Premise Generator v1.0 r2
-//by Estevan Galvez, 2019
-
-//uncheck "3 words" box on load
-document.getElementById("twCheck").checked = false;
+//Story Premise Generator v1.1
+//by Estevan Galvez, 2020
 
 //data setup
 
-//as of 1.2 the 4 main arrays are no longer fully sorted or free of duplicates
+//as of 1.0 the 4 main arrays are no longer fully sorted or free of duplicates
 //cause it took too long to add new entries and i'm impatient
 //duplicates are removed at runtime
 
@@ -305,7 +309,7 @@ var temps2 = [
 "they turn into a [ADJ] [NOUN]",
 "they turn into a [NOUN] [NOUN]",
 "they commit arson",
-"they accidentally commmit arson",
+"they accidentally commit arson",
 "they accidentally shoot someone",
 "they accidentally run someone over",
 "[NOUN]s invade",
@@ -345,7 +349,7 @@ shuffle2(adjs);
 shuffle2(verbs);
 
 //show stats
-document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br>last improved 11/27/19";
+document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
 
 //the premise generator
 
@@ -386,17 +390,6 @@ function getPremise() {
 	return premise+" and it changes everything.";
 }
 
-//the "3 random words" function (all-words array defined later)
-
-function getWords() {
-	var wordsCopy = allWords.slice(0);
-	var wordPicks = [];
-	for(var i=0;i<3;i++) {
-		wordPicks.push(wordsCopy.splice((Math.random()*wordsCopy.length)>>0,1)[0].toUpperCase());
-	}
-	return wordPicks[0]+" + "+wordPicks[1]+" + "+wordPicks[2]+".";
-}
-
 //web interface code
 
 var pressedYet = false;
@@ -433,16 +426,59 @@ function flushSaved() {
 	}
 }
 
+var premises = ["zero index unused"];
+var part1s = ["zero index unused"];
+var part2s = ["zero index unused"];
+
 function updateList() {
 	for(var i=1;i<=15;i++) {
-		if(!document.getElementById("twCheck").checked) {
-			document.getElementById("p"+i).innerHTML = getPremise();
-		} else {
-			document.getElementById("p"+i).innerHTML = getWords();
-		}
+		premises[i] = getPremise();
+		document.getElementById("p"+i).innerHTML = premises[i];
 		if(!pressedYet) {
 			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
 		}
+	}
+}
+
+var newPrem = "";
+var newII = "";
+var newSP = "";
+
+function newIIs() {
+	for(var i=1;i<=15;i++) {
+		part1s[i] = premises[i].split(" One day, ")[0];
+		newPrem = getPremise();
+		newII = "One day, "+newPrem.split(" One day, ")[1];
+		premises[i] = part1s[i]+" "+newII;
+		document.getElementById("p"+i).innerHTML = premises[i];
+	}
+}
+
+function newSPs() {
+	for(var i=1;i<=15;i++) {
+		part2s[i] = "One day, "+premises[i].split(" One day, ")[1];
+		newPrem = getPremise();
+		newSP = newPrem.split(" One day, ")[0];
+		premises[i] = newSP+" "+part2s[i];
+		document.getElementById("p"+i).innerHTML = premises[i];
+	}
+}
+
+function justSPs() {
+	for(var i=1;i<=15;i++) {
+		newPrem = getPremise().split(" One day, ")[0];
+		premises[i] = newPrem;
+		document.getElementById("p"+i).innerHTML = premises[i];
+		premises[i] = newPrem+" One day, (blank).";
+	}
+}
+
+function justIIs() {
+	for(var i=1;i<=15;i++) {
+		newPrem = "One day, "+getPremise().split(" One day, ")[1];
+		premises[i] = newPrem;
+		document.getElementById("p"+i).innerHTML = premises[i];
+		premises[i] = "(blank). "+newPrem;
 	}
 }
 
@@ -458,18 +494,6 @@ function clearChecks() {
 		}
 	}
 }
-
-function chkTw() {
-	if(!document.getElementById("twCheck").checked) {
-		document.getElementById("twCheck").checked = true;
-	} else {
-		document.getElementById("twCheck").checked = false;
-	}
-}
-
-//make combined word array, remove same words + shuffle
-var allWords = nouns.concat(adjs);
-shuffle2(allWords);
 </script>
 </body>
 </html>
