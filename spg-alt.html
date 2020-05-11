@@ -400,10 +400,10 @@ function updateList() {
 		while(premsArray.indexOf(newPrem) !== -1) {
 			newPrem = getPremise();
 		}
-		premsArray.push(newPrem);
+		premsArray.unshift(newPrem);
 	}
 	while(premsArray.length > 30) {
-		premsArray.shift();
+		premsArray.pop();
 	}
 	premsString = premsArray.join("<br>");
 	document.getElementById("mainText").innerHTML = premsString;
