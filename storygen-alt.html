@@ -6,7 +6,7 @@
   <title>Story Premise Generator</title>
 </head>
 <body>
-  Story Premise Generator v1.2 ALT
+  Story Premise Generator v1.2
   <br>
   By Estevan Galvez - 2020
   <br>
@@ -348,18 +348,12 @@ document.getElementById("mainText").innerHTML = "NOTE: None of these are saved, 
 //the premise generator
 
 function getPremise() {
-	var diceRoll = Math.round(Math.random()*10);
-	
-	if(diceRoll > 8) {
-		var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
-	} else {
-		var p1 = (Math.random()*temps1.length)>>0;
-		var p2 = (Math.random()*temps1.length)>>0;
-		while(p2 == p1) {
-			p2 = (Math.random()*temps1.length)>>0;
-		}
-		var premise = temps1[p1]+", and (NAME 2)"+temps1[p2].slice(6)+". One day, "+temps2[(Math.random()*temps2.length)>>0];
+	var p1 = (Math.random()*temps1.length)>>0;
+	var p2 = (Math.random()*temps1.length)>>0;
+	while(p2 == p1) {
+		p2 = (Math.random()*temps1.length)>>0;
 	}
+	var premise = temps1[p1]+", and (NAME 2)"+temps1[p2].slice(6)+". One day, "+temps2[(Math.random()*temps2.length)>>0];
 	
 	var adjsCopy = adjs.slice(0);
 	var nounsCopy = nouns.slice(0);
@@ -391,7 +385,6 @@ var savedItems = [];
 var premsString = "";
 var newPrem = "";
 var targetBase = "";
-var targetII = "";
 
 function chkIt(num) {
 	if(!document.getElementById("c"+num).checked) {
