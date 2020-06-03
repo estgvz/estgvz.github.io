@@ -3,35 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Story Generator</title>
+  <title>Inciting Incident Generator (SG 1.2)</title>
 </head>
 <body>
-  Story Generator v1.1
+  Inciting Incident Generator
   <br>
   By Estevan Galvez - 2020
   <br>
   A premise generator tool for stories,
   <br>or anything really. Ignore grammar problems.
   <br>
-  Based on my <a target="_self" href="https://estgvz.github.io/spg.html">Sketch Premise Generator</a>.
+  Based on my <a target="_self" href="https://estgvz.github.io/storygen.html">Story Generator</a>.
   <br>
   Check the box next to a premise (or just tap
   <br>on the premise itself) to preserve it.
-  <br>
-  <a href="javascript:newIIs();">Re-Generate Inciting Incidents Only</a>
-  <br>
-  <a href="javascript:newSPs();">Re-Generate Starts Only</a>
-  <br>
-  <a href="javascript:justSPs();">Just Generate Starts</a>
-  <br>
-  <a href="javascript:justIIs();">Just Generate Inciting Incidents</a>
   <br><br>
   <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button>
   <br><br>
   <a href="javascript:clearChecks();">uncheck all boxes below</a>
   <p id="mainText">Text will go here.</p><p id="saveText"></p>
 <script>
-//Story Generator v1.1
+//Inciting Incident Generator (based on my Story Generator) v1.2
 //by Estevan Galvez, 2020
 
 //data setup
@@ -429,56 +421,17 @@ function flushSaved() {
 var premises = ["zero index unused"];
 var part1s = ["zero index unused"];
 var part2s = ["zero index unused"];
-
-function updateList() {
-	for(var i=1;i<=15;i++) {
-		premises[i] = getPremise();
-		document.getElementById("p"+i).innerHTML = premises[i];
-		if(!pressedYet) {
-			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
-		}
-	}
-}
-
 var newPrem = "";
 var newII = "";
 var newSP = "";
 
-function newIIs() {
-	for(var i=1;i<=15;i++) {
-		part1s[i] = premises[i].split(" One day, ")[0];
-		newPrem = getPremise();
-		newII = "One day, "+newPrem.split(" One day, ")[1];
-		premises[i] = part1s[i]+" "+newII;
-		document.getElementById("p"+i).innerHTML = premises[i];
-	}
-}
-
-function newSPs() {
-	for(var i=1;i<=15;i++) {
-		part2s[i] = "One day, "+premises[i].split(" One day, ")[1];
-		newPrem = getPremise();
-		newSP = newPrem.split(" One day, ")[0];
-		premises[i] = newSP+" "+part2s[i];
-		document.getElementById("p"+i).innerHTML = premises[i];
-	}
-}
-
-function justSPs() {
-	for(var i=1;i<=15;i++) {
-		newPrem = getPremise().split(" One day, ")[0];
-		premises[i] = newPrem;
-		document.getElementById("p"+i).innerHTML = premises[i];
-		premises[i] = newPrem+" One day, (blank).";
-	}
-}
-
-function justIIs() {
+function updateList() {
 	for(var i=1;i<=15;i++) {
 		newPrem = "One day, "+getPremise().split(" One day, ")[1];
-		premises[i] = newPrem;
-		document.getElementById("p"+i).innerHTML = premises[i];
-		premises[i] = "(blank). "+newPrem;
+		document.getElementById("p"+i).innerHTML = newPrem;
+		if(!pressedYet) {
+			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
+		}
 	}
 }
 

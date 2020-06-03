@@ -3,40 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Story Generator</title>
+  <title>Inciting Incident Generator 2 (SPG 1.2r7)</title>
 </head>
 <body>
-  Story Generator v1.1
+  Inciting Incident Generator 2
   <br>
   By Estevan Galvez - 2020
   <br>
-  A premise generator tool for stories,
+  A conflict generator tool for comedy, stories,
   <br>or anything really. Ignore grammar problems.
   <br>
-  Based on my <a target="_self" href="https://estgvz.github.io/spg.html">Sketch Premise Generator</a>.
+  It's just my <a target="_self" href="https://estgvz.github.io/spg.html">Sketch Premise Generator</a>.
   <br>
-  Check the box next to a premise (or just tap
-  <br>on the premise itself) to preserve it.
+  Check the box next to a conflict (or just tap
+  <br>on the conflict itself) to preserve it.
   <br>
-  <a href="javascript:newIIs();">Re-Generate Inciting Incidents Only</a>
-  <br>
-  <a href="javascript:newSPs();">Re-Generate Starts Only</a>
-  <br>
-  <a href="javascript:justSPs();">Just Generate Starts</a>
-  <br>
-  <a href="javascript:justIIs();">Just Generate Inciting Incidents</a>
-  <br><br>
-  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button>
-  <br><br>
+  <input type ="checkbox" id="twCheck" name="twCheck"></input> <span id="twText" onclick="chkTw();">Instead of a conflict, get 3 random words</span>
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="javascript:clearChecks();">uncheck all boxes below</a>
-  <p id="mainText">Text will go here.</p><p id="saveText"></p>
+  <br><br>
+  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new conflicts<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
 <script>
-//Story Generator v1.1
-//by Estevan Galvez, 2020
+//Sketch Premise Generator (aka SketchPremiseGen) v1.2 (r7) code I.I. VERSION
+//by Estevan Galvez, 2019-2020
+
+//uncheck "3 words" box on load
+document.getElementById("twCheck").checked = false;
 
 //data setup
 
-//as of 1.0 the 4 main arrays are no longer fully sorted or free of duplicates
+//as of 1.2 the 4 main arrays are no longer fully sorted or free of duplicates
 //cause it took too long to add new entries and i'm impatient
 //duplicates are removed at runtime
 
@@ -60,275 +56,285 @@ var verbs = [
 
 //templates
 
-var temps = ["OLD ARRAY DO NOT USE"];
-
-//new temps
-
-var temps1 = [
-"(NAME) is a [NOUN]",
-"(NAME) is a [NOUN] [NOUN]",
-"(NAME) is a [ADJ] [NOUN]",
-"(NAME) is a person who loves to [VERB]",
-"(NAME) is a person who loves to [VERB] [NOUN]s",
-"(NAME) is a person who loves to [VERB] [ADJ] [NOUN]s",
-"(NAME) is a person whose dream is to [VERB]",
-"(NAME) is a person whose dream is to [VERB] professionally",
-"(NAME) is a person whose dream is to [VERB] [NOUN]s",
-"(NAME) is a person whose dream is to [VERB] [ADJ] [NOUN]s",
-"(NAME) is a [ADJ] [NOUN]",
-"(NAME) is a [ADJ] [ADJ] [NOUN]",
-"(NAME) has a secret: they hate [NOUN]s",
-"(NAME) has a secret: they hate [ADJ] [NOUN]s",
-"(NAME) has a secret: they hate [NOUN] [NOUN]s",
-"(NAME) has a secret: they love [NOUN]s",
-"(NAME) has a secret: they love [ADJ] [NOUN]s",
-"(NAME) has a secret: they love [NOUN] [NOUN]s",
-"(NAME) has a secret: they're actually a [NOUN]",
-"(NAME) has a secret: they're actually a [ADJ] [NOUN]",
-"(NAME) has a secret: they're actually a [NOUN] [NOUN]",
-"(NAME) is really into [NOUN]s",
-"(NAME) is really into [NOUN] [NOUN]s",
-"(NAME) is really into [ADJ] [NOUN]s",
-"(NAME) is obsessed with [NOUN]s",
-"(NAME) is obsessed with [NOUN] [NOUN]s",
-"(NAME) is obsessed with [ADJ] [NOUN]s",
-"(NAME) has no friends",
-"(NAME) is really depressed",
-"(NAME) has lost the joy for life",
-"(NAME) lives a monotonous life",
-"(NAME) is really lonely",
-"(NAME) is all alone",
-"(NAME) is in an unfulfilling relationship",
-"(NAME) is in an unfulfilling marriage",
-"(NAME) is unrequietedly in love with someone",
-"(NAME) has just got out of a long-term relationship",
-"(NAME) has just been dumped",
-"(NAME) has just left their cheating partner",
-"(NAME) is deathly afraid of [NOUN]s",
-"(NAME) is deathly afraid of [NOUN] [NOUN]s",
-"(NAME) is deathly afraid of [ADJ] [NOUN]s",
-"(NAME) has always wanted to [VERB]",
-"(NAME) has always wanted to [VERB] [NOUN]s",
-"(NAME) has always wanted to [VERB] [ADJ] [NOUN]s",
-"(NAME) has always wanted to [VERB] a [NOUN]",
-"(NAME) has always wanted to [VERB] a [ADJ] [NOUN]",
-"(NAME) hates other people",
-"(NAME) hates everyone",
-"(NAME) always puts others before themselves",
-"(NAME) is a shut-in",
-"(NAME) is the life of the party",
-"(NAME) doesn't know how to connect to people",
-"(NAME) is a super awkward person",
-"(NAME) is always cool, calm, and collected",
-"(NAME) is a master of their craft",
-"(NAME) is a role model for people",
-"(NAME) is super cool and popular",
-"(NAME)'s dream is to be popular",
-"(NAME) is adored by all",
-"(NAME) might as well be invisible",
-"(NAME) is super unpopular",
-"(NAME) is defined by these words: [ADJ], [NOUN], [ADJ]",
-"(NAME) is defined by these words: [ADJ], [ADJ], [ADJ]",
-"(NAME) is defined by these words: [NOUN], [NOUN], [NOUN]",
-"(NAME) is defined by these words: [ADJ], [NOUN], [NOUN]",
-"(NAME) is defined by these words: [ADJ], [ADJ], [NOUN]",
-"(NAME) is defined by these words: [NOUN], [ADJ], [ADJ]",
-"(NAME) is defined by these words: [NOUN], [NOUN], [ADJ]",
-"(NAME) is defined by these words: [NOUN], [ADJ], [NOUN]",
-"(NAME) is a \"[ADJ] person\"",
-"(NAME) is a \"[NOUN] person\"",
-"(NAME) is a \"[ADJ] [ADJ] person\"",
-"(NAME) is a \"[ADJ] [NOUN] person\"",
-"(NAME) is a \"[ADJ] [ADJ] [NOUN] person\"",
-"(NAME) is a \"[NOUN] [NOUN] person\"",
-"(NAME) is a [ADJ] person",
-"(NAME) is a [NOUN] person",
-"(NAME) is a [ADJ] [ADJ] person",
-"(NAME) is a [ADJ] [NOUN] person",
-"(NAME) is a [ADJ] [ADJ] [NOUN] person",
-"(NAME) is a [NOUN] [NOUN] person",
-"(NAME) is a master of [VERB]ing",
-"(NAME) is a master of [VERB]ing [NOUN]s",
-"(NAME) is a master of [VERB]ing [ADJ] [NOUN]s",
-"(NAME) is a master of [VERB]ing [NOUN] [NOUN]s",
-"(NAME) is really good at being [ADJ]",
-"(NAME) is really bad at being [ADJ]",
-"(NAME) lacks the ability to be [ADJ]",
-"(NAME) struggles with being [ADJ]",
-"(NAME) is a master of being [ADJ]",
-"(NAME) has lost everyone close to them",
-"(NAME) is a jerk",
-"(NAME) is always chipper and upbeat",
-"(NAME) is [ADJ]",
-"(NAME) is really [ADJ]",
-"(NAME) is extremely [ADJ]",
-"(NAME) is afraid of [NOUN]s",
-"(NAME) is deathly afraid of [NOUN]s",
-"(NAME) is afraid of [ADJ] [NOUN]s",
-"(NAME) is deathly afraid of [ADJ] [NOUN]s",
-"(NAME) is afraid of [NOUN] [NOUN]s",
-"(NAME) is deathly afraid of [NOUN] [NOUN]s",
-"(NAME) is very self-centered",
-"(NAME) is very [ADJ]",
-"(NAME) lacks confidence",
-"(NAME) hates themselves",
-"(NAME) lives an awful life",
-"(NAME) lives a wealthy, comfortable life",
-"(NAME) is poor",
-"(NAME) is rich",
-"(NAME) is incredibly average",
-"(NAME) is an outcast",
-"(NAME) is a complete nobody",
-"(NAME) is extremely socially awkward",
-"(NAME) has no friends",
-"(NAME) is the coolest person in town",
-"(NAME) is incredibly charming and well-liked",
-"(NAME) is grumpy and mean",
-"(NAME) is antisocial",
-"(NAME) has no social skills whatsoever",
-"(NAME) is unlucky in love",
-"(NAME) is single and not happy about it",
-"(NAME) is a criminal",
-"(NAME) is a murderer",
-"(NAME) is single and looking",
-"(NAME) is stubborn and rude",
-"(NAME) has never accomplished anything",
-"(NAME) is addicted to video games",
-"(NAME) is a struggling artist",
-"(NAME) works a soulless corporate job",
-"(NAME) is broke as can be",
-"(NAME) is wealthy and enjoys an upper-class life"
-];
-
-var temps2 = [
-"they come across a [NOUN]",
-"they come across a magic [NOUN]",
-"they find a mysterious [NOUN]",
-"they discover a mysterious [NOUN]",
-"they find a mysterious [ADJ] [NOUN]",
-"they discover a mysterious [ADJ] [NOUN]",
-"they find a mysterious [NOUN] [NOUN]",
-"they discover a mysterious [NOUN] [NOUN]",
-"they find a [ADJ] [NOUN]",
-"they find a [NOUN] [NOUN]",
-"they're abducted by [NOUN]s",
-"they're abducted by [ADJ] [NOUN]s",
-"they're kidnapped by [NOUN]s",
-"they're kidnapped by [ADJ] [NOUN]s",
-"they meet a [NOUN]",
-"they meet a [NOUN] [NOUN]",
-"they meet a [ADJ] [NOUN]",
-"they meet a [ADJ] [ADJ] [NOUN]",
-"they decide to [VERB]",
-"they decide to finally [VERB]",
-"they decide to [VERB] a [NOUN]",
-"they decide to finally [VERB] a [NOUN]",
-"they decide to finally [VERB] a [ADJ] [NOUN]",
-"they decide to [VERB] a [ADJ] [NOUN]",
-"they decide to finally pursue a [NOUN]",
-"they decide to finally pursue their dream of [VERB]ing",
-"they decide to finally pursue their dream of [VERB]ing a [NOUN]",
-"they decide to finally pursue their dream of [VERB]ing [NOUN]s",
-"they meet someone who loves [NOUN]s",
-"they meet someone who loves [ADJ] [NOUN]s",
-"they meet someone who loves [NOUN] [NOUN]s",
-"they meet someone who loves to [VERB] [NOUN]s",
-"they meet someone who loves to [VERB] [ADJ] [NOUN]s",
-"they meet a new love interest who loves [NOUN]s",
-"they meet a new love interest who loves [ADJ] [NOUN]s",
-"they meet a new love interest who loves [NOUN] [NOUN]s",
-"they meet a new love interest who loves to [VERB] [NOUN]s",
-"they meet a new love interest who loves to [VERB] [ADJ] [NOUN]s",
-"they meet someone who hates [NOUN]s",
-"they meet someone who hates [ADJ] [NOUN]s",
-"they meet someone who hates [NOUN] [NOUN]s",
-"they meet a new love interest who hates [NOUN]s",
-"they meet a new love interest who hates [ADJ] [NOUN]s",
-"they meet a new love interest who hates [NOUN] [NOUN]s",
-"they meet a mysterious stranger who tells them about [NOUN] [NOUN]s",
-"they meet a mysterious stranger who tells them about [ADJ] [NOUN]s",
-"they meet a mysterious stranger who tells them the truth about [NOUN]s",
-"they meet a mysterious stranger who tells them the truth about [ADJ] [NOUN]s",
-"they meet a mysterious stranger who tells them the truth about [NOUN] [NOUN]s",
-"[NOUN]s descend on the area",
-"[ADJ] [NOUN]s descend on the area",
-"[NOUN] [NOUN]s descend on the area",
-"they discover a conspiracy regarding [NOUN]s",
-"they discover a conspiracy regarding [ADJ] [NOUN]s",
-"they discover a conspiracy regarding [NOUN] [NOUN]s",
-"they discover someone's infidelity",
-"they commit infidelity",
-"they betray someone",
-"someone betrays them",
-"someone steals their [NOUN]",
-"someone steals their [ADJ] [NOUN]",
-"someone steals their [NOUN] [NOUN]",
-"they witness the murder of a [NOUN]",
-"they witness the murder of a [ADJ] [NOUN]",
-"they witness the murder of a [NOUN] [NOUN]",
-"they see a [NOUN] [VERB] a [NOUN]",
-"they see a [ADJ] [NOUN] [VERB] a [ADJ] [NOUN]",
-"they see a [ADJ] [NOUN] [VERB] a [NOUN]",
-"they see a [NOUN] [VERB] a [ADJ] [NOUN]",
-"they see a [NOUN] [NOUN] [VERB] a [NOUN]",
-"they see a [NOUN] [NOUN] [VERB] a [NOUN] [NOUN]",
-"they're told they must find a [NOUN]",
-"they're told they must find a [ADJ] [NOUN]",
-"they're told they must find a [NOUN] [NOUN]",
-"someone important to them is abducted",
-"someone important to them goes missing",
-"someone important to them dies",
-"someone important to them is murdered",
-"they realize they really want to find a [NOUN]",
-"they realize they really want to find a [ADJ] [NOUN]",
-"they realize they really want to find a [NOUN] [NOUN]",
-"they realize they really want to find [NOUN]s",
-"they realize they really want to find [ADJ] [NOUN]s",
-"they realize they really want to find [NOUN] [NOUN]s",
-"they find out they're the chosen one(s)",
-"they discover they're the chosen one(s)",
-"they discover time travel",
-"they accidentally travel through time",
-"they travel through time",
-"they find a time machine",
-"they find a spaceship",
-"they meet time travelers",
-"they meet aliens",
-"they find aliens",
-"they find a UFO",
-"they accidentally invent time travel",
-"they accidentally discover time travel",
-"they fall through a hole",
-"they accidentally kill someone",
-"they get shot",
-"they die and become a ghost",
-"they have a near-death experience",
-"they find a long-lost relative",
-"they meet a long-lost relative",
-"they turn into a [NOUN]",
-"they turn into a [ADJ] [NOUN]",
-"they turn into a [NOUN] [NOUN]",
-"they commit arson",
-"they accidentally commit arson",
-"they accidentally shoot someone",
-"they accidentally run someone over",
-"[NOUN]s invade",
-"[NOUN] [NOUN]s invade",
-"[ADJ] [NOUN]s invade",
-"they're visited by a [NOUN]",
-"they're visited by a [ADJ] [NOUN]",
-"they're visited by a [NOUN] [NOUN]",
-"their [NOUN] dies",
-"their [ADJ] [NOUN] dies",
-"their [NOUN] [NOUN] dies",
-"they lose their [NOUN]",
-"they lose their [ADJ] [NOUN]",
-"they lose their [NOUN] [NOUN]",
-"they win a contest",
-"they lose a contest",
-"they're attacked by a [NOUN]",
-"they're attacked by a [ADJ] [NOUN]",
-"they're attacked by a [NOUN] [NOUN]"
+var temps = [
+"a [ADJ] [NOUN]",
+"a [ADJ] [ADJ] [NOUN]",
+"a [NOUN] [NOUN]",
+"[ADJ] [NOUN]s",
+"[ADJ] [ADJ] [NOUN]s",
+"the [ADJ] [NOUN]",
+"the [ADJ] [ADJ] [NOUN]",
+"the [NOUN] [NOUN]",
+"[NOUN] [NOUN]s",
+"a [NOUN] and a [NOUN]",
+"a [ADJ] [NOUN] and a [ADJ] [NOUN]",
+"a [ADJ] [ADJ] [NOUN] and a [ADJ] [ADJ] [NOUN]",
+"a person who finds a [NOUN] and it is [ADJ]",
+"a person who finds a [NOUN] and it makes them [ADJ]",
+"a person who finds a [ADJ] [NOUN] and it makes them [ADJ]",
+"a person who finds a [ADJ] [NOUN]",
+"a person who finds a [ADJ] [NOUN] and it is [ADJ]",
+"a person who finds a [ADJ] [NOUN] and it helps them [VERB]",
+"a person who finds a [ADJ] [NOUN] and it helps them [VERB] a [NOUN]",
+"a [NOUN] person",
+"a [ADJ] [NOUN] person",
+"a [ADJ] [ADJ] [NOUN] person",
+"a [NOUN] [NOUN] person",
+"a [ADJ] [ADJ] person",
+"a person who is trying to find a [NOUN]",
+"a person who is trying to find a [ADJ] [NOUN]",
+"a person who is trying to find a [ADJ] [ADJ] [NOUN]",
+"a person who is trying to find a [NOUN] [NOUN]",
+"a person who comes into conflict with a [NOUN]",
+"a person who comes into conflict with a [ADJ] [NOUN]",
+"a person who comes into conflict with a [ADJ] [ADJ] [NOUN]",
+"a person who comes into conflict with a [NOUN] [NOUN]",
+"a [ADJ] [NOUN] that comes into conflict with a [ADJ] [NOUN]",
+"a [ADJ] person who comes into conflict with a [ADJ] [NOUN]",
+"a [NOUN] person who comes into conflict with a [ADJ] [NOUN]",
+"a person who loves [NOUN]s too much",
+"a person who loves [ADJ] [NOUN]s too much",
+"a person who loves [NOUN] [NOUN]s too much",
+"a person who loves [ADJ] [ADJ] [NOUN]s too much",
+"people who love [NOUN]s too much",
+"people who love [ADJ] [NOUN]s too much",
+"people who love [NOUN] [NOUN]s too much",
+"people who love [ADJ] [ADJ] [NOUN]s too much",
+"a [ADJ] [NOUN] that loves to [VERB]",
+"a [NOUN] [NOUN] that loves to [VERB]",
+"a [ADJ] [ADJ] [NOUN] that loves to [VERB]",
+"a [ADJ] [NOUN] that loves to [VERB] [NOUN]s",
+"people who find out they disagree on [NOUN]s",
+"people who find out they disagree on [ADJ] [NOUN]s",
+"people who find out they disagree on [NOUN] [NOUN]s",
+"people who find out they disagree on [ADJ] [ADJ] [NOUN]s",
+"a [ADJ] [NOUN] that falls in love with a [ADJ] [NOUN]",
+"how much it sucks when a [NOUN] [VERB]s you",
+"how much it sucks when there are no more [NOUN]s",
+"how much it sucks when there are no more [ADJ] [NOUN]s",
+"how much it sucks when there is no more [NOUN]",
+"how much it sucks when there is no more [ADJ] [NOUN]",
+"how awkward it is when a [ADJ] [NOUN] [VERB]s you",
+"people fighting over the last [NOUN]",
+"people fighting over the last [ADJ] [NOUN]",
+"a person who finds themselves cornered by a [ADJ] [NOUN]",
+"a person who finds themselves cornered by a [NOUN]",
+"people who find themselves cornered by a [ADJ] [NOUN]",
+"people who find themselves cornered by a [NOUN]",
+"a person who has a crush on someone who loves [NOUN]s",
+"a person who has a crush on someone who loves [ADJ] [NOUN]s",
+"a person who has a crush on someone who loves [NOUN] [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [ADJ] [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [NOUN] [NOUN]s",
+"someone who won't shut up about [NOUN]s",
+"someone who won't shut up about [ADJ] [NOUN]s",
+"someone who won't shut up about [NOUN] [NOUN]s",
+"a club for [ADJ] [NOUN]s",
+"a club for people who love [ADJ] [NOUN]s",
+"a club for [NOUN]s",
+"a club for [NOUN] [NOUN]s",
+"a club for people who love [NOUN]s",
+"a club for people who love [NOUN] [NOUN]s",
+"a person who must [VERB] a [NOUN]",
+"a person who must [VERB] a [ADJ] [NOUN]",
+"a hot new product: [ADJ] [NOUN]s",
+"a hot new product: [NOUN] [NOUN]s",
+"a hot new product: [NOUN]s that can [VERB]",
+"a hot new product: [ADJ] [NOUN]s that can [VERB]",
+"a hot new product: [NOUN]s that can [VERB] you",
+"a hot new product: [ADJ] [NOUN]s that can [VERB] you",
+"a hot new product: [NOUN]s that can [VERB] [NOUN]s",
+"a hot new product: [ADJ] [NOUN]s that can [VERB] [NOUN]s",
+"a [NOUN] that must be stopped",
+"a [ADJ] [NOUN] that must be stopped",
+"a [NOUN] [NOUN] that must be stopped",
+"someone doing a presentation on [NOUN]s",
+"someone doing a presentation on [NOUN] [NOUN]s",
+"someone doing a presentation on [ADJ] [NOUN]s",
+"someone doing a presentation on how to [VERB] [NOUN]s",
+"someone doing a presentation on how to [VERB] [ADJ] [NOUN]s",
+"a person who is about to make a fool of themselves because they never learned how to [VERB]",
+"a person who is about to make a fool of themselves because they never learned how to [VERB] [NOUN]s",
+"a person who is about to make a fool of themselves because they never learned how to [VERB] [ADJ] [NOUN]s",
+"a person who finds themselves amongst [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who love [NOUN]s",
+"a normal person who finds themselves amongst people who love [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who love [NOUN] [NOUN]s",
+"a normal person who finds themselves amongst people who love [ADJ] [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [NOUN] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [ADJ] [ADJ] [NOUN]s",
+"a couple that comes into conflict over [NOUN]s",
+"a couple that comes into conflict over [ADJ] [NOUN]s",
+"a person who finds themselves being swayed by a [ADJ] [NOUN]",
+"a new law that bans [NOUN]s",
+"a new law that makes it illegal to [VERB] [NOUN]s",
+"a person who thinks their crush would appreciate a [NOUN]",
+"a person who thinks their crush would appreciate a [ADJ] [NOUN]",
+"a person who thinks their crush would appreciate a [NOUN] [NOUN]",
+"a world where [NOUN]s are now [NOUN]s",
+"a world where [NOUN]s are now [ADJ]",
+"a world where [NOUN]s are now [ADJ] [NOUN]s",
+"a [NOUN] that commits a crime",
+"a [ADJ] [NOUN] that commits a crime",
+"a [NOUN] that is able to [VERB]",
+"a person who finds out someone they know is actually a [NOUN]",
+"a person who finds out someone they know is actually a [ADJ] [NOUN]",
+"a person who really doesn't want to [VERB]",
+"a person who really doesn't want to [VERB] a [NOUN]",
+"a person who really doesn't want to [VERB] a [ADJ] [NOUN]",
+"a person who really doesn't want to be [VERB]ed",
+"a deadly [NOUN]",
+"a deadly [ADJ] [NOUN]",
+"a deadly [NOUN] [NOUN]",
+"a person who is known for their ability to [VERB] [NOUN]s",
+"a person who is known for their ability to [VERB] [ADJ] [NOUN]s",
+"a person who gains the ability to [VERB] [NOUN]s",
+"a person who gains the ability to [VERB] [ADJ] [NOUN]s",
+"the only [NOUN] in the world",
+"the only [ADJ] [NOUN] in the world",
+"the only [NOUN] [NOUN] in the world",
+"someone who is allergic to [NOUN]s",
+"someone who is allergic to [ADJ] [NOUN]s",
+"a person whose crush is secretly a [NOUN]",
+"a person whose crush is secretly a [ADJ] [NOUN]",
+"a person who has a crush on a [NOUN]",
+"a person who has a crush on a [ADJ] [NOUN]",
+"a person who has a crush on a [NOUN] [NOUN]",
+"a person who is in love with a [NOUN]",
+"a person who is in love with a [ADJ] [NOUN]",
+"a person who is in love with a [NOUN] [NOUN]",
+"a person who is secretly a [NOUN]",
+"a person who is secretly a [ADJ] [NOUN]",
+"a person who is secretly a [NOUN] [NOUN]",
+"someone who is trying to sell a [NOUN]",
+"someone who is trying to sell a [ADJ] [NOUN]",
+"someone who is trying to return a [NOUN]",
+"someone who is trying to return a [ADJ] [NOUN]",
+"a person who finds themselves surrounded by living [NOUN]s",
+"a person who finds themselves surrounded by living [ADJ] [NOUN]s",
+"people who find themselves surrounded by living [NOUN]s",
+"people who find themselves surrounded by living [ADJ] [NOUN]s",
+"a simple disagreement about [NOUN]s that gets out of control",
+"a simple disagreement about [ADJ] [NOUN]s that gets out of control",
+"a person who wants to be a better [NOUN]",
+"a person who wants to be a better [ADJ] [NOUN]",
+"a person who wants to be a [NOUN]",
+"a person who wants to be a [ADJ] [NOUN]",
+"a new superhero: [NOUN] Man/Woman",
+"a new superhero: [ADJ] [NOUN] Man/Woman",
+"a new superhero: [NOUN] [NOUN] Man/Woman",
+"a new superhero: The [ADJ] [NOUN]",
+"a new superhero: The Amazing [NOUN]",
+"a new superhero: The Amazing [ADJ] [NOUN]",
+"a new superhero: The Amazing [NOUN] [NOUN]",
+"the hot new trend: to [VERB] [NOUN]s",
+"the hot new trend: to [VERB] [ADJ] [NOUN]s",
+"the hot new trend: to be [ADJ]",
+"the hot new trend: to be a [NOUN]",
+"the hot new trend: to be a [NOUN] [NOUN]",
+"a dating service for [ADJ] people",
+"a dating service for [NOUN]s",
+"a dating service for [ADJ] [NOUN]s",
+"a dating service for [NOUN] [NOUN]s",
+"a dating service for people who like [NOUN]s",
+"a dating service for [NOUN] people",
+"a dating service for [ADJ] [NOUN] people",
+"a dating service for [NOUN] [NOUN] people",
+"a dating service for people who like [ADJ] [NOUN]s",
+"a dating service for people who like [NOUN] [NOUN]s",
+"[NOUN] people",
+"[ADJ] people",
+"[ADJ] [NOUN] people",
+"[NOUN] [NOUN] people",
+"[NOUN] [NOUN]s",
+"a [NOUN] [NOUN]",
+"a [NOUN] [NOUN] and a [NOUN] [NOUN]",
+"a new kids toy: the [NOUN] [NOUN]",
+"a new kids toy: the [NOUN]",
+"a new kids toy: a [NOUN] that can [VERB]",
+"a new kids toy: [NOUN] [NOUN]s",
+"a new kids toy: [ADJ] [NOUN]s",
+"a new kids toy: [ADJ] [ADJ] [NOUN]s",
+"a person who thinks their crush would like them more if they were [ADJ]",
+"a person who thinks their crush would like them more if they were more [ADJ]",
+"a person who thinks their crush would like them more if they had a [NOUN]",
+"a person who thinks their crush would like them more if they had a [NOUN] [NOUN]",
+"a person who thinks their crush would like them more if they had a [ADJ] [NOUN]",
+"a [NOUN] cartel",
+"a [ADJ] [NOUN] cartel",
+"a [NOUN] [NOUN] cartel",
+"a [NOUN] cult",
+"a [ADJ] [NOUN] cult",
+"a [NOUN] [NOUN] cult",
+"illegal [NOUN]-fighting",
+"a [NOUN] doctor",
+"a [ADJ] [NOUN] doctor",
+"a [NOUN] [NOUN] doctor",
+"a person who likes to [VERB] [NOUN]s in secret",
+"a person who likes to [VERB] [ADJ] [NOUN]s in secret",
+"a person who likes to [VERB] [NOUN] [NOUN]s in secret",
+"a person's secret obsession with [NOUN]s getting out",
+"a person's secret obsession with [NOUN] [NOUN]s getting out",
+"a person's secret obsession with [ADJ] [NOUN]s getting out",
+"a world taken over by [NOUN]s",
+"a world taken over by [ADJ] [NOUN]s",
+"a world taken over by [NOUN] [NOUN]s",
+"a person who is obsessed with eating [NOUN]s",
+"a person who is obsessed with eating [ADJ] [NOUN]s",
+"a person who is obsessed with eating [NOUN] [NOUN]s",
+"a person who loves to [VERB]",
+"a person who hates to [VERB]",
+"a new movie: [ADJ] [NOUN]s",
+"a new movie: [NOUN] [NOUN]s",
+"a new movie: The [NOUN] and the [NOUN]",
+"a new movie: The [ADJ] [NOUN]",
+"a new movie: The [NOUN] [NOUN]",
+"a new TV show: [ADJ] [NOUN]s",
+"a new TV show: [NOUN] [NOUN]s",
+"a new TV show: The [NOUN] and the [NOUN]",
+"a new TV show: The [ADJ] and the [ADJ]",
+"a new TV show: The [ADJ] [NOUN]",
+"a new TV show: The [NOUN] [NOUN]",
+"a planet where everything is [ADJ]",
+"a planet where everything is [ADJ] and [ADJ]",
+"a planet populated by [NOUN]s",
+"a planet populated by [ADJ] [NOUN]s",
+"a planet populated by [ADJ] [ADJ] [NOUN]s",
+"a planet populated by [NOUN] [NOUN]s",
+"a normal person finds themselves in \"[ADJ] world\"",
+"a normal person finds themselves in \"[NOUN] world\"",
+"a normal person finds themselves in \"[ADJ] [ADJ] world\"",
+"a normal person finds themselves in \"[ADJ] [NOUN] world\"",
+"a normal person finds themselves in \"[ADJ] [ADJ] [NOUN] world\"",
+"a normal person finds themselves in \"[NOUN] [NOUN] world\"",
+"struggling to [VERB]",
+"struggling to [VERB] a [NOUN]",
+"struggling to [VERB] a [ADJ] [NOUN]",
+"struggling to [VERB] a [NOUN] [NOUN]",
+"struggling to [VERB] a [ADJ] [ADJ] [NOUN]",
+"a normal person finds themselves amongst \"[ADJ] people\"",
+"a normal person finds themselves amongst \"[NOUN] people\"",
+"a normal person finds themselves amongst \"[ADJ] [ADJ] people\"",
+"a normal person finds themselves amongst \"[ADJ] [NOUN] people\"",
+"a normal person finds themselves amongst \"[ADJ] [ADJ] [NOUN] people\"",
+"a normal person finds themselves amongst \"[NOUN] [NOUN] people\"",
+"a \"[ADJ] person\" amongst normal people",
+"a \"[NOUN] person\" amongst normal people",
+"a \"[ADJ] [ADJ] person\" amongst normal people",
+"a \"[ADJ] [NOUN] person\" amongst normal people",
+"a \"[ADJ] [ADJ] [NOUN] person\" amongst normal people",
+"a \"[NOUN] [NOUN] person\" amongst normal people",
+"a character defined by these words: [ADJ], [NOUN], [ADJ]",
+"a character defined by these words: [ADJ], [ADJ], [ADJ]",
+"a character defined by these words: [NOUN], [NOUN], [NOUN]",
+"a character defined by these words: [ADJ], [NOUN], [NOUN]",
+"a character defined by these words: [ADJ], [ADJ], [NOUN]",
+"a character defined by these words: [NOUN], [ADJ], [ADJ]",
+"a character defined by these words: [NOUN], [NOUN], [ADJ]",
+"a character defined by these words: [NOUN], [ADJ], [NOUN]"
 ];
 
 //array shuffler + duplicate remover, higher performance
@@ -342,30 +348,18 @@ function shuffle2(arr) {
 }
 
 //remove duplicates and shuffle each array
-shuffle2(temps1);
-shuffle2(temps2);
+shuffle2(temps);
 shuffle2(nouns);
 shuffle2(adjs);
 shuffle2(verbs);
 
 //show stats
-document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
+document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
 
 //the premise generator
 
 function getPremise() {
-	var diceRoll = Math.round(Math.random()*10);
-	
-	if(diceRoll <= 8) {
-		var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
-	} else {
-		var p1 = (Math.random()*temps1.length)>>0;
-		var p2 = (Math.random()*temps1.length)>>0;
-		while(p2 == p1) {
-			p2 = (Math.random()*temps1.length)>>0;
-		}
-		var premise = temps1[p1]+", and (NAME 2)"+temps1[p2].slice(6)+". One day, "+temps2[(Math.random()*temps2.length)>>0];
-	}
+	var premise = temps[(Math.random()*temps.length)>>0];
 	
 	var adjsCopy = adjs.slice(0);
 	var nounsCopy = nouns.slice(0);
@@ -375,19 +369,30 @@ function getPremise() {
 	var nounPicks = [];
 	var verbPicks = [];
 	
-	for(var i=0;i<12;i++) {
+	for(var i=0;i<4;i++) {
 		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
 		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
 		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
 	}
 	
-	for(var i=0;i<12;i++) {
+	for(var i=0;i<4;i++) {
 		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
 		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
 		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
 	}
 	
-	return premise+" and it changes everything.";
+	return "Then this changes everything: "+premise+".";
+}
+
+//the "3 random words" function (all-words array defined later)
+
+function getWords() {
+	var wordsCopy = allWords.slice(0);
+	var wordPicks = [];
+	for(var i=0;i<3;i++) {
+		wordPicks.push(wordsCopy.splice((Math.random()*wordsCopy.length)>>0,1)[0].toUpperCase());
+	}
+	return wordPicks[0]+" + "+wordPicks[1]+" + "+wordPicks[2]+".";
 }
 
 //web interface code
@@ -426,59 +431,16 @@ function flushSaved() {
 	}
 }
 
-var premises = ["zero index unused"];
-var part1s = ["zero index unused"];
-var part2s = ["zero index unused"];
-
 function updateList() {
 	for(var i=1;i<=15;i++) {
-		premises[i] = getPremise();
-		document.getElementById("p"+i).innerHTML = premises[i];
+		if(!document.getElementById("twCheck").checked) {
+			document.getElementById("p"+i).innerHTML = getPremise();
+		} else {
+			document.getElementById("p"+i).innerHTML = getWords();
+		}
 		if(!pressedYet) {
 			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
 		}
-	}
-}
-
-var newPrem = "";
-var newII = "";
-var newSP = "";
-
-function newIIs() {
-	for(var i=1;i<=15;i++) {
-		part1s[i] = premises[i].split(" One day, ")[0];
-		newPrem = getPremise();
-		newII = "One day, "+newPrem.split(" One day, ")[1];
-		premises[i] = part1s[i]+" "+newII;
-		document.getElementById("p"+i).innerHTML = premises[i];
-	}
-}
-
-function newSPs() {
-	for(var i=1;i<=15;i++) {
-		part2s[i] = "One day, "+premises[i].split(" One day, ")[1];
-		newPrem = getPremise();
-		newSP = newPrem.split(" One day, ")[0];
-		premises[i] = newSP+" "+part2s[i];
-		document.getElementById("p"+i).innerHTML = premises[i];
-	}
-}
-
-function justSPs() {
-	for(var i=1;i<=15;i++) {
-		newPrem = getPremise().split(" One day, ")[0];
-		premises[i] = newPrem;
-		document.getElementById("p"+i).innerHTML = premises[i];
-		premises[i] = newPrem+" One day, (blank).";
-	}
-}
-
-function justIIs() {
-	for(var i=1;i<=15;i++) {
-		newPrem = "One day, "+getPremise().split(" One day, ")[1];
-		premises[i] = newPrem;
-		document.getElementById("p"+i).innerHTML = premises[i];
-		premises[i] = "(blank). "+newPrem;
 	}
 }
 
@@ -494,6 +456,18 @@ function clearChecks() {
 		}
 	}
 }
+
+function chkTw() {
+	if(!document.getElementById("twCheck").checked) {
+		document.getElementById("twCheck").checked = true;
+	} else {
+		document.getElementById("twCheck").checked = false;
+	}
+}
+
+//make combined word array, remove same words + shuffle
+var allWords = nouns.concat(adjs);
+shuffle2(allWords);
 </script>
 </body>
 </html>

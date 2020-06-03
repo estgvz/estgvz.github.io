@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Story Generator</title>
+  <title>Story Generator (SPG Hybrid)</title>
 </head>
 <body>
-  Story Generator v1.1
+  Story Generator v1.2 (SPG Hybrid Edition)
   <br>
   By Estevan Galvez - 2020
   <br>
@@ -15,23 +15,17 @@
   <br>
   Based on my <a target="_self" href="https://estgvz.github.io/spg.html">Sketch Premise Generator</a>.
   <br>
-  Check the box next to a premise (or just tap
-  <br>on the premise itself) to preserve it.
-  <br>
-  <a href="javascript:newIIs();">Re-Generate Inciting Incidents Only</a>
-  <br>
-  <a href="javascript:newSPs();">Re-Generate Starts Only</a>
-  <br>
-  <a href="javascript:justSPs();">Just Generate Starts</a>
-  <br>
-  <a href="javascript:justIIs();">Just Generate Inciting Incidents</a>
+  Works in <b>2 steps</b>: starts then inciting incidents.
+  <br>Check the box next to a premise (or just tap
+  <br>on the premise itself) to continue it next press.
+  <br><a href="javascript:clearAll();">clear all saved premises</a>
   <br><br>
-  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button>
-  <br><br>
-  <a href="javascript:clearChecks();">uncheck all boxes below</a>
-  <p id="mainText">Text will go here.</p><p id="saveText"></p>
+  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Continue Button<br>(Press this button to generate new premises<br>and continue those with the box checked.)</button>
+  <p id="premsText"></p>
+  <p id="justap"><a href="javascript:clearChecks();">uncheck all boxes below</a></p>
+  <p id="mainText">Text will go here.</p>
 <script>
-//Story Generator v1.1
+//Story Generator v1.2 (SPG Hybrid Edition)
 //by Estevan Galvez, 2020
 
 //data setup
@@ -60,7 +54,286 @@ var verbs = [
 
 //templates
 
-var temps = ["OLD ARRAY DO NOT USE"];
+var temps = [
+"a [ADJ] [NOUN]",
+"a [ADJ] [ADJ] [NOUN]",
+"a [NOUN] [NOUN]",
+"[ADJ] [NOUN]s",
+"[ADJ] [ADJ] [NOUN]s",
+"the [ADJ] [NOUN]",
+"the [ADJ] [ADJ] [NOUN]",
+"the [NOUN] [NOUN]",
+"[NOUN] [NOUN]s",
+"a [NOUN] and a [NOUN]",
+"a [ADJ] [NOUN] and a [ADJ] [NOUN]",
+"a [ADJ] [ADJ] [NOUN] and a [ADJ] [ADJ] [NOUN]",
+"a person who finds a [NOUN] and it is [ADJ]",
+"a person who finds a [NOUN] and it makes them [ADJ]",
+"a person who finds a [ADJ] [NOUN] and it makes them [ADJ]",
+"a person who finds a [ADJ] [NOUN]",
+"a person who finds a [ADJ] [NOUN] and it is [ADJ]",
+"a person who finds a [ADJ] [NOUN] and it helps them [VERB]",
+"a person who finds a [ADJ] [NOUN] and it helps them [VERB] a [NOUN]",
+"a [NOUN] person",
+"a [ADJ] [NOUN] person",
+"a [ADJ] [ADJ] [NOUN] person",
+"a [NOUN] [NOUN] person",
+"a [ADJ] [ADJ] person",
+"a person who is trying to find a [NOUN]",
+"a person who is trying to find a [ADJ] [NOUN]",
+"a person who is trying to find a [ADJ] [ADJ] [NOUN]",
+"a person who is trying to find a [NOUN] [NOUN]",
+"a person who comes into conflict with a [NOUN]",
+"a person who comes into conflict with a [ADJ] [NOUN]",
+"a person who comes into conflict with a [ADJ] [ADJ] [NOUN]",
+"a person who comes into conflict with a [NOUN] [NOUN]",
+"a [ADJ] [NOUN] that comes into conflict with a [ADJ] [NOUN]",
+"a [ADJ] person who comes into conflict with a [ADJ] [NOUN]",
+"a [NOUN] person who comes into conflict with a [ADJ] [NOUN]",
+"a person who loves [NOUN]s too much",
+"a person who loves [ADJ] [NOUN]s too much",
+"a person who loves [NOUN] [NOUN]s too much",
+"a person who loves [ADJ] [ADJ] [NOUN]s too much",
+"people who love [NOUN]s too much",
+"people who love [ADJ] [NOUN]s too much",
+"people who love [NOUN] [NOUN]s too much",
+"people who love [ADJ] [ADJ] [NOUN]s too much",
+"a [ADJ] [NOUN] that loves to [VERB]",
+"a [NOUN] [NOUN] that loves to [VERB]",
+"a [ADJ] [ADJ] [NOUN] that loves to [VERB]",
+"a [ADJ] [NOUN] that loves to [VERB] [NOUN]s",
+"people who find out they disagree on [NOUN]s",
+"people who find out they disagree on [ADJ] [NOUN]s",
+"people who find out they disagree on [NOUN] [NOUN]s",
+"people who find out they disagree on [ADJ] [ADJ] [NOUN]s",
+"a [ADJ] [NOUN] that falls in love with a [ADJ] [NOUN]",
+"how much it sucks when a [NOUN] [VERB]s you",
+"how much it sucks when there are no more [NOUN]s",
+"how much it sucks when there are no more [ADJ] [NOUN]s",
+"how much it sucks when there is no more [NOUN]",
+"how much it sucks when there is no more [ADJ] [NOUN]",
+"how awkward it is when a [ADJ] [NOUN] [VERB]s you",
+"people fighting over the last [NOUN]",
+"people fighting over the last [ADJ] [NOUN]",
+"a person who finds themselves cornered by a [ADJ] [NOUN]",
+"a person who finds themselves cornered by a [NOUN]",
+"people who find themselves cornered by a [ADJ] [NOUN]",
+"people who find themselves cornered by a [NOUN]",
+"a person who has a crush on someone who loves [NOUN]s",
+"a person who has a crush on someone who loves [ADJ] [NOUN]s",
+"a person who has a crush on someone who loves [NOUN] [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [ADJ] [NOUN]s",
+"that relatable feeling when someone you don't like won't shut up about [NOUN] [NOUN]s",
+"someone who won't shut up about [NOUN]s",
+"someone who won't shut up about [ADJ] [NOUN]s",
+"someone who won't shut up about [NOUN] [NOUN]s",
+"a club for [ADJ] [NOUN]s",
+"a club for people who love [ADJ] [NOUN]s",
+"a club for [NOUN]s",
+"a club for [NOUN] [NOUN]s",
+"a club for people who love [NOUN]s",
+"a club for people who love [NOUN] [NOUN]s",
+"a person who must [VERB] a [NOUN]",
+"a person who must [VERB] a [ADJ] [NOUN]",
+"a hot new product: [ADJ] [NOUN]s",
+"a hot new product: [NOUN] [NOUN]s",
+"a hot new product: [NOUN]s that can [VERB]",
+"a hot new product: [ADJ] [NOUN]s that can [VERB]",
+"a hot new product: [NOUN]s that can [VERB] you",
+"a hot new product: [ADJ] [NOUN]s that can [VERB] you",
+"a hot new product: [NOUN]s that can [VERB] [NOUN]s",
+"a hot new product: [ADJ] [NOUN]s that can [VERB] [NOUN]s",
+"a [NOUN] that must be stopped",
+"a [ADJ] [NOUN] that must be stopped",
+"a [NOUN] [NOUN] that must be stopped",
+"someone doing a presentation on [NOUN]s",
+"someone doing a presentation on [NOUN] [NOUN]s",
+"someone doing a presentation on [ADJ] [NOUN]s",
+"someone doing a presentation on how to [VERB] [NOUN]s",
+"someone doing a presentation on how to [VERB] [ADJ] [NOUN]s",
+"a person who is about to make a fool of themselves because they never learned how to [VERB]",
+"a person who is about to make a fool of themselves because they never learned how to [VERB] [NOUN]s",
+"a person who is about to make a fool of themselves because they never learned how to [VERB] [ADJ] [NOUN]s",
+"a person who finds themselves amongst [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who love [NOUN]s",
+"a normal person who finds themselves amongst people who love [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who love [NOUN] [NOUN]s",
+"a normal person who finds themselves amongst people who love [ADJ] [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [ADJ] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [NOUN] [NOUN]s",
+"a normal person who finds themselves amongst people who are obsessed with [ADJ] [ADJ] [NOUN]s",
+"a couple that comes into conflict over [NOUN]s",
+"a couple that comes into conflict over [ADJ] [NOUN]s",
+"a person who finds themselves being swayed by a [ADJ] [NOUN]",
+"a new law that bans [NOUN]s",
+"a new law that makes it illegal to [VERB] [NOUN]s",
+"a person who thinks their crush would appreciate a [NOUN]",
+"a person who thinks their crush would appreciate a [ADJ] [NOUN]",
+"a person who thinks their crush would appreciate a [NOUN] [NOUN]",
+"a world where [NOUN]s are now [NOUN]s",
+"a world where [NOUN]s are now [ADJ]",
+"a world where [NOUN]s are now [ADJ] [NOUN]s",
+"a [NOUN] that commits a crime",
+"a [ADJ] [NOUN] that commits a crime",
+"a [NOUN] that is able to [VERB]",
+"a person who finds out someone they know is actually a [NOUN]",
+"a person who finds out someone they know is actually a [ADJ] [NOUN]",
+"a person who really doesn't want to [VERB]",
+"a person who really doesn't want to [VERB] a [NOUN]",
+"a person who really doesn't want to [VERB] a [ADJ] [NOUN]",
+"a person who really doesn't want to be [VERB]ed",
+"a deadly [NOUN]",
+"a deadly [ADJ] [NOUN]",
+"a deadly [NOUN] [NOUN]",
+"a person who is known for their ability to [VERB] [NOUN]s",
+"a person who is known for their ability to [VERB] [ADJ] [NOUN]s",
+"a person who gains the ability to [VERB] [NOUN]s",
+"a person who gains the ability to [VERB] [ADJ] [NOUN]s",
+"the only [NOUN] in the world",
+"the only [ADJ] [NOUN] in the world",
+"the only [NOUN] [NOUN] in the world",
+"someone who is allergic to [NOUN]s",
+"someone who is allergic to [ADJ] [NOUN]s",
+"a person whose crush is secretly a [NOUN]",
+"a person whose crush is secretly a [ADJ] [NOUN]",
+"a person who has a crush on a [NOUN]",
+"a person who has a crush on a [ADJ] [NOUN]",
+"a person who has a crush on a [NOUN] [NOUN]",
+"a person who is in love with a [NOUN]",
+"a person who is in love with a [ADJ] [NOUN]",
+"a person who is in love with a [NOUN] [NOUN]",
+"a person who is secretly a [NOUN]",
+"a person who is secretly a [ADJ] [NOUN]",
+"a person who is secretly a [NOUN] [NOUN]",
+"someone who is trying to sell a [NOUN]",
+"someone who is trying to sell a [ADJ] [NOUN]",
+"someone who is trying to return a [NOUN]",
+"someone who is trying to return a [ADJ] [NOUN]",
+"a person who finds themselves surrounded by living [NOUN]s",
+"a person who finds themselves surrounded by living [ADJ] [NOUN]s",
+"people who find themselves surrounded by living [NOUN]s",
+"people who find themselves surrounded by living [ADJ] [NOUN]s",
+"a simple disagreement about [NOUN]s that gets out of control",
+"a simple disagreement about [ADJ] [NOUN]s that gets out of control",
+"a person who wants to be a better [NOUN]",
+"a person who wants to be a better [ADJ] [NOUN]",
+"a person who wants to be a [NOUN]",
+"a person who wants to be a [ADJ] [NOUN]",
+"a new superhero: [NOUN] Man/Woman",
+"a new superhero: [ADJ] [NOUN] Man/Woman",
+"a new superhero: [NOUN] [NOUN] Man/Woman",
+"a new superhero: The [ADJ] [NOUN]",
+"a new superhero: The Amazing [NOUN]",
+"a new superhero: The Amazing [ADJ] [NOUN]",
+"a new superhero: The Amazing [NOUN] [NOUN]",
+"the hot new trend: to [VERB] [NOUN]s",
+"the hot new trend: to [VERB] [ADJ] [NOUN]s",
+"the hot new trend: to be [ADJ]",
+"the hot new trend: to be a [NOUN]",
+"the hot new trend: to be a [NOUN] [NOUN]",
+"a dating service for [ADJ] people",
+"a dating service for [NOUN]s",
+"a dating service for [ADJ] [NOUN]s",
+"a dating service for [NOUN] [NOUN]s",
+"a dating service for people who like [NOUN]s",
+"a dating service for [NOUN] people",
+"a dating service for [ADJ] [NOUN] people",
+"a dating service for [NOUN] [NOUN] people",
+"a dating service for people who like [ADJ] [NOUN]s",
+"a dating service for people who like [NOUN] [NOUN]s",
+"[NOUN] people",
+"[ADJ] people",
+"[ADJ] [NOUN] people",
+"[NOUN] [NOUN] people",
+"[NOUN] [NOUN]s",
+"a [NOUN] [NOUN]",
+"a [NOUN] [NOUN] and a [NOUN] [NOUN]",
+"a new kids toy: the [NOUN] [NOUN]",
+"a new kids toy: the [NOUN]",
+"a new kids toy: a [NOUN] that can [VERB]",
+"a new kids toy: [NOUN] [NOUN]s",
+"a new kids toy: [ADJ] [NOUN]s",
+"a new kids toy: [ADJ] [ADJ] [NOUN]s",
+"a person who thinks their crush would like them more if they were [ADJ]",
+"a person who thinks their crush would like them more if they were more [ADJ]",
+"a person who thinks their crush would like them more if they had a [NOUN]",
+"a person who thinks their crush would like them more if they had a [NOUN] [NOUN]",
+"a person who thinks their crush would like them more if they had a [ADJ] [NOUN]",
+"a [NOUN] cartel",
+"a [ADJ] [NOUN] cartel",
+"a [NOUN] [NOUN] cartel",
+"a [NOUN] cult",
+"a [ADJ] [NOUN] cult",
+"a [NOUN] [NOUN] cult",
+"illegal [NOUN]-fighting",
+"a [NOUN] doctor",
+"a [ADJ] [NOUN] doctor",
+"a [NOUN] [NOUN] doctor",
+"a person who likes to [VERB] [NOUN]s in secret",
+"a person who likes to [VERB] [ADJ] [NOUN]s in secret",
+"a person who likes to [VERB] [NOUN] [NOUN]s in secret",
+"a person's secret obsession with [NOUN]s getting out",
+"a person's secret obsession with [NOUN] [NOUN]s getting out",
+"a person's secret obsession with [ADJ] [NOUN]s getting out",
+"a world taken over by [NOUN]s",
+"a world taken over by [ADJ] [NOUN]s",
+"a world taken over by [NOUN] [NOUN]s",
+"a person who is obsessed with eating [NOUN]s",
+"a person who is obsessed with eating [ADJ] [NOUN]s",
+"a person who is obsessed with eating [NOUN] [NOUN]s",
+"a person who loves to [VERB]",
+"a person who hates to [VERB]",
+"a new movie: [ADJ] [NOUN]s",
+"a new movie: [NOUN] [NOUN]s",
+"a new movie: The [NOUN] and the [NOUN]",
+"a new movie: The [ADJ] [NOUN]",
+"a new movie: The [NOUN] [NOUN]",
+"a new TV show: [ADJ] [NOUN]s",
+"a new TV show: [NOUN] [NOUN]s",
+"a new TV show: The [NOUN] and the [NOUN]",
+"a new TV show: The [ADJ] and the [ADJ]",
+"a new TV show: The [ADJ] [NOUN]",
+"a new TV show: The [NOUN] [NOUN]",
+"a planet where everything is [ADJ]",
+"a planet where everything is [ADJ] and [ADJ]",
+"a planet populated by [NOUN]s",
+"a planet populated by [ADJ] [NOUN]s",
+"a planet populated by [ADJ] [ADJ] [NOUN]s",
+"a planet populated by [NOUN] [NOUN]s",
+"a normal person finds themselves in \"[ADJ] world\"",
+"a normal person finds themselves in \"[NOUN] world\"",
+"a normal person finds themselves in \"[ADJ] [ADJ] world\"",
+"a normal person finds themselves in \"[ADJ] [NOUN] world\"",
+"a normal person finds themselves in \"[ADJ] [ADJ] [NOUN] world\"",
+"a normal person finds themselves in \"[NOUN] [NOUN] world\"",
+"struggling to [VERB]",
+"struggling to [VERB] a [NOUN]",
+"struggling to [VERB] a [ADJ] [NOUN]",
+"struggling to [VERB] a [NOUN] [NOUN]",
+"struggling to [VERB] a [ADJ] [ADJ] [NOUN]",
+"a normal person finds themselves amongst \"[ADJ] people\"",
+"a normal person finds themselves amongst \"[NOUN] people\"",
+"a normal person finds themselves amongst \"[ADJ] [ADJ] people\"",
+"a normal person finds themselves amongst \"[ADJ] [NOUN] people\"",
+"a normal person finds themselves amongst \"[ADJ] [ADJ] [NOUN] people\"",
+"a normal person finds themselves amongst \"[NOUN] [NOUN] people\"",
+"a \"[ADJ] person\" amongst normal people",
+"a \"[NOUN] person\" amongst normal people",
+"a \"[ADJ] [ADJ] person\" amongst normal people",
+"a \"[ADJ] [NOUN] person\" amongst normal people",
+"a \"[ADJ] [ADJ] [NOUN] person\" amongst normal people",
+"a \"[NOUN] [NOUN] person\" amongst normal people",
+"a character defined by these words: [ADJ], [NOUN], [ADJ]",
+"a character defined by these words: [ADJ], [ADJ], [ADJ]",
+"a character defined by these words: [NOUN], [NOUN], [NOUN]",
+"a character defined by these words: [ADJ], [NOUN], [NOUN]",
+"a character defined by these words: [ADJ], [ADJ], [NOUN]",
+"a character defined by these words: [NOUN], [ADJ], [ADJ]",
+"a character defined by these words: [NOUN], [NOUN], [ADJ]",
+"a character defined by these words: [NOUN], [ADJ], [NOUN]"
+];
 
 //new temps
 
@@ -349,14 +622,14 @@ shuffle2(adjs);
 shuffle2(verbs);
 
 //show stats
-document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
+document.getElementById("mainText").innerHTML = "NOTE: None of these are saved, so write down<br>your favorites somewhere.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps2.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
 
 //the premise generator
 
 function getPremise() {
 	var diceRoll = Math.round(Math.random()*10);
 	
-	if(diceRoll <= 8) {
+	if(diceRoll < 7) {
 		var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
 	} else {
 		var p1 = (Math.random()*temps1.length)>>0;
@@ -390,10 +663,41 @@ function getPremise() {
 	return premise+" and it changes everything.";
 }
 
+//sketch premise generator
+
+function getSketch() {
+	var premise = temps[(Math.random()*temps.length)>>0];
+	
+	var adjsCopy = adjs.slice(0);
+	var nounsCopy = nouns.slice(0);
+	var verbsCopy = verbs.slice(0);
+	
+	var adjPicks = [];
+	var nounPicks = [];
+	var verbPicks = [];
+	
+	for(var i=0;i<4;i++) {
+		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
+		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
+		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
+	}
+	
+	for(var i=0;i<4;i++) {
+		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
+		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
+		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
+	}
+	
+	return premise+".";
+}
+
 //web interface code
 
-var pressedYet = false;
+var butClicks = 0;
 var savedItems = [];
+var premsString = "";
+var newPrem = "";
+var targetBase = "";
 
 function chkIt(num) {
 	if(!document.getElementById("c"+num).checked) {
@@ -404,95 +708,73 @@ function chkIt(num) {
 }
 
 function genButton() {
-	if(!pressedYet) {
+	if(butClicks < 1) {
 		document.getElementById("mainText").innerHTML = "<input type=\"checkbox\" id=\"c1\"><\/input> <span id=\"p1\">NULL<\/span><br><input type=\"checkbox\" id=\"c2\"><\/input> <span id=\"p2\">NULL<\/span><br><input type=\"checkbox\" id=\"c3\"><\/input> <span id=\"p3\">NULL<\/span><br><input type=\"checkbox\" id=\"c4\"><\/input> <span id=\"p4\">NULL<\/span><br><input type=\"checkbox\" id=\"c5\"><\/input> <span id=\"p5\">NULL<\/span><br><input type=\"checkbox\" id=\"c6\"><\/input> <span id=\"p6\">NULL<\/span><br><input type=\"checkbox\" id=\"c7\"><\/input> <span id=\"p7\">NULL<\/span><br><input type=\"checkbox\" id=\"c8\"><\/input> <span id=\"p8\">NULL<\/span><br><input type=\"checkbox\" id=\"c9\"><\/input> <span id=\"p9\">NULL<\/span><br><input type=\"checkbox\" id=\"c10\"><\/input> <span id=\"p10\">NULL<\/span><br><input type=\"checkbox\" id=\"c11\"><\/input> <span id=\"p11\">NULL<\/span><br><input type=\"checkbox\" id=\"c12\"><\/input> <span id=\"p12\">NULL<\/span><br><input type=\"checkbox\" id=\"c13\"><\/input> <span id=\"p13\">NULL<\/span><br><input type=\"checkbox\" id=\"c14\"><\/input> <span id=\"p14\">NULL<\/span><br><input type=\"checkbox\" id=\"c15\"><\/input> <span id=\"p15\">NULL<\/span>";
 		updateList();
-		pressedYet = true;
 	} else {
-		flushSaved();
 		updateList();
 	}
+	butClicks++;
 }
-
-function flushSaved() {
-	for(var i=1;i<=15;i++) {
-		if(document.getElementById("c"+i).checked) {
-			savedItems.push(document.getElementById("p"+i).innerHTML);
-			document.getElementById("c"+i).checked = false;
-		}
-	}
-	if(savedItems.length >= 1) {
-		document.getElementById("saveText").innerHTML = "Preserved items:<br><br>"+savedItems.join("<br>")+"<br><br><a href=\"javascript:clearSaved();\">clear<\/a>";
-	}
-}
-
-var premises = ["zero index unused"];
-var part1s = ["zero index unused"];
-var part2s = ["zero index unused"];
 
 function updateList() {
 	for(var i=1;i<=15;i++) {
-		premises[i] = getPremise();
-		document.getElementById("p"+i).innerHTML = premises[i];
-		if(!pressedYet) {
-			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
-		}
+        if(butClicks == 0) {
+            document.getElementById("p"+i).innerHTML = getPremise().split(" One day, ")[0];
+            document.getElementById("p"+i).onclick = chkIt.bind(window,i);
+        } else {
+            if(document.getElementById("c"+i).checked) {
+                if(savedItems.indexOf(document.getElementById("p"+i).innerHTML) == -1) {
+                    while(savedItems.length > 14) {
+                        savedItems.shift();
+                    }
+                    savedItems.push(document.getElementById("p"+i).innerHTML);
+                }
+                document.getElementById("c"+i).checked = false;
+                document.getElementById("p"+i).innerHTML = getPremise().split(" One day, ")[0];
+            } else {
+                document.getElementById("p"+i).innerHTML = getPremise().split(" One day, ")[0];
+            }
+        }
 	}
+    if(savedItems.length > 0) {
+        updateBranches();
+    }
 }
 
-var newPrem = "";
-var newII = "";
-var newSP = "";
-
-function newIIs() {
-	for(var i=1;i<=15;i++) {
-		part1s[i] = premises[i].split(" One day, ")[0];
-		newPrem = getPremise();
-		newII = "One day, "+newPrem.split(" One day, ")[1];
-		premises[i] = part1s[i]+" "+newII;
-		document.getElementById("p"+i).innerHTML = premises[i];
-	}
-}
-
-function newSPs() {
-	for(var i=1;i<=15;i++) {
-		part2s[i] = "One day, "+premises[i].split(" One day, ")[1];
-		newPrem = getPremise();
-		newSP = newPrem.split(" One day, ")[0];
-		premises[i] = newSP+" "+part2s[i];
-		document.getElementById("p"+i).innerHTML = premises[i];
-	}
-}
-
-function justSPs() {
-	for(var i=1;i<=15;i++) {
-		newPrem = getPremise().split(" One day, ")[0];
-		premises[i] = newPrem;
-		document.getElementById("p"+i).innerHTML = premises[i];
-		premises[i] = newPrem+" One day, (blank).";
-	}
-}
-
-function justIIs() {
-	for(var i=1;i<=15;i++) {
-		newPrem = "One day, "+getPremise().split(" One day, ")[1];
-		premises[i] = newPrem;
-		document.getElementById("p"+i).innerHTML = premises[i];
-		premises[i] = "(blank). "+newPrem;
-	}
-}
-
-function clearSaved() {
-	savedItems.length = 0;
-	document.getElementById("saveText").innerHTML = "";
+function updateBranches() {
+    document.getElementById("premsText").innerHTML = "";
+    premsString = "";
+    for(var i=0;i<savedItems.length;i++) {
+        targetBase = savedItems[i];
+        for(var n=0;n<5;n++) {
+            newPrem = targetBase+" Then this changes everything: "+getSketch();
+            premsString += newPrem;
+            if(n < 4) {
+                premsString += "<br>";
+            }
+        }
+        if(savedItems.length > 1 && i < savedItems.length-1) {
+            premsString += "<br><br>";
+        }
+    }
+    document.getElementById("premsText").innerHTML = premsString;
 }
 
 function clearChecks() {
-	if(pressedYet) {
+	if(butClicks > 0) {
 		for(var i=1;i<=15;i++) {
 			document.getElementById("c"+i).checked = false;
 		}
 	}
+}
+
+function clearAll() {
+    if(butClicks > 0) {
+        savedItems.length = 0;
+        premsString = "";
+        document.getElementById("premsText").innerHTML = "";
+    }
 }
 </script>
 </body>
