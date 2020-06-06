@@ -752,7 +752,7 @@ function chkTw() {
 }
 
 //make combined word array, remove same words + shuffle
-var allWords = nouns.concat(adjs);
+var allWords = nouns.slice(0).concat(adjs.slice(0));
 shuffle2(allWords);
 </script>
 </body>
