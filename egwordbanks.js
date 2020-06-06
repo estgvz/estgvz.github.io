@@ -1,6 +1,6 @@
-//contents of: egwordbanks.js----------------
+//contents of: egwordbanks.js-------------
 //wordbanks v1.310 for estgvz.github.io
-//by estevan galvez, updated: june 06 2020
+//by estevan galvez. updated: june 06 2020
 
 //nouns
 
@@ -587,4 +587,4 @@ var temps2 = [
     "they witness the murder of a [NOUN] [NOUN]"
 ];
 
-//end of egwordbanks.js----------------------
+//end of egwordbanks.js-------------------
