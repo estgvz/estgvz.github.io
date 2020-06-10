@@ -1,6 +1,8 @@
 # estgvz
 estgvz's site
 
-My sketch premise generator: SketchPremiseGen, and maybe some other stuff one day.
+Web applets by Estevan Galvez, specifically my Sketch Premise Generator, as well as some others.
 Use SPG here:
 https://estgvz.github.io/spg.html
+You can use them all here:
+https://estgvz.github.io/
