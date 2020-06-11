@@ -1,11 +1,11 @@
-//Word Group Generator v1.0 code (based on my Sketch Premise Generator v1.3)
+//Word Group Generator v1.0 code (based on my Sketch Premise Generator v1.4)
 //by Estevan Galvez, 2020
 
 document.getElementById("plurCheck").checked = false;
 document.getElementById("theCheck").checked = false;
 
 //show stats
-document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives available. I'm<br>aware this looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
+document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives available. I'm<br>aware this looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br><i>wordbank version: "+wordbankVer+"</i>";
 
 //word groups templates arrays
 

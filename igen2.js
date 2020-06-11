@@ -1,8 +1,8 @@
-//Sketch Premise Generator (aka SketchPremiseGen) v1.3 code INCITING INCIDENT VERSION
+//Sketch Premise Generator (aka SketchPremiseGen) v1.4 code INCITING INCIDENT VERSION
 //by Estevan Galvez, 2020
 
 //show stats
-document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
+document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br><i>wordbank version: "+wordbankVer+"</i>";
 
 //the premise generator
 
@@ -17,13 +17,13 @@ function getPremise() {
 	var nounPicks = [];
 	var verbPicks = [];
 	
-	for(var i=0;i<4;i++) {
+	for(var i=0;i<5;i++) {
 		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
 		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
 		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
 	}
 	
-	for(var i=0;i<4;i++) {
+	for(var i=0;i<5;i++) {
 		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
 		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
 		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());

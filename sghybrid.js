@@ -1,8 +1,8 @@
-//Story Generator v1.3 (SPG Hybrid Edition) code
+//Story Generator v1.4 (SPG Hybrid Edition) code
 //by Estevan Galvez, 2020
 
 //show stats
-document.getElementById("mainText").innerHTML = "NOTE: None of these are saved, so write down<br>your favorites somewhere.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!";
+document.getElementById("mainText").innerHTML = "NOTE: None of these are saved, so write down<br>your favorites somewhere.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br><i>wordbank version: "+wordbankVer+"</i>";
 
 //the premise generator
 
@@ -56,13 +56,13 @@ function getSketch() {
 	var nounPicks = [];
 	var verbPicks = [];
 	
-	for(var i=0;i<4;i++) {
+	for(var i=0;i<5;i++) {
 		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
 		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
 		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
 	}
 	
-	for(var i=0;i<4;i++) {
+	for(var i=0;i<5;i++) {
 		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
 		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
 		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
