@@ -8,45 +8,16 @@ document.getElementById("mainText").innerHTML = "When you press the button, pres
 
 function getPremise() {
 	var premise = temps[(Math.random()*temps.length)>>0];
-	
-	var adjsCopy = adjs.slice(0);
-	var nounsCopy = nouns.slice(0);
-	var verbsCopy = verbs.slice(0);
-	
-	var adjPicks = [];
-	var nounPicks = [];
-	var verbPicks = [];
-	
-	for(var i=0;i<5;i++) {
-		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
-		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
-		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
-	}
-	
-	for(var i=0;i<5;i++) {
-		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
-		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
-		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
-	}
-	
+	premise = fillWords(premise);
 	return "A conflict involving: "+premise+".";
-}
-
-//the "3 random words" function (all-words array defined later)
-
-function getWords() {
-	var wordsCopy = allWords.slice(0);
-	var wordPicks = [];
-	for(var i=0;i<3;i++) {
-		wordPicks.push(wordsCopy.splice((Math.random()*wordsCopy.length)>>0,1)[0].toUpperCase());
-	}
-	return wordPicks[0]+" + "+wordPicks[1]+" + "+wordPicks[2]+".";
 }
 
 //web interface code
 
 var pressedYet = false;
 var savedItems = [];
+var itemCand = "";
+var dispItems = [];
 
 function chkIt(num) {
 	if(!document.getElementById("c"+num).checked) {
@@ -80,8 +51,14 @@ function flushSaved() {
 }
 
 function updateList() {
+	dispItems.length = 0;
 	for(var i=1;i<=15;i++) {
-		document.getElementById("p"+i).innerHTML = getPremise();
+		itemCand = getPremise();
+		while (dispItems.indexOf(itemCand) >= 0) {
+			itemCand = getPremise();
+		}
+		dispItems.push(itemCand);
+		document.getElementById("p" + i).innerHTML = itemCand;
 		if(!pressedYet) {
 			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
 		}

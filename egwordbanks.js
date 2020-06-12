@@ -657,4 +657,23 @@ var temps2 = [
     "they witness the murder of a [NOUN] [NOUN]"
 ];
 
+//plug-words-into-template function
+function fillWords(targetString) {
+	var adjsCopy = adjs.slice(0);
+	var nounsCopy = nouns.slice(0);
+	var verbsCopy = verbs.slice(0);
+	while(targetString.indexOf("[ADJ]") >= 0) {
+		targetString = targetString.replace("[ADJ]",adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0].toUpperCase());
+	}
+	while(targetString.indexOf("[NOUN]") >= 0) {
+		targetString = targetString.replace("[NOUN]",nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0].toUpperCase());
+	}
+	while(targetString.indexOf("[VERB]") >= 0) {
+		targetString = targetString.replace("[VERB]",verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0].toUpperCase());
+	}
+	return targetString; //note: strings are passed by value so you have to set template string to = fillWords(template)
+}
+
+var randTest = Math.random();
+
 //end of egwordbanks.js-------------------
