@@ -1,4 +1,4 @@
-//Word Group Generator v1.0 code (based on my Sketch Premise Generator v1.4)
+//Word Group Generator v1.1 (based on my Sketch Premise Generator v1.4)
 //by Estevan Galvez, 2020
 
 document.getElementById("plurCheck").checked = false;
@@ -49,76 +49,31 @@ var wgtemps4 = [
     "The [NOUN] [NOUN] [NOUN]s"
 ];
 
-//the premise generator
-function getPremise() {
-	var premise = temps[(Math.random()*temps.length)>>0];
-	
-	var adjsCopy = adjs.slice(0);
-	var nounsCopy = nouns.slice(0);
-	var verbsCopy = verbs.slice(0);
-	
-	var adjPicks = [];
-	var nounPicks = [];
-	var verbPicks = [];
-	
-	for(var i=0;i<4;i++) {
-		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
-		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
-		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
-	}
-	
-	for(var i=0;i<4;i++) {
-		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
-		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
-		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
-	}
-	
-	return premise.charAt(0).toUpperCase()+premise.slice(1)+".";
-}
-
 //get word group function
 function getWordGroup() {
+	var wordGroup = "";
     if(document.getElementById("plurCheck").checked) {
         if(!document.getElementById("theCheck").checked) {
-            var wordGroup = wgtemps2[(Math.random()*wgtemps2.length)>>0];
+            wordGroup = wgtemps2[(Math.random()*wgtemps2.length)>>0];
         } else {
-            var wordGroup = wgtemps4[(Math.random()*wgtemps4.length)>>0];
+            wordGroup = wgtemps4[(Math.random()*wgtemps4.length)>>0];
         }
     } else {
         if(!document.getElementById("theCheck").checked) {
-            var wordGroup = wgtemps1[(Math.random()*wgtemps1.length)>>0];
+            wordGroup = wgtemps1[(Math.random()*wgtemps1.length)>>0];
         } else {
-            var wordGroup = wgtemps3[(Math.random()*wgtemps3.length)>>0];
+            wordGroup = wgtemps3[(Math.random()*wgtemps3.length)>>0];
         }
-    }
-	
-	var adjsCopy = adjs.slice(0);
-	var nounsCopy = nouns.slice(0);
-	var verbsCopy = verbs.slice(0);
-	
-	var adjPicks = [];
-	var nounPicks = [];
-	var verbPicks = [];
-	
-	for(var i=0;i<4;i++) {
-		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
-		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
-		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
 	}
-	
-	for(var i=0;i<4;i++) {
-		wordGroup = wordGroup.replace("[ADJ]",adjPicks[i].toUpperCase());
-		wordGroup = wordGroup.replace("[NOUN]",nounPicks[i].toUpperCase());
-		wordGroup = wordGroup.replace("[VERB]",verbPicks[i].toUpperCase());
-	}
-	
-	return wordGroup+".";
+	return fillWords(wordGroup)+".";
 }
 
 //web interface code
 
 var pressedYet = false;
 var savedItems = [];
+var itemCand = "";
+var dispItems = [];
 
 function chkIt(num) {
 	if(!document.getElementById("c"+num).checked) {
@@ -152,8 +107,14 @@ function flushSaved() {
 }
 
 function updateList() {
+	dispItems.length = 0;
 	for(var i=1;i<=15;i++) {
-		document.getElementById("p"+i).innerHTML = getWordGroup();
+		itemCand = getWordGroup();
+		while(dispItems.indexOf(itemCand) >= 0) {
+			itemCand = getWordGroup();
+		}
+		dispItems.push(itemCand);
+		document.getElementById("p"+i).innerHTML = itemCand;
 		if(!pressedYet) {
 			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
 		}
