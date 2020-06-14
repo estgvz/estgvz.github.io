@@ -118,10 +118,13 @@ function updateBranches() {
 			}
 			branchItems.push(branchCand);
 			newPrem = targetBase+" "+branchCand;
-			premsString += newPrem+"<br>";
+			premsString += newPrem;
+			if(k < 9) {
+				premsString += "<br>";
+			}
 		}
 		if(i < savedItems.length-1) {
-			premsString += "<br>";
+			premsString += "<br><br>";
 		}
 	}
 	document.getElementById("premsText").innerHTML = premsString;
