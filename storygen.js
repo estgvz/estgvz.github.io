@@ -44,6 +44,7 @@ var dispItems = [];
 var branchItems = [];
 var itemCand = "";
 var branchCand = "";
+var numBranches = 10;
 
 function chkIt(num) {
 	if(!document.getElementById("c"+num).checked) {
@@ -111,7 +112,7 @@ function updateBranches() {
 	for(var i = 0; i < savedItems.length; i++) {
 		branchItems.length = 0;
 		targetBase = savedItems[i];
-		for(var k=0;k<10;k++) {
+		for(var k=0;k<numBranches;k++) {
 			branchCand = getII();
 			while(branchItems.indexOf(branchCand) >= 0) {
 				branchCand = getII();
@@ -119,7 +120,7 @@ function updateBranches() {
 			branchItems.push(branchCand);
 			newPrem = targetBase+" "+branchCand;
 			premsString += newPrem;
-			if(k < 9) {
+			if(k < numBranches-1) {
 				premsString += "<br>";
 			}
 		}
