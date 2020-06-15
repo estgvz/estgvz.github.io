@@ -11,7 +11,8 @@ document.getElementById("mainText").innerHTML = "TIP: Even once full premises ha
 function getStart() {
 	var startString = "";
 	//randomly determine if 1 or 2 lead characters will be specified
-	if(!((Math.random()*2)>>0)) {
+	var randBit = Math.round(Math.random());
+	if(randBit < 1) {
 		//one lead described
 		startString = temps1[(Math.random()*temps1.length)>>0];
 		startString = fillWords(startString)+".";
