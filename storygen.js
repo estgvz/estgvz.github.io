@@ -10,10 +10,8 @@ document.getElementById("mainText").innerHTML = "TIP: Even once full premises ha
 
 function getStart() {
 	var startString = "";
-	//dice-roll to determine if 1 or 2 lead characters will be specified
-	//generates an integer >= 1 and <= 10
-	var diceRoll = ((Math.random()*10)>>0)+1;
-	if(diceRoll < 6) {
+	//randomly determine if 1 or 2 lead characters will be specified
+	if(!((Math.random()*2)>>0)) {
 		//one lead described
 		startString = temps1[(Math.random()*temps1.length)>>0];
 		startString = fillWords(startString)+".";
