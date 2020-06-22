@@ -1,74 +1,35 @@
-//Story Generator v1.4 (SPG Hybrid Edition) code
+//Story Generator v1.5 code (SPG HYBRID VERSION)
 //by Estevan Galvez, 2020
 
 //show stats
-document.getElementById("mainText").innerHTML = "NOTE: None of these are saved, so write down<br>your favorites somewhere.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+(temps1.length+temps.length)+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br><i>wordbank version: "+wordbankVer+"</i>";
+document.getElementById("mainText").innerHTML = "TIP: Even once full premises have been generated,<br>they're regenerated with new inciting incidents<br>every time you press the button, allowing you to<br>try as many new inciting incidents as you want.<br><br>NOTE: None of these are saved, so write down<br>your favorites somewhere.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br><i>wordbank version: "+wordbankVer+"</i>";
 
-//the premise generator
+//as of 1.5, this uses separate functions for starts and inciting incidents (way more logical)
 
-function getPremise() {
-	var diceRoll = Math.round(Math.random()*10);
-	
-	if(diceRoll < 7) {
-		var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
+//start-generating function
+
+function getStart() {
+	var startString = "";
+	//randomly determine if 1 or 2 lead characters will be specified
+	var randBit = Math.round(Math.random());
+	if(randBit < 1) {
+		//one lead described
+		startString = temps1[(Math.random()*temps1.length)>>0];
+		startString = fillWords(startString)+".";
 	} else {
-		var p1 = (Math.random()*temps1.length)>>0;
-		var p2 = (Math.random()*temps1.length)>>0;
-		while(p2 == p1) {
-			p2 = (Math.random()*temps1.length)>>0;
-		}
-		var premise = temps1[p1]+", and (NAME 2)"+temps1[p2].slice(6)+". One day, "+temps2[(Math.random()*temps2.length)>>0];
+		//two leads described
+		var temps1Copy = temps1.slice(0);
+		startString = temps1Copy.splice((Math.random()*temps1Copy.length)>>0,1)[0]+", and "+temps1Copy.splice((Math.random()*temps1Copy.length)>>0,1)[0].replace("(NAME)","(NAME 2)");
+		startString = fillWords(startString)+".";
 	}
-	
-	var adjsCopy = adjs.slice(0);
-	var nounsCopy = nouns.slice(0);
-	var verbsCopy = verbs.slice(0);
-	
-	var adjPicks = [];
-	var nounPicks = [];
-	var verbPicks = [];
-	
-	for(var i=0;i<12;i++) {
-		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
-		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
-		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
-	}
-	
-	for(var i=0;i<12;i++) {
-		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
-		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
-		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
-	}
-	
-	return premise+" and it changes everything.";
+	return startString;
 }
 
-//sketch premise generator
+//inciting incident writing function (SPG ver)
 
-function getSketch() {
-	var premise = temps[(Math.random()*temps.length)>>0];
-	
-	var adjsCopy = adjs.slice(0);
-	var nounsCopy = nouns.slice(0);
-	var verbsCopy = verbs.slice(0);
-	
-	var adjPicks = [];
-	var nounPicks = [];
-	var verbPicks = [];
-	
-	for(var i=0;i<5;i++) {
-		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
-		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
-		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
-	}
-	
-	for(var i=0;i<5;i++) {
-		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
-		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
-		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
-	}
-	
-	return premise+".";
+function getII() {
+	var iString = temps[(Math.random()*temps.length)>>0];
+	return "Then this changes everything: "+fillWords(iString)+".";
 }
 
 //web interface code
@@ -78,6 +39,11 @@ var savedItems = [];
 var premsString = "";
 var newPrem = "";
 var targetBase = "";
+var dispItems = [];
+var branchItems = [];
+var itemCand = "";
+var branchCand = "";
+var numBranches = 10;
 
 function chkIt(num) {
 	if(!document.getElementById("c"+num).checked) {
@@ -98,22 +64,38 @@ function genButton() {
 }
 
 function updateList() {
+	dispItems.length = 0;
 	for(var i=1;i<=15;i++) {
-        if(butClicks == 0) {
-            document.getElementById("p"+i).innerHTML = getPremise().split(" One day, ")[0];
+        if(butClicks < 1) {
+			itemCand = getStart();
+			while (dispItems.indexOf(itemCand) >= 0) {
+				itemCand = getStart();
+			}
+			dispItems.push(itemCand);
+			document.getElementById("p"+i).innerHTML = itemCand;
             document.getElementById("p"+i).onclick = chkIt.bind(window,i);
         } else {
             if(document.getElementById("c"+i).checked) {
-                if(savedItems.indexOf(document.getElementById("p"+i).innerHTML) == -1) {
-                    while(savedItems.length > 14) {
-                        savedItems.shift();
-                    }
-                    savedItems.push(document.getElementById("p"+i).innerHTML);
-                }
-                document.getElementById("c"+i).checked = false;
-                document.getElementById("p"+i).innerHTML = getPremise().split(" One day, ")[0];
+				if(savedItems.indexOf(document.getElementById("p"+i).innerHTML) < 0) {
+					savedItems.unshift(document.getElementById("p"+i).innerHTML);
+					while (savedItems.length > 15) {
+						savedItems.pop();
+					}
+				}
+				document.getElementById("c"+i).checked = false;
+				itemCand = getStart();
+				while(dispItems.indexOf(itemCand) >= 0) {
+					itemCand = getStart();
+				}
+				dispItems.push(itemCand);
+                document.getElementById("p"+i).innerHTML = itemCand;
             } else {
-                document.getElementById("p"+i).innerHTML = getPremise().split(" One day, ")[0];
+				itemCand = getStart();
+				while(dispItems.indexOf(itemCand) >= 0) {
+					itemCand = getStart();
+				}
+				dispItems.push(itemCand);
+                document.getElementById("p"+i).innerHTML = itemCand;
             }
         }
 	}
@@ -123,22 +105,29 @@ function updateList() {
 }
 
 function updateBranches() {
-    document.getElementById("premsText").innerHTML = "";
-    premsString = "";
-    for(var i=0;i<savedItems.length;i++) {
-        targetBase = savedItems[i];
-        for(var n=0;n<5;n++) {
-            newPrem = targetBase+" Then this changes everything: "+getSketch();
-            premsString += newPrem;
-            if(n < 4) {
-                premsString += "<br>";
-            }
-        }
-        if(savedItems.length > 1 && i < savedItems.length-1) {
-            premsString += "<br><br>";
-        }
-    }
-    document.getElementById("premsText").innerHTML = premsString;
+	premsString = "";
+	targetBase = "";
+	newPrem = "";
+	for(var i = 0; i < savedItems.length; i++) {
+		branchItems.length = 0;
+		targetBase = savedItems[i];
+		for(var k=0;k<numBranches;k++) {
+			branchCand = getII();
+			while(branchItems.indexOf(branchCand) >= 0) {
+				branchCand = getII();
+			}
+			branchItems.push(branchCand);
+			newPrem = targetBase+" "+branchCand;
+			premsString += newPrem;
+			if(k < numBranches-1) {
+				premsString += "<br>";
+			}
+		}
+		if(i < savedItems.length-1) {
+			premsString += "<br><br>";
+		}
+	}
+	document.getElementById("premsText").innerHTML = premsString;
 }
 
 function clearChecks() {
@@ -151,7 +140,8 @@ function clearChecks() {
 
 function clearAll() {
     if(butClicks > 0) {
-        savedItems.length = 0;
+		savedItems.length = 0;
+		dispItems.length = 0;
         premsString = "";
         document.getElementById("premsText").innerHTML = "";
     }
