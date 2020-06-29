@@ -1,52 +1,69 @@
-//Inciting Incident Generator (based on my Story Generator) v1.4 code
+//Inciting Incident Generator (SG)
 //by Estevan Galvez, 2020
+
+document.getElementById("twCheck").checked = false;
 
 //show stats
 document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps2.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br><i>wordbank version: "+wordbankVer+"</i>";
 
-//the premise generator
+//word groups templates array
+var wordGroupTemps = [
+    "[NOUN] [NOUN]s",
+	"[ADJ] [NOUN]s",
+	"[NOUN] [NOUN]s",
+    "[ADJ] [NOUN]s",
+    "[ADJ] [ADJ] [NOUN]s",
+    "[ADJ] [NOUN] [NOUN]s",
+    "[NOUN] [NOUN] [NOUN]s",
+    "The [NOUN] [NOUN]s",
+	"The [ADJ] [NOUN]s",
+	"The [NOUN] [NOUN]s",
+    "The [ADJ] [NOUN]s",
+    "The [ADJ] [ADJ] [NOUN]s",
+    "The [ADJ] [NOUN] [NOUN]s",
+    "The [NOUN] [NOUN] [NOUN]s",
+    "The [NOUN] [NOUN]",
+	"The [ADJ] [NOUN]",
+	"The [NOUN] [NOUN]",
+    "The [ADJ] [NOUN]",
+    "The [ADJ] [ADJ] [NOUN]",
+    "The [ADJ] [NOUN] [NOUN]",
+    "The [NOUN] [NOUN] [NOUN]",
+    "[NOUN] [NOUN]",
+	"[ADJ] [NOUN]",
+	"[NOUN] [NOUN]",
+    "[ADJ] [NOUN]",
+    "[ADJ] [ADJ] [NOUN]",
+    "[ADJ] [NOUN] [NOUN]",
+    "[NOUN] [NOUN] [NOUN]"
+];
 
+for(var i=0; i < wordGroupTemps.length; i++) {
+	if(wordGroupTemps[i].substring(0,3) == "The") {
+		wordGroupTemps[i] = "t"+wordGroupTemps[i].substring(1);
+	}
+}
+
+//the premise generator
 function getPremise() {
-	var diceRoll = Math.round(Math.random()*10);
-	
-	if(diceRoll <= 8) {
-		var premise = temps1[(Math.random()*temps1.length)>>0]+". One day, "+temps2[(Math.random()*temps2.length)>>0];
-	} else {
-		var p1 = (Math.random()*temps1.length)>>0;
-		var p2 = (Math.random()*temps1.length)>>0;
-		while(p2 == p1) {
-			p2 = (Math.random()*temps1.length)>>0;
-		}
-		var premise = temps1[p1]+", and (NAME 2)"+temps1[p2].slice(6)+". One day, "+temps2[(Math.random()*temps2.length)>>0];
-	}
-	
-	var adjsCopy = adjs.slice(0);
-	var nounsCopy = nouns.slice(0);
-	var verbsCopy = verbs.slice(0);
-	
-	var adjPicks = [];
-	var nounPicks = [];
-	var verbPicks = [];
-	
-	for(var i=0;i<12;i++) {
-		adjPicks.push(adjsCopy.splice((Math.random()*adjsCopy.length)>>0,1)[0]);
-		nounPicks.push(nounsCopy.splice((Math.random()*nounsCopy.length)>>0,1)[0]);
-		verbPicks.push(verbsCopy.splice((Math.random()*verbsCopy.length)>>0,1)[0]);
-	}
-	
-	for(var i=0;i<12;i++) {
-		premise = premise.replace("[ADJ]",adjPicks[i].toUpperCase());
-		premise = premise.replace("[NOUN]",nounPicks[i].toUpperCase());
-		premise = premise.replace("[VERB]",verbPicks[i].toUpperCase());
-	}
-	
-	return premise+" and it changes everything.";
+	var premise = temps2[(Math.random()*temps2.length)>>0];
+	premise = fillWords(premise);
+	return "One day, "+premise+" and it changes everything.";
+}
+
+//get word groups instead function
+function getWordGroup() {
+    var wordGroup = wordGroupTemps[(Math.random()*wordGroupTemps.length)>>0];
+	wordGroup = fillWords(wordGroup);
+	return "Then this changes everything: "+wordGroup+".";
 }
 
 //web interface code
 
 var pressedYet = false;
 var savedItems = [];
+var itemCand = "";
+var dispItems = [];
 
 function chkIt(num) {
 	if(!document.getElementById("c"+num).checked) {
@@ -79,17 +96,24 @@ function flushSaved() {
 	}
 }
 
-var premises = ["zero index unused"];
-var part1s = ["zero index unused"];
-var part2s = ["zero index unused"];
-var newPrem = "";
-var newII = "";
-var newSP = "";
-
 function updateList() {
+	dispItems.length = 0;
 	for(var i=1;i<=15;i++) {
-		newPrem = "One day, "+getPremise().split(" One day, ")[1];
-		document.getElementById("p"+i).innerHTML = newPrem;
+		if(!document.getElementById("twCheck").checked) {
+			itemCand = getPremise();
+			while(dispItems.indexOf(itemCand) >= 0) {
+				itemCand = getPremise();
+			}
+			dispItems.push(itemCand);
+			document.getElementById("p"+i).innerHTML = itemCand;
+		} else {
+			itemCand = getWordGroup();
+			while(dispItems.indexOf(itemCand) >= 0) {
+				itemCand = getWordGroup();
+			}
+			dispItems.push(itemCand);
+			document.getElementById("p"+i).innerHTML = itemCand;
+		}
 		if(!pressedYet) {
 			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
 		}
@@ -106,5 +130,13 @@ function clearChecks() {
 		for(var i=1;i<=15;i++) {
 			document.getElementById("c"+i).checked = false;
 		}
+	}
+}
+
+function chkTw() {
+	if(!document.getElementById("twCheck").checked) {
+		document.getElementById("twCheck").checked = true;
+	} else {
+		document.getElementById("twCheck").checked = false;
 	}
 }

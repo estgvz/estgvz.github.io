@@ -1,6 +1,8 @@
 //Sketch Premise Generator (aka SketchPremiseGen) v1.4 code PILOT IDEA VERSION
 //by Estevan Galvez, 2020
 
+document.getElementById("twCheck").checked = false;
+
 //remove templates that contain "TV show" or "movie"
 
 function cutAllContaining(arr,str) {
@@ -21,12 +23,57 @@ cutAllContaining(temps,"movie");
 //show stats
 document.getElementById("mainText").innerHTML = "When you press the button, preserved items<br>will be moved down below, but they aren't<br>saved when you leave or reload this page,<br>so when you're done, screenshot them.<br><br>"+nouns.length+" nouns, "+adjs.length+" adjectives, "+verbs.length+" verbs,<br>"+temps.length+" templates available. I'm aware this<br>looks like a web page from 1990.<br><br>Dedicated to the <a target=\"_self\" href=\"https:\/\/www.packtheater.com\/\">Pack Theater</a>. Check it out!<br><br><i>wordbank version: "+wordbankVer+"</i>";
 
+//word groups templates array
+var wordGroupTemps = [
+    "[NOUN] [NOUN]s",
+	"[ADJ] [NOUN]s",
+	"[NOUN] [NOUN]s",
+    "[ADJ] [NOUN]s",
+    "[ADJ] [ADJ] [NOUN]s",
+    "[ADJ] [NOUN] [NOUN]s",
+    "[NOUN] [NOUN] [NOUN]s",
+    "The [NOUN] [NOUN]s",
+	"The [ADJ] [NOUN]s",
+	"The [NOUN] [NOUN]s",
+    "The [ADJ] [NOUN]s",
+    "The [ADJ] [ADJ] [NOUN]s",
+    "The [ADJ] [NOUN] [NOUN]s",
+    "The [NOUN] [NOUN] [NOUN]s",
+    "The [NOUN] [NOUN]",
+	"The [ADJ] [NOUN]",
+	"The [NOUN] [NOUN]",
+    "The [ADJ] [NOUN]",
+    "The [ADJ] [ADJ] [NOUN]",
+    "The [ADJ] [NOUN] [NOUN]",
+    "The [NOUN] [NOUN] [NOUN]",
+    "[NOUN] [NOUN]",
+	"[ADJ] [NOUN]",
+	"[NOUN] [NOUN]",
+    "[ADJ] [NOUN]",
+    "[ADJ] [ADJ] [NOUN]",
+    "[ADJ] [NOUN] [NOUN]",
+    "[NOUN] [NOUN] [NOUN]"
+];
+
+for(var i=0; i < wordGroupTemps.length; i++) {
+	if(wordGroupTemps[i].substring(0,3) == "The") {
+		wordGroupTemps[i] = "t"+wordGroupTemps[i].substring(1);
+	}
+}
+
 //the premise generator
 
 function getPremise() {
 	var premise = temps[(Math.random()*temps.length)>>0];
 	premise = fillWords(premise);
 	return "A pilot about: "+premise+".";
+}
+
+//get word groups instead function
+function getWordGroup() {
+    var wordGroup = wordGroupTemps[(Math.random()*wordGroupTemps.length)>>0];
+	wordGroup = fillWords(wordGroup);
+	return "A pilot about: "+wordGroup+".";
 }
 
 //web interface code
@@ -70,12 +117,21 @@ function flushSaved() {
 function updateList() {
 	dispItems.length = 0;
 	for(var i=1;i<=15;i++) {
-		itemCand = getPremise();
-		while (dispItems.indexOf(itemCand) >= 0) {
+		if(!document.getElementById("twCheck").checked) {
 			itemCand = getPremise();
+			while(dispItems.indexOf(itemCand) >= 0) {
+				itemCand = getPremise();
+			}
+			dispItems.push(itemCand);
+			document.getElementById("p"+i).innerHTML = itemCand;
+		} else {
+			itemCand = getWordGroup();
+			while(dispItems.indexOf(itemCand) >= 0) {
+				itemCand = getWordGroup();
+			}
+			dispItems.push(itemCand);
+			document.getElementById("p"+i).innerHTML = itemCand;
 		}
-		dispItems.push(itemCand);
-		document.getElementById("p" + i).innerHTML = itemCand;
 		if(!pressedYet) {
 			document.getElementById("p"+i).onclick = chkIt.bind(window,i);
 		}
@@ -92,5 +148,13 @@ function clearChecks() {
 		for(var i=1;i<=15;i++) {
 			document.getElementById("c"+i).checked = false;
 		}
+	}
+}
+
+function chkTw() {
+	if(!document.getElementById("twCheck").checked) {
+		document.getElementById("twCheck").checked = true;
+	} else {
+		document.getElementById("twCheck").checked = false;
 	}
 }

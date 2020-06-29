@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Concept Generator</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./egwordbanks.js"></script>
+</head>
+<body>
+  Concept Generator v1.4
+  <br>
+  By <a target ="_self" href="https://twitter.com/estevangalvez">Estevan Galvez</a> - 2020 <a target="_self" href="./index.html">(back to home)</a>
+  <br>
+  Uses random words to generate ideas.
+  <br>Advanced take on an old model. Ignore grammar
+  <br>problems. Millions of unique concepts possible.
+  <br>
+  Check the box next to a concept (or just tap
+  <br>on the concept itself) to preserve it.
+  <br>
+  <input type ="checkbox" id="twCheck" name="twCheck"></input> <span id="twText" onclick="chkTw();">Simple word-group concepts only</span>
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="javascript:clearChecks();">uncheck all boxes below</a>
+  <br><br>
+  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new concepts<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
+  <script src="./spg.js"></script>
+</body>
+</html>

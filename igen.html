@@ -3,27 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Inciting Incident Generator (SG 1.4)</title>
-  <script src="./egwordbanks.js"></script>
+  <title>Inciting Incident Generator</title>
   <link rel="stylesheet" href="./style.css">
+  <script src="./egwordbanks.js"></script>
 </head>
 <body>
   Inciting Incident Generator
   <br>
-  By Estevan Galvez - 2020
+  By <a target ="_self" href="https://twitter.com/estevangalvez">Estevan Galvez</a> - 2020 <a target="_self" href="./index.html">(back to home)</a>
   <br>
-  A premise generator tool for stories,
-  <br>or anything really. Ignore grammar problems.
+  Uses random words to generate inciting incidents.
+  <br>Based on my <a target="_self" href="./storygen.html">Story Generator</a>.
   <br>
-  Based on my <a target="_self" href="https://estgvz.github.io/storygen.html">Story Generator</a>.
+  Check the box next to a incident (or just tap
+  <br>on the incident itself) to preserve it.
   <br>
-  Check the box next to a premise (or just tap
-  <br>on the premise itself) to preserve it.
-  <br><br>
-  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new premises<br>and preserve those with the box checked.)</button>
-  <br><br>
+  <input type ="checkbox" id="twCheck" name="twCheck"></input> <span id="twText" onclick="chkTw();">Simple word-group incidents only</span>
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="javascript:clearChecks();">uncheck all boxes below</a>
-  <p id="mainText">Text will go here.</p><p id="saveText"></p>
+  <br><br>
+  <button id="b1" onclick="genButton();">It Is in Fact the Generate/Regenerate/Preserve Button<br>(Press this button to generate new incidents<br>and preserve those with the box checked.)</button><p id="mainText">Text will go here.</p><p id="saveText"></p>
   <script src="./igen.js"></script>
 </body>
 </html>
