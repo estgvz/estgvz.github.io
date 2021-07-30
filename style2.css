@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body,button,table,input,textarea {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+textarea {
+	width: 90% !important;
+	overflow-y: scroll !important;
+	resize: none !important;
+}
+
+textarea,label {
+	display: block !important;
+}
+
+#consoleIn {
+	width: 50% !important;
+}
+
+#mainButton {
+	display: inline !important;
+}
+
+#buttons {
+	width: 50% !important;
+	display: flex !important;
+	justify-content: space-between !important;
+}
+
+.supButtons {
+	font-size: 130% !important;
+}

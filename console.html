@@ -4,11 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Web Console (01)</title>
-  <link rel="stylesheet" href="./style.css">
-  <script src="./webconsole.js"></script>
+  <link rel="stylesheet" href="./style2.css">
 </head>
 <body>
-  Place Holder
+  <p id="titles" name="titles">
+  <b>Web Console</b><br><br>Test Project 01
+  </p>
+  <p id="mainArea" name="mainArea">
+	<label for="consoleOut">Console output:</label>
+	<textarea id="consoleOut" name="consoleOut" class="textOut" rows="12" readonly>Placeholder text.</textarea>
+	<label for="consoleIn">Console input:</label>
+	<input id="consoleIn" name="consoleIn" class="textIn" type="text" rows="1"></input>
+	<button id="mainButton" name="mainButton">send input</button>
+  </p>
+  <div id="buttons" name="buttons">
+  <button id="buttonA" class ="supButtons" onclick="supButton(1);">[   A   ]</button> <button id="buttonB" class ="supButtons" onclick="supButton(2);">[   B   ]</button> <button id="buttonC" class ="supButtons" onclick="supButton(3);">[   C   ]</button> <button id="buttonD" class ="supButtons" onclick="supButton(4);">[   D   ]</button>
+  </div>
+  <script src="./webconsole.js"></script>
   <script src="./testconsole01.js"></script>
 </body>
 </html>
