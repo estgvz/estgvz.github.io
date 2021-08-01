@@ -8,13 +8,15 @@
 </head>
 <body>
   <p id="titles" name="titles">
-  <b>Web Console</b><br><br>Test Project 01
+  <b>Web Console</b><br><br>Test Project 01 - Try saying "meep"
   </p>
   <p id="mainArea" name="mainArea">
 	<label for="consoleOut">Console output:</label>
-	<textarea id="consoleOut" name="consoleOut" class="textOut" rows="12" readonly>Placeholder text.</textarea>
+	<textarea id="consoleOut" name="consoleOut" class="textOut" rows="12" readonly></textarea>
 	<label for="consoleIn">Console input:</label>
-	<input id="consoleIn" name="consoleIn" class="textIn" type="text" rows="1">
+	<form id="consoleForm">
+	<input id="consoleIn" name="consoleIn" class="textIn" type="text" rows="1" autofocus>
+	</form>
 	<button id="mainButton" name="mainButton" onclick="toConsole();">send input</button>
   </p>
   <div id="buttons" name="buttons">

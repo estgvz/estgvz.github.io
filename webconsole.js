@@ -1,15 +1,33 @@
 // web console
 
 var cin = "";
-var outText = "This text set by console's common JS (webconsole.js)";
-document.getElementById("consoleOut").innerHTML = outText;
+var textHist = "";
+var newText = "";
+var nextDirective = "";
+var commandSeparator = " ";
+var outputSeparator = "\n";
+var directiveSeparator = "\n";
+var buttonArray = ["A","B","C","D"];
 
 function toConsole() {
 	cin = document.getElementById("consoleIn").value.toString();
-	if(cin == "" || cin == undefined || cin.length < 1 || cin == " ") {
-		document.getElementById("consoleOut").innerHTML = "Bad input.";
-		return;
-	}
-	document.getElementById("consoleIn").value = "";
-	document.getElementById("consoleOut").innerHTML = "You said: "+ cin + "\n\nDummy function. Console not actually programmed.";
+	//this function defined in the specific program js, not webconsole.js
+	thisProgram();
 }
+
+function updateConsole() {
+	if(textHist == "") {
+		textHist = newText;
+	} else {
+		textHist += commandSeparator+cin+outputSeparator+newText+directiveSeparator+nextDirective;
+	}
+	document.getElementById("consoleOut").innerHTML = textHist;
+	document.getElementById("consoleOut").scrollTop = document.getElementById("consoleOut").scrollHeight;
+}
+
+function inConsoleBoxSubmit(e) {
+	e.preventDefault();
+	toConsole();
+}
+
+document.getElementById("consoleForm").addEventListener("submit",inConsoleBoxSubmit);

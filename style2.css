@@ -22,6 +22,10 @@ textarea,label {
 	display: inline !important;
 }
 
+form {
+	display: inline !important;
+}
+
 #buttons {
 	width: 50% !important;
 	display: flex !important;
